@@ -17,7 +17,8 @@ def _git(*args: str) -> str:
 def provenance(seeds: dict) -> dict:
     return {
         "git_commit": _git("rev-parse", "HEAD"),
-        "git_dirty": bool(_git("status", "--porcelain")),
+        # scoped to research/ so unrelated web work does not mark every result dirty
+        "git_dirty": bool(_git("status", "--porcelain", "--", "research")),
         "manifest_sha256": sha256_file(MANIFEST),
         "seeds": seeds,
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
