@@ -1,6 +1,6 @@
 # Preregistration: telemetry as a rating factor for agent liability insurance
 
-Study start: 2026-10-17 (day 0). Day 90: 2027-01-15. Frozen at tag prereg-v1; commit hash recorded here after tagging: TODO(tag). Design decisions: ../../docs/superpowers/specs/2026-10-19-research-study-design.md. Public criteria: ../../docs/EXPERIMENT_SCOPE.md and the live /research page; this document matches them in substance and pins every analysis choice they leave open. Deviations after the tag go to DEVIATIONS.md with date, reason, and decider; the hypotheses and thresholds below do not change.
+Study start: 2026-10-17 (day 0). Day 90: 2027-01-15. Frozen at tag prereg-v1, commit 8f74d7e0e7aa0e5d9e06b93dcbfc0c7e0e0d2c65 (Gate 1 approved 2026-10-19). Design decisions: ../../docs/superpowers/specs/2026-10-19-research-study-design.md. Public criteria: ../../docs/EXPERIMENT_SCOPE.md and the live /research page; this document matches them in substance and pins every analysis choice they leave open. Deviations after the tag go to DEVIATIONS.md with date, reason, and decider; the hypotheses and thresholds below do not change.
 
 ## Hypotheses
 
