@@ -4,3 +4,5 @@ scikit-learn
 scipy
 matplotlib
 pytest
+web3
+requests
