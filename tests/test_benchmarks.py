@@ -54,6 +54,10 @@ def test_swe_bench_identity_steps_and_flags():
     assert r["has_errors"] is True
     assert r["trace_id"] == "20240402_sweagent_gpt4/astropy__astropy-14365"
 
+def test_agentdojo_skips_errored_runs_without_an_outcome():
+    rows = parse_agentdojo(FIXTURES / "agentdojo" / "runs")
+    assert not any(r["task_id"] == "user_task_3" for r in rows)
+
 def test_agentdojo_utility_maps_to_outcome_and_attack_to_task_type():
     rows = parse_agentdojo(FIXTURES / "agentdojo" / "runs")
     assert len(rows) == 2
@@ -83,6 +87,10 @@ def _webarena_zip(tmp_path):
         for f in src.iterdir():
             z.write(f, f"919_gpt4_8k_cot/{f.name}")
     return zpath
+
+def test_webarena_skips_result_lines_whose_render_html_is_missing(tmp_path):
+    rows = parse_webarena(_webarena_zip(tmp_path))
+    assert not any(r["task_id"] == "716" for r in rows)
 
 def test_webarena_outcome_from_merged_log(tmp_path):
     rows = parse_webarena(_webarena_zip(tmp_path))

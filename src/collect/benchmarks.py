@@ -136,7 +136,7 @@ def download_webarena(out_dir, manifest_path):
         append_entry(manifest_path, name=f"webarena {name}", url=folder_url, method=METHOD,
                      row_count=len(parse_webarena(out / name)), file_path=out / name,
                      license="Apache-2.0 (web-arena-x/webarena)",
-                     limitations="authors' v2 execution traces; v1 traces are superseded and the human-annotator recordings are not agent traces, neither is fetched; no per-step latency")
+                     limitations="authors' v2 execution traces; v1 traces are superseded and the human-annotator recordings are not agent traces, neither is fetched; result lines without a shipped render html are skipped; no per-step latency")
 
 
 
@@ -162,7 +162,10 @@ def parse_webarena(zip_path) -> list[dict]:
         log = z.read(f"{inner}/merged_log.txt").decode(errors="replace")
         outcomes = {m.group(2): 0 if m.group(1) == "PASS" else 1
                     for m in re.finditer(r"\[Result\] \((PASS|FAIL)\) \S*?(\d+)\.json", log)}
+        names = set(z.namelist())
         for task_id, outcome in sorted(outcomes.items(), key=lambda kv: int(kv[0])):
+            if f"{inner}/render_{task_id}.html" not in names:
+                continue  # merged log mentions a task whose render was not shipped
             html = z.read(f"{inner}/render_{task_id}.html").decode(errors="replace")
             site = re.search(r"sites: \['([^']+)'", html)
             rows.append(make_trace_row(
@@ -211,6 +214,8 @@ def parse_agentdojo(runs_root) -> list[dict]:
     rows = []
     for p in sorted(runs_root.rglob("*.json")):
         run = json.loads(p.read_text())
+        if "utility" not in run:
+            continue  # errored run that never completed; it has no outcome
         pipeline = p.relative_to(runs_root).parts[0]
         rel = p.relative_to(runs_root).with_suffix("")
         rows.append(make_trace_row(
