@@ -1,0 +1,11 @@
+{
+  "environment": "swe_main",
+  "trajectory": [
+    {"action": "open django/db/models/sql/compiler.py", "observation": "file contents", "response": "...", "state": "{}", "thought": "Inspect."},
+    {"action": "edit 353:353", "observation": "edited", "response": "...", "state": "{}", "thought": "Fix the regex."},
+    {"action": "python -m pytest tests/", "observation": "all passed", "response": "...", "state": "{}", "thought": "Verify."},
+    {"action": "submit", "observation": "done", "response": "...", "state": "{}", "thought": "Submit."}
+  ],
+  "history": [],
+  "info": {"exit_status": "submitted", "submission": "diff --git a/y b/y", "model_stats": {"instance_cost": 1.2}}
+}

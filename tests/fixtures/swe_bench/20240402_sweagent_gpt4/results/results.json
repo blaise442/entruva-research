@@ -1,0 +1,6 @@
+{
+  "no_generation": [],
+  "generated": ["astropy__astropy-14365", "django__django-11001"],
+  "applied": ["astropy__astropy-14365", "django__django-11001"],
+  "resolved": ["django__django-11001"]
+}

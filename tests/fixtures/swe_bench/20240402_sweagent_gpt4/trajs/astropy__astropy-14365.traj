@@ -1,0 +1,10 @@
+{
+  "environment": "swe_main",
+  "trajectory": [
+    {"action": "find_file qdp.py", "observation": "found 1 match", "response": "...", "state": "{}", "thought": "Locate the parser."},
+    {"action": "open astropy/io/ascii/qdp.py", "observation": "file contents", "response": "...", "state": "{}", "thought": "Inspect."},
+    {"action": "submit", "observation": "done", "response": "...", "state": "{}", "thought": "Submit the fix."}
+  ],
+  "history": [],
+  "info": {"exit_status": "submitted", "submission": "diff --git a/x b/x", "model_stats": {"instance_cost": 0.9}}
+}

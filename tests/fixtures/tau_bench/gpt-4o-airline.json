@@ -1,0 +1,29 @@
+[
+  {
+    "task_id": 0,
+    "reward": 0.0,
+    "info": {"task": {"user_id": "mia_li_3668", "actions": []}},
+    "traj": [
+      {"role": "system", "content": "# Airline Agent Policy ..."},
+      {"role": "user", "content": "I want to book a flight JFK to SEA."},
+      {"role": "assistant", "content": null, "tool_calls": [{"id": "c1", "function": {"name": "search_direct_flight", "arguments": "{}"}}]},
+      {"role": "tool", "tool_call_id": "c1", "content": "[]"},
+      {"role": "assistant", "content": "No flights found, sorry."}
+    ],
+    "trial": 0
+  },
+  {
+    "task_id": 1,
+    "reward": 1.0,
+    "info": {"task": {"user_id": "noah_p_1234", "actions": []}},
+    "traj": [
+      {"role": "system", "content": "# Airline Agent Policy ..."},
+      {"role": "user", "content": "Cancel my reservation ABC123."},
+      {"role": "assistant", "content": null, "tool_calls": [{"id": "c2", "function": {"name": "cancel_reservation", "arguments": "{\"reservation_id\": \"ABC123\"}"}}]},
+      {"role": "tool", "tool_call_id": "c2", "content": "{\"status\": \"cancelled\"}"},
+      {"role": "assistant", "content": "Done, your reservation is cancelled."},
+      {"role": "user", "content": "Thanks! ###STOP###"}
+    ],
+    "trial": 0
+  }
+]
