@@ -182,3 +182,33 @@ Format:
 - SHA-256: 72f8ba3b6a2d7bee3f1242efbbdce47b5658d184a1c8b8270b4c0fa11fc70c0e
 - License: CC BY-SA 4.0 (snapshot license.txt); report contents keep their own rights
 - Known limitations: row count is agentic incidents only (AGENTIC_RULE_DOC keyword rule over title and description); context-weight data with outcome=1 and no steps or telemetry; the OECD AI Incidents Monitor publishes no export or API (checked 2026-10-22) and is not collected
+
+## policy: Markel Technology Combined specimen wording
+- URL / contract address: https://content.markel.com/api/public/content/specimen-wording-and-product-information-technology-combined
+- Fetch date: 2026-10-22
+- Method (script path): WebSearch + curl via src/common/manifest.append_entry (docs/COVERAGE_LANDSCAPE.md)
+- Row count: 0
+- File: markel-technology-combined-specimen.pdf
+- SHA-256: 8fbe4cc3af8f5ca2fd997c2aba24c94e2b432a3ce54817513458bd43bcef1e35
+- License: publicly posted specimen wording, Markel terms apply
+- Known limitations: context only, feeds no model; row_count 0 because these are documents, not trace data
+
+## policy: Hiscox CyberClear policy summary
+- URL / contract address: https://hiscox.co.uk/sites/uk/files/documents/2019-03/19326-CyberClear-policy-summary.pdf
+- Fetch date: 2026-10-22
+- Method (script path): WebSearch + curl via src/common/manifest.append_entry (docs/COVERAGE_LANDSCAPE.md)
+- Row count: 0
+- File: hiscox-cyberclear-policy-summary.pdf
+- SHA-256: 47d9260879ec26241b293aa05c5deddd732dbde78de81a1ddabdbff34a2b9f40
+- License: publicly posted summary (2019), Hiscox terms apply
+- Known limitations: context only, feeds no model; row_count 0 because these are documents, not trace data
+
+## policy: tech E&O coverage overview
+- URL / contract address: https://cdn.zephyrcms.com/967865c2-afef-4415-91f9-f68e65d09b4c/-/inline/yes/technology-professional-liability-errors-and-omissions-coverage.pdf
+- Fetch date: 2026-10-22
+- Method (script path): WebSearch + curl via src/common/manifest.append_entry (docs/COVERAGE_LANDSCAPE.md)
+- Row count: 0
+- File: tech-eo-coverage-overview.pdf
+- SHA-256: 227e26bf11cb8a754903b6c241d35273a3ff36c462b59a2ad59f00dc7147d7a8
+- License: broker explainer, 2 pages
+- Known limitations: context only, feeds no model; row_count 0 because these are documents, not trace data
