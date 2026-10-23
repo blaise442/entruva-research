@@ -172,3 +172,13 @@ Format:
 - SHA-256: cd05bbd19182c550a544ee517dc58e2c5e79ce6dc417301de0b45ad3d2942808
 - License: none stated in swe-bench/experiments; public leaderboard submissions
 - Known limitations: official SWE-agent submissions only; 59 other lite submissions publish trajectories in other formats (~25 GB) and are not fetched; no per-step latency
+
+## AI Incident Database weekly snapshot
+- URL / contract address: https://pub-72b2b2fc36ec423189843747af98f80e.r2.dev/backup-20261019101022.tar.bz2
+- Fetch date: 2026-10-22
+- Method (script path): src/collect/incidents.py
+- Row count: 274
+- File: backup-20261019101022.tar.bz2
+- SHA-256: 72f8ba3b6a2d7bee3f1242efbbdce47b5658d184a1c8b8270b4c0fa11fc70c0e
+- License: CC BY-SA 4.0 (snapshot license.txt); report contents keep their own rights
+- Known limitations: row count is agentic incidents only (AGENTIC_RULE_DOC keyword rule over title and description); context-weight data with outcome=1 and no steps or telemetry; the OECD AI Incidents Monitor publishes no export or API (checked 2026-10-22) and is not collected

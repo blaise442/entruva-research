@@ -1,0 +1,4 @@
+_id,incident_id,date,reports,Alleged deployer of AI system,Alleged developer of AI system,Alleged harmed or nearly harmed parties,description,title
+ObjectId(aaa),101,2023-04-01,"[1,2]","[""starship""]","[""starship-technologies""]","[""pedestrians""]",An autonomous sidewalk delivery robot entered a rail crossing while the barriers were down.,Delivery robot autonomously crossed an active rail crossing
+ObjectId(bbb),102,2021-06-10,"[3]","[""acme-bank""]","[""acme-ml""]","[""loan applicants""]",A credit scoring classifier systematically under-scored applicants from minority neighborhoods.,Loan scoring model found biased against applicants
+ObjectId(ccc),103,2022-02-15,"[4,5]","[""tesla""]","[""tesla""]","[""drivers""]",The driver assistance system failed to detect a stationary fire truck.,Tesla on Autopilot struck a stopped emergency vehicle
