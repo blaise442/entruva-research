@@ -34,10 +34,16 @@ def test_report_missing_flag_fractions():
     assert "has_step_latency: missing in 100.0%" in r
     assert "has_tool_calls: missing in 25.0%" in r
 
-def test_report_cross_source_trace_id_collisions():
+def test_report_counts_cross_source_task_and_model_collisions():
+    # the same (task_id, model_id) republished under two sources must fire
     df = build_index([_row("t1", source="tau-bench"),
-                      _row("t1", source="webarena", domain="web")])
-    assert "cross-source trace_id collisions: 1" in data_report(df)
+                      _row("other-id", source="webarena", domain="web")])
+    assert "cross-source (task_id, model_id) collisions: 1" in data_report(df)
+
+def test_report_no_collision_when_models_differ():
+    df = build_index([_row("t1", source="tau-bench"),
+                      _row("t2", source="webarena", domain="web", model_id="g", agent_id="g::h")])
+    assert "cross-source (task_id, model_id) collisions: 0" in data_report(df)
 
 def test_empty_input_reports_no_rows_instead_of_crashing():
     r = data_report(build_index([]))

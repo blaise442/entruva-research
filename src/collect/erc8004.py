@@ -14,6 +14,16 @@ from src.common.manifest import append_entry
 
 MIN_CHUNK = 1
 
+# Chain ids verified against chainlist.org entries for the two chains with
+# published registry addresses; anything else must fail, never be mislabeled.
+CHAIN_IDS = {1: "ethereum-mainnet", 8453: "base-mainnet"}
+
+def _chain_name(chain_id: int) -> str:
+    if chain_id not in CHAIN_IDS:
+        raise ValueError(f"RPC endpoint reports chain_id {chain_id}, which has no "
+                         f"published ERC-8004 registry addresses; refusing to label its logs")
+    return CHAIN_IDS[chain_id]
+
 def fetch_logs(eth, address: str, from_block: int, to_block: int, chunk: int = 50_000) -> list[dict]:
     """Chunked eth_getLogs. On a provider range error the chunk is halved and the
     same range retried, so every log is returned exactly once."""
@@ -65,10 +75,11 @@ def run(out_dir: Path, manifest_path: Path) -> int:
     w3 = Web3(Web3.HTTPProvider(url))
     out_dir.mkdir(parents=True, exist_ok=True)
     head = w3.eth.block_number
+    endpoint_chain = _chain_name(w3.eth.chain_id)  # raises on any unmapped chain
     for chain, regs in REGISTRIES.items():
         # shortcut: one RPC endpoint serves one chain; fetch only the chain it reports,
         # upgrade to per-chain endpoints when a second RPC is provided.
-        if (w3.eth.chain_id == 1) != (chain == "ethereum-mainnet"):
+        if chain != endpoint_chain:
             continue
         for registry, address in regs.items():
             logs = fetch_logs(w3.eth, address, 0, head)

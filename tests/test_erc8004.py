@@ -1,6 +1,8 @@
 import json
+from pathlib import Path
+
 import pytest
-from src.collect.erc8004 import fetch_logs, to_jsonable
+from src.collect.erc8004 import _chain_name, fetch_logs, run, to_jsonable
 
 class StubEth:
     """get_logs stub: holds (block, log) pairs; raises on ranges wider than max_span."""
@@ -36,6 +38,39 @@ def test_fetch_logs_gives_up_below_minimum_chunk():
     eth = StubEth({}, max_span=0)
     with pytest.raises(ValueError, match="chunk"):
         fetch_logs(eth, "0xabc", 0, 10, chunk=8)
+
+def test_chain_name_maps_known_ids_and_rejects_unknown_chains():
+    assert _chain_name(1) == "ethereum-mainnet"
+    assert _chain_name(8453) == "base-mainnet"
+    with pytest.raises(ValueError, match="11155111"):
+        _chain_name(11155111)  # a Sepolia endpoint must never be written as Base
+
+class _StubEth:
+    block_number = 5
+    chain_id = 1
+    def get_logs(self, params):
+        return [_log(3)]
+
+class _StubWeb3:
+    @staticmethod
+    def HTTPProvider(url):
+        return url
+    def __init__(self, provider):
+        self.eth = _StubEth()
+
+def test_run_never_writes_the_rpc_secret_anywhere(tmp_path, monkeypatch):
+    import web3
+    secret = "http://secret.example/abc123"
+    monkeypatch.setenv("RPC_URL", secret)
+    monkeypatch.setattr(web3, "Web3", _StubWeb3)
+    manifest = tmp_path / "MANIFEST.md"
+    manifest.write_text("# manifest\n")
+    out = tmp_path / "erc8004"
+    assert run(out, manifest) == 0
+    texts = [manifest.read_text()] + [p.read_text() for p in out.rglob("*") if p.is_file()]
+    assert texts[1:], "run() wrote no output files"
+    for t in texts:
+        assert secret not in t and "secret.example" not in t
 
 def test_to_jsonable_round_trips():
     row = to_jsonable(_log(7), chain="base-mainnet", registry="identity")

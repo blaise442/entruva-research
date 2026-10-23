@@ -20,8 +20,10 @@ def data_report(df: pd.DataFrame) -> str:
     lines.append(f"- Benchmark and on-chain rows: {len(bench)}")
     lines.append(f"- Incident rows (context weight, all failures): {len(incidents)}")
     lines.append(f"- distinct domains: {df['domain'].nunique()}, models: {df['model_id'].nunique()}, agents: {df['agent_id'].nunique()}")
-    collisions = df.groupby("trace_id")["source"].nunique()
-    lines.append(f"- cross-source trace_id collisions: {int((collisions > 1).sum())}")
+    # trace_ids are prefixed per source, so the republication check keys on the
+    # semantic identity (task_id, model_id) instead of the id string
+    collisions = df.groupby(["task_id", "model_id"])["source"].nunique()
+    lines.append(f"- cross-source (task_id, model_id) collisions: {int((collisions > 1).sum())}")
 
     lines += ["", "## Rows and label balance per source", ""]
     overall = df["outcome"].mean() * 100
