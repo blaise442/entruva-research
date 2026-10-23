@@ -1,0 +1,17 @@
+{
+  "n_rows": 44643,
+  "failure_rate": 0.514,
+  "n_agents": 41,
+  "n_sims_total": 500,
+  "n_boot": 200,
+  "procedure": "10 workers x 50 sims, seeds 20261017+i, powers averaged",
+  "power_by_delta": {
+    "0.02": 1.0,
+    "0.03": 1.0,
+    "0.05": 1.0,
+    "0.08": 1.0,
+    "0.1": 1.0
+  },
+  "power_at_0.05": 1.0,
+  "min_detectable_delta": 0.02
+}
