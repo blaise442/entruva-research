@@ -1,0 +1,11 @@
+{
+  "artifact": "2026-10-22_data_report.md",
+  "rows": 44917,
+  "provenance": {
+    "git_commit": "792be1fe7f8769229a71678e9569da97b320287b",
+    "git_dirty": true,
+    "manifest_sha256": "debd6b4cb4410491b09f95af2c422f663f76d007d8662ed1b5afd930a31777a1",
+    "seeds": {},
+    "timestamp_utc": "2026-10-23T00:33:38.718447+00:00"
+  }
+}
