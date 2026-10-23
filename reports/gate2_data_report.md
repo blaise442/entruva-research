@@ -4,7 +4,7 @@
 - Benchmark and on-chain rows: 44643
 - Incident rows (context weight, all failures): 274
 - distinct domains: 16, models: 139, agents: 142
-- cross-source trace_id collisions: 0
+- cross-source (task_id, model_id) collisions: 0
 
 ## Rows and label balance per source
 
@@ -23,7 +23,6 @@
 - has_errors: missing in 15.7% of rows
 
 Manifest checksums verified against data/raw: OK
-
 ## Power estimate (simulation, synthetic data; feeds only this section)
 
 Procedure: src/models/power.py simulation with agent-correlated outcomes
