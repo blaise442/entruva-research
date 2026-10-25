@@ -4,10 +4,26 @@ A preregistered empirical study: can runtime behavioral telemetry from AI agents
 
 Day convention: day 0 is 2026-10-17, day 90 is 2027-01-15. All reports use this convention.
 
-Commands (from this directory):
+## Status
+
+Phase 2 closed 2026-10-25 (day 8). H1 clauses 1 to 3 hold on the frozen held-out split; clause 4 (manipulation cost) is Phase 3 and waits on the founder's dollar floor. S2 portability is not supported. The Gate 3 package is reports/gate3_results.md; weekly reports are reports/week_NN.md.
+
+## Layout
+
+- docs/: PREREGISTRATION.md (frozen), DEVIATIONS.md (dated log), COVERAGE_LANDSCAPE.md
+- data/: MANIFEST.md (every source with checksum and license), raw/ (gitignored), processed/ (trace_index.csv, features.csv)
+- src/collect/: fetchers and parsers per source, the unified trace index, the data report
+- src/features/: telemetry extractors reading raw traces, features table build with a leakage check
+- src/models/: split.py (frozen split and its integrity check), baselines.py, fit.py, metrics.py (cluster bootstrap by agent), cv.py, portability.py (S2), glm.py, power.py, run_primary.py, run_robustness.py
+- splits/primary_split.json: held-out agents per source, frozen before any model fit, with the index hash
+- results/: dated JSON and figures, each embedding git commit, manifest hash, seeds and timestamp
+- reports/: gate packages, weekly reports, the data request draft
+- site-updates/: research-log entries staged for apps/web/content/research-log/
+
+## Commands (from this directory)
 
 - make env: create .venv (Python 3.12) and install pinned requirements.txt
 - make test: run the test suite
-- make reproduce: regenerate every result in results/ from data/raw. It fails with a clear message while no data exists; see data/MANIFEST.md for sources.
+- make reproduce: verify manifest checksums, then rebuild the index, data report, features table and both result files from data/raw. It fails with a clear message while no data exists.
 
-data/raw is gitignored and never modified after fetch; data/MANIFEST.md records every source with checksums. notebooks/ is exploration only; nothing in a notebook is a result. Results live in results/ with git commit hash, manifest hash, seeds, and timestamp embedded.
+data/raw is gitignored and never modified after fetch. notebooks/ is exploration only; nothing in a notebook is a result. Results live in results/ with git commit hash, manifest hash, seeds, and timestamp embedded. The result drivers refuse to run if the index hash or agent set no longer matches the frozen split.
