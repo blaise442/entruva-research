@@ -20,7 +20,7 @@ cluster bootstraps over agents, n_boot 2000.
 |---|---|---|---|
 | 1 | telemetry AUC CI lower bound exceeds baseline AUC by 0.05 | 0.777 vs 0.654, margin 0.124 | yes |
 | 2 | Brier skill above 0, CI excludes 0 | 0.220 [0.049, 0.315] | yes |
-| 3 | top/bottom quartile failure ratio at least 2.0, decile lift monotone | 4.14 (2249.4 of 2324 vs 544 of 2325), Spearman 1.00 | yes |
+| 3 | top/bottom quartile failure ratio at least 2.0, decile lift monotone (Spearman above 0.8, DEVIATIONS 2026-10-23) | 4.14 (2249.4 of 2324 vs 544 of 2325), Spearman 1.00 | yes |
 | 4 | cheapest S3 manipulation costs at least the founder's dollar floor | not run (Phase 3); floor still unset | pending |
 
 Refutation rule: not triggered. The telemetry AUC interval [0.777, 0.888] lies
@@ -89,17 +89,19 @@ Rule: paired AUC delta CI lower bound at least 0.05.
 
 S2 fails everywhere. The only positive transfer is into AgentDojo and its lower
 bound is 0.035. SWE-bench and tau-bench have one held-out agent each, so the
-cluster bootstrap cannot form an interval there (zero width is reported, not a
-precise estimate). The split is 20 percent of agents per source, so sources
-with 2 or 4 agents hold out 1.
+cluster bootstrap cannot form an interval there: the zero-width interval is
+flagged `ci_degenerate` in the result file and the S2 rule treats those rows
+as not evaluable, never as supported. The split is 20 percent of agents per
+source, so sources with 2 or 4 agents hold out 1.
 
 S1 (reputation components) was not run: no reputation data exists yet. See
 DEVIATIONS.md 2026-10-24.
 
 ## Actuarial framing: Poisson GLM relativities
 
-Descriptive only, all benchmark rows, relativity per one standard deviation
-increase, cluster bootstrap CIs over agents. Features whose interval excludes 1:
+Descriptive only, all benchmark rows pooled with no source or model control,
+relativity per one standard deviation increase, cluster bootstrap CIs over
+agents. Features whose interval excludes 1:
 
 | Feature | relativity [CI] |
 |---|---|
@@ -111,11 +113,17 @@ increase, cluster bootstrap CIs over agents. Features whose interval excludes 1:
 | task_length_steps | 0.75 [0.65, 0.85] |
 
 n_distinct_tools, n_errors, max_error_run, duration_s and tokens_sent have
-intervals containing 1. More tool calls, more repeated identical calls and a
-higher error rate load toward failure; longer tasks and longer messages load
-away from it, which is consistent with benchmarks where agents that give up
-early fail. Relativities are marginal to the other features and are not a
-rating plan.
+intervals containing 1. Conditional on the other features, more tool calls,
+more repeated identical calls and a higher error rate load toward failure;
+longer tasks and longer messages load away from it. Read these with three
+caveats. The model has no source control, so a feature that differs between
+sources with different base rates (WebArena fails 93 percent with short
+actions, AgentDojo 46 percent) absorbs that difference. task_length_steps is
+measured differently per source (messages, trajectory steps, states), so its
+pooled SD mixes units. duration_s is AgentDojo-only and api_calls and
+tokens_sent are SWE-bench-only; they are median-imputed elsewhere, so their
+per-SD relativity is per imputed SD and understates the within-source effect.
+This table is not a rating plan.
 
 ## Limitations
 

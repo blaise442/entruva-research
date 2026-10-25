@@ -1,7 +1,6 @@
 """Primary H1 evaluation on the frozen split. Writes results/<date>_H1_primary.json
 and two figures. Verdict logic is the preregistered rule; clause 4 (manipulation
 cost) is Phase 3 and is reported as pending, never assumed."""
-import json
 import sys
 from datetime import date
 from pathlib import Path
@@ -15,6 +14,7 @@ from sklearn.metrics import roc_auc_score
 
 from src.common.provenance import write_result
 from src.models.fit import SEED, evaluate_split, fit_predict
+from src.models.split import load_split
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -23,7 +23,7 @@ def clauses(res: dict) -> dict:
     base_auc = res["auc"]["baseline"]["auc"]
     g = res["auc"]["gbm"]
     deciles = [d["failure_rate"] for d in res["decile_lift_gbm"]]
-    rho = float(spearmanr(range(10), deciles)[0])
+    rho = float(spearmanr(range(10), deciles)[0]) if len(set(deciles)) > 1 else 0.0  # flat deciles are not monotone
     q = res["quartile_gbm"]
     c1 = g["ci_low"] - base_auc >= 0.05
     c2 = res["brier_skill_gbm"]["ci_low"] > 0
@@ -47,7 +47,7 @@ def per_source(test, preds):
 
 def main():
     df = pd.read_csv(ROOT / "data/processed/features.csv", low_memory=False)
-    split = json.loads((ROOT / "splits/primary_split.json").read_text())
+    split = load_split(ROOT / "splits/primary_split.json", ROOT / "data/processed/trace_index.csv", df["agent_id"])
     train, test = df[df.agent_id.isin(split["train_agents"])], df[df.agent_id.isin(split["test_agents"])]
     res = evaluate_split(train, test)
     res["clauses"] = clauses(res)

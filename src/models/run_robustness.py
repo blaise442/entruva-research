@@ -3,7 +3,6 @@ reported pooled and within each source (within-source scoring removes the
 between-source base-rate differences that can inflate a pooled AUC). Also the
 S2 portability test on the frozen split and the descriptive Poisson GLM
 relativities (actuarial framing, decides no clause)."""
-import json
 import sys
 from datetime import date
 from pathlib import Path
@@ -15,6 +14,7 @@ from src.models.cv import cv_oof
 from src.models.fit import SEED
 from src.models.glm import poisson_relativities
 from src.models.portability import portability_report
+from src.models.split import load_split
 from src.models.metrics import auc_delta_with_ci, auc_with_ci, brier_skill, quartile_failure_ratio
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -40,7 +40,7 @@ def main():
     y, groups, src = df["outcome"].to_numpy(), df["agent_id"].to_numpy(), df["source"].to_numpy()
     res = {"pooled": score(y, oof, groups, src == src)}
     res["by_source"] = {s: score(y, oof, groups, src == s) for s in sorted(set(src))}
-    split = json.loads((ROOT / "splits/primary_split.json").read_text())
+    split = load_split(ROOT / "splits/primary_split.json", ROOT / "data/processed/trace_index.csv", df["agent_id"])
     res["s2_portability"] = portability_report(df, split["test_agents"], n_boot=N_BOOT, seed=SEED)
     res["s2_supported_any_source"] = any(r["s2_supported"] for r in res["s2_portability"].values())
     res["glm_relativities_per_sd"] = poisson_relativities(df, n_boot=N_BOOT, seed=SEED)

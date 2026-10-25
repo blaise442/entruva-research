@@ -61,3 +61,15 @@ def test_webarena_keys_match_parser(tmp_path):
 def test_no_feature_column_is_the_outcome_or_a_label_field():
     banned = {"outcome", "reward", "utility", "security", "resolved", "submission", "info"}
     assert not banned & set(FEATURE_COLUMNS)
+
+
+def test_build_rejects_a_feature_that_equals_or_mirrors_the_outcome():
+    import pandas as pd
+    import pytest
+    from src.features.build import check_no_feature_equals_outcome
+    base = pd.DataFrame(dict(outcome=[0, 1, 1, 0, 1], n_errors=[1, 3, 0, 2, 2], n_tool_calls=[4, 4, 4, 4, 4]))
+    check_no_feature_equals_outcome(base)
+    with pytest.raises(ValueError, match="n_errors"):
+        check_no_feature_equals_outcome(base.assign(n_errors=base.outcome))
+    with pytest.raises(ValueError, match="n_errors"):
+        check_no_feature_equals_outcome(base.assign(n_errors=5 - 2 * base.outcome))

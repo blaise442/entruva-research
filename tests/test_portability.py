@@ -35,5 +35,16 @@ def test_portability_report_applies_prereg_rule_per_source():
     assert set(rep) == {"a", "b", "c"}
     for r in rep.values():
         assert r["n"] > 0 and r["train_sources"]
-        assert r["s2_supported"] == (r["auc_delta"]["ci_low"] >= 0.05)
+        assert r["s2_supported"] == (not r["ci_degenerate"] and r["auc_delta"]["ci_low"] >= 0.05)
         assert r["auc_cross"]["auc"] > r["auc_baseline"]["auc"]
+
+
+def test_one_held_out_agent_cannot_support_s2():
+    from src.models.portability import portability_report
+    df = _multi(30, 1.5)
+    agents = sorted(set(df.agent_id))
+    test_agents = [a for a in agents if a.endswith("::a")][:2] + [a for a in agents if a.endswith("::b")][:1] \
+        + [a for a in agents if a.endswith("::c")][:2]
+    rep = portability_report(df, test_agents, n_boot=20)
+    assert rep["b"]["n_agents"] == 1 and rep["b"]["ci_degenerate"] is True and rep["b"]["s2_supported"] is False
+    assert rep["a"]["ci_degenerate"] is False

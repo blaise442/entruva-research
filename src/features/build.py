@@ -27,6 +27,15 @@ def collect_features(raw: Path) -> pd.DataFrame:
     return pd.DataFrame(rows, columns=["source", "trace_id"] + FEATURE_COLUMNS)
 
 
+def check_no_feature_equals_outcome(merged: pd.DataFrame) -> None:
+    """Raises if any numeric feature equals the outcome or is an affine image of it (|corr| == 1)."""
+    y = merged["outcome"].astype(float)
+    for c in [c for c in FEATURE_COLUMNS if c in merged]:
+        x = pd.to_numeric(merged[c], errors="coerce")
+        if x.notna().sum() > 1 and x.std() > 0 and y.std() > 0 and abs(x.corr(y)) > 1 - 1e-9:
+            raise ValueError(f"feature {c} is a function of the outcome (|corr| = 1); leakage")
+
+
 def build(index_path: Path, raw: Path, out_path: Path) -> pd.DataFrame:
     idx = pd.read_csv(index_path)
     idx = idx[idx["source"] != "incident"]
@@ -35,6 +44,7 @@ def build(index_path: Path, raw: Path, out_path: Path) -> pd.DataFrame:
     missing = int(merged["n_tool_calls"].isna().sum())
     if missing:
         raise ValueError(f"{missing} index rows have no features; extractor and parser disagree")
+    check_no_feature_equals_outcome(merged)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     merged.to_csv(out_path, index=False)
     return merged

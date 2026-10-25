@@ -44,10 +44,12 @@ def portability_report(df: pd.DataFrame, test_agents, n_boot: int = 2000, seed: 
     out = {}
     for src, r in cross_domain_scores(df, test_agents).items():
         y, g = r["y"], r["groups"]
+        degenerate = len(set(g)) < 2  # one held-out agent: the cluster bootstrap cannot form an interval
         delta = auc_delta_with_ci(y, r["p_cross"], r["p_baseline"], n_boot=n_boot, seed=seed, groups=g)
         out[src] = {"n": int(len(y)), "n_agents": int(len(set(g))), "train_sources": r["train_sources"],
                     "n_train_rows": r["n_train_rows"],
                     "auc_cross": auc_with_ci(y, r["p_cross"], n_boot=n_boot, seed=seed, groups=g),
                     "auc_baseline": auc_with_ci(y, r["p_baseline"], n_boot=n_boot, seed=seed, groups=g),
-                    "auc_delta": delta, "s2_supported": bool(delta["ci_low"] >= 0.05)}
+                    "auc_delta": delta, "ci_degenerate": degenerate,
+                    "s2_supported": bool(not degenerate and delta["ci_low"] >= 0.05)}
     return out

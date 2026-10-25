@@ -8,8 +8,10 @@
   (ceil), 10 test agents, committed in `splits/primary_split.json`.
 - Telemetry features extracted from raw traces per source (tool-call counts,
   distinct-tool ratio, repeated-call ratio, error counts and rate, error run
-  length, message length, plus AgentDojo-only duration, API calls and tokens).
-  Leakage guard test: no feature equals or encodes the outcome.
+  length, message length, plus AgentDojo-only duration and SWE-bench-only API
+  calls and tokens). Leakage guards: no feature column is a label field, and
+  the feature build refuses any numeric feature that is a function of the
+  outcome.
 - Primary H1 evaluation on the frozen split, grouped 5-fold CV robustness,
   per-source breakdown, S2 portability, Poisson GLM relativities. All in
   `results/` with provenance. Test suite: 85 passing. `make reproduce` now

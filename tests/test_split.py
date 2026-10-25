@@ -33,3 +33,22 @@ def test_deterministic_and_written(tmp_path):
     b = freeze_split(_df(), tmp_path / "b.json")
     assert a["test_agents"] == b["test_agents"]
     assert json.loads((tmp_path / "a.json").read_text())["seed"] == 20261017
+
+
+def test_load_split_checks_index_hash_and_agent_coverage(tmp_path):
+    import hashlib
+    import pytest
+    from src.models.split import load_split
+    df = _df()
+    index = tmp_path / "trace_index.csv"
+    df.to_csv(index, index=False)
+    split = freeze_split(df, tmp_path / "s.json")
+    split["index_sha256"] = hashlib.sha256(index.read_bytes()).hexdigest()
+    (tmp_path / "s.json").write_text(json.dumps(split))
+    bench = df[df.source != "incident"]
+    assert load_split(tmp_path / "s.json", index, bench.agent_id)["seed"] == split["seed"]
+    with pytest.raises(ValueError, match="agent"):
+        load_split(tmp_path / "s.json", index, bench.agent_id.iloc[:3])
+    index.write_text("changed")
+    with pytest.raises(ValueError, match="sha256"):
+        load_split(tmp_path / "s.json", index, bench.agent_id)
