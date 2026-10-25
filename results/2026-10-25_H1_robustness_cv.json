@@ -366,6 +366,7 @@
           "ci_high": 0.19213562892199582,
           "n_boot_used": 2000
         },
+        "ci_degenerate": false,
         "s2_supported": false
       },
       "swe-bench": {
@@ -395,6 +396,7 @@
           "ci_high": -0.1054018445322793,
           "n_boot_used": 2000
         },
+        "ci_degenerate": true,
         "s2_supported": false
       },
       "tau-bench": {
@@ -424,6 +426,7 @@
           "ci_high": -0.0027902406466683294,
           "n_boot_used": 2000
         },
+        "ci_degenerate": true,
         "s2_supported": false
       },
       "webarena": {
@@ -453,6 +456,7 @@
           "ci_high": -0.10878112712975097,
           "n_boot_used": 2000
         },
+        "ci_degenerate": false,
         "s2_supported": false
       }
     },
@@ -516,7 +520,7 @@
     }
   },
   "provenance": {
-    "git_commit": "cd99aac77a995434be27f8b99dcbc5a711162830",
+    "git_commit": "6d6da7000046a3deddc2e616590502a8f8bb486d",
     "git_dirty": true,
     "manifest_sha256": "c33e21dbcbcf228b6ddae9106d4cd2ab67e6d6e375e7490406b9a1ad20baf1a4",
     "seeds": {
@@ -525,6 +529,6 @@
       "split_seed": 20261017,
       "n_boot": 2000
     },
-    "timestamp_utc": "2026-10-25T05:02:31.306804+00:00"
+    "timestamp_utc": "2026-10-25T13:12:11.149194+00:00"
   }
 }

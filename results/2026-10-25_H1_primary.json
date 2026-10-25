@@ -435,7 +435,7 @@
     }
   },
   "provenance": {
-    "git_commit": "7fc884e2a1f0b10558f95c6db1bb7ebe00c185aa",
+    "git_commit": "6d6da7000046a3deddc2e616590502a8f8bb486d",
     "git_dirty": true,
     "manifest_sha256": "c33e21dbcbcf228b6ddae9106d4cd2ab67e6d6e375e7490406b9a1ad20baf1a4",
     "seeds": {
@@ -444,6 +444,6 @@
       "bootstrap_seed": 20261017,
       "n_boot": 2000
     },
-    "timestamp_utc": "2026-10-24T01:38:45.044479+00:00"
+    "timestamp_utc": "2026-10-25T13:06:59.835758+00:00"
   }
 }

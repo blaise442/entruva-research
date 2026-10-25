@@ -3,7 +3,7 @@
 Phase 2 closed 2026-10-25 (day 8 of 90; the checkpoint was day 60). Everything
 below is computed by `src/models/run_primary.py` and `src/models/run_robustness.py`
 from `data/processed/features.csv`, with seeds, commit hash and manifest hash in
-the result files `results/2026-10-23_H1_primary.json` and
+the result files `results/2026-10-25_H1_primary.json` and
 `results/2026-10-25_H1_robustness_cv.json`. The analysis plan is
 `docs/PREREGISTRATION.md` (tag prereg-v1); the two Phase 2 clarifications are in
 `docs/DEVIATIONS.md` (2026-10-23, 2026-10-24) and change no threshold.
@@ -44,7 +44,7 @@ The telemetry-only sensitivity matches the primary model, so the gain is not
 model identity leaking through telemetry. The linear model would not pass
 clauses 1 or 2: the signal is non-linear or interaction-heavy.
 
-Calibration: the reliability curve (`results/2026-10-23_H1_reliability.png`)
+Calibration: the reliability curve (`results/2026-10-25_H1_reliability.png`)
 under-predicts in the 0.3 to 0.5 band (predicted 0.35 to 0.45, observed 0.49
 to 0.63) and is close to the diagonal elsewhere. A premium schedule would need
 recalibration on the target book; ranking is what clause 3 tests.
