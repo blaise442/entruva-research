@@ -14,15 +14,6 @@ Format:
 
 
 
-## erc8004 registry events (pending)
-- URL / contract address: IdentityRegistry and ReputationRegistry at 0x8004A169FB4a3325136EB29fA0ceB6D2e539a432 / 0x8004BAa17C55a88189AE136b182e5fdA19dE9b63 on Ethereum mainnet and Base (source: https://github.com/erc-8004/erc-8004-contracts, cross-checked 2026-10-20)
-- Fetch date: not yet fetched
-- Method (script path): src/collect/erc8004.py
-- Row count: 0
-- SHA-256: none (no file yet)
-- License: public blockchain data
-- Known limitations: awaiting RPC endpoint from the founder; the EIP publishes no addresses itself (Draft); the ValidationRegistry has no published curated address and is excluded until one is verified
-
 ## tau-bench gpt-4o-airline.json
 - URL / contract address: https://raw.githubusercontent.com/sierra-research/tau-bench/59a200c6d575d595120f1cb70fea53cef0632f6b/historical_trajectories/gpt-4o-airline.json
 - Fetch date: 2026-10-22
@@ -212,3 +203,23 @@ Format:
 - SHA-256: 227e26bf11cb8a754903b6c241d35273a3ff36c462b59a2ad59f00dc7147d7a8
 - License: broker explainer, 2 pages
 - Known limitations: context only, feeds no model; row_count 0 because these are documents, not trace data
+
+## erc8004 ethereum-mainnet identity registry events
+- URL / contract address: https://github.com/erc-8004/erc-8004-contracts (address source); events via eth_getLogs
+- Fetch date: 2026-10-25
+- Method (script path): src/collect/erc8004.py
+- Row count: 275118
+- File: ethereum-mainnet_identity.jsonl
+- SHA-256: 0ca1ee3dd3e8d3a755abce5690b15d83930ba29cc1b148c2c913503f1572e7e4
+- License: public blockchain data
+- Known limitations: fetched 2026-10-25 from the keyless public endpoint https://rpc.mevblocker.io (Ethereum mainnet only; Base not yet fetched); ValidationRegistry has no published curated address
+
+## erc8004 ethereum-mainnet reputation registry events
+- URL / contract address: https://github.com/erc-8004/erc-8004-contracts (address source); events via eth_getLogs
+- Fetch date: 2026-10-25
+- Method (script path): src/collect/erc8004.py
+- Row count: 34535
+- File: ethereum-mainnet_reputation.jsonl
+- SHA-256: c0063e0932fab68079bb1287e5e1ca1afa55d4413446dfa9c1ac06c5526a4a3b
+- License: public blockchain data
+- Known limitations: fetched 2026-10-25 from the keyless public endpoint https://rpc.mevblocker.io (Ethereum mainnet only; Base not yet fetched); ValidationRegistry has no published curated address

@@ -7,12 +7,19 @@ anywhere (the MANIFEST url field is the public source of the addresses).
 import json
 import os
 import sys
+import time
 from pathlib import Path
 
 from src.collect.addresses import REGISTRIES
 from src.common.manifest import append_entry
 
 MIN_CHUNK = 1
+MAX_429_RETRIES = 8
+
+
+def _is_rate_limit(exc: Exception) -> bool:
+    resp = getattr(exc, "response", None)
+    return getattr(resp, "status_code", None) == 429
 
 # Chain ids verified against chainlist.org entries for the two chains with
 # published registry addresses; anything else must fail, never be mislabeled.
@@ -26,20 +33,45 @@ def _chain_name(chain_id: int) -> str:
 
 def fetch_logs(eth, address: str, from_block: int, to_block: int, chunk: int = 50_000) -> list[dict]:
     """Chunked eth_getLogs. On a provider range error the chunk is halved and the
-    same range retried, so every log is returned exactly once."""
+    same range retried, so every log is returned exactly once; after each success
+    it doubles back toward the starting chunk so a dense region does not slow the
+    sparse remainder."""
     logs: list[dict] = []
     lo = from_block
+    waits = 0
+    max_chunk = chunk
     while lo <= to_block:
         hi = min(lo + chunk - 1, to_block)
         try:
             logs.extend(eth.get_logs({"address": address, "fromBlock": lo, "toBlock": hi}))
-        except Exception:
+        except Exception as exc:
+            if _is_rate_limit(exc):  # provider throttling, not a range problem: wait, keep the window
+                waits += 1
+                if waits > MAX_429_RETRIES:
+                    raise
+                time.sleep(min(2 ** waits, 60))
+                continue
             if chunk <= MIN_CHUNK:
                 raise ValueError(f"provider rejects even chunk={chunk}; cannot fetch {lo}..{hi}")
             chunk = max(MIN_CHUNK, chunk // 2)
             continue
+        waits = 0
         lo = hi + 1
+        chunk = min(chunk * 2, max_chunk)
     return logs
+
+
+def first_block_with_code(eth, address: str, head: int) -> int:
+    """Lowest block at which the address has code (binary search on eth_getCode),
+    so the log scan skips the empty blocks before deployment."""
+    lo, hi = 0, head
+    while lo < hi:
+        mid = (lo + hi) // 2
+        if eth.get_code(address, block_identifier=mid):
+            hi = mid
+        else:
+            lo = mid + 1
+    return lo
 
 def _hex(v) -> str:
     return v if isinstance(v, str) else "0x" + bytes(v).hex()
@@ -82,7 +114,9 @@ def run(out_dir: Path, manifest_path: Path) -> int:
         if chain != endpoint_chain:
             continue
         for registry, address in regs.items():
-            logs = fetch_logs(w3.eth, address, 0, head)
+            start = first_block_with_code(w3.eth, address, head)
+            print(f"erc8004: {chain} {registry} deployed by block {start}; scanning {start}..{head}")
+            logs = fetch_logs(w3.eth, address, start, head)
             rows = [to_jsonable(dict(l), chain=chain, registry=registry) for l in logs]
             path = out_dir / f"{chain}_{registry}.jsonl"
             path.write_text("".join(json.dumps(r) + "\n" for r in rows))

@@ -34,6 +34,28 @@ def test_fetch_logs_halves_chunk_on_provider_range_error_without_duplicates():
     assert len(logs) == 20
     assert len({(l["blockNumber"], l["logIndex"]) for l in logs}) == 20
 
+class ResultCappedEth:
+    """get_logs stub that rejects any window holding more than max_results logs,
+    like a provider's 10k-result cap: dense regions force small chunks."""
+    def __init__(self, logs_by_block: dict[int, list[dict]], max_results: int):
+        self.logs_by_block = logs_by_block
+        self.max_results = max_results
+        self.calls = 0
+
+    def get_logs(self, params):
+        self.calls += 1
+        out = [l for b in range(params["fromBlock"], params["toBlock"] + 1) for l in self.logs_by_block.get(b, [])]
+        if len(out) > self.max_results:
+            raise ValueError("query returned more than 10000 results")
+        return out
+
+def test_fetch_logs_grows_chunk_back_after_a_dense_region():
+    dense = {b: [_log(b, i) for i in range(10)] for b in range(50)}  # 500 logs in 50 blocks, then nothing
+    eth = ResultCappedEth(dense, max_results=100)
+    logs = fetch_logs(eth, "0xabc", 0, 100_000, chunk=50_000)
+    assert len(logs) == 500
+    assert eth.calls < 100  # a chunk stuck at ~6 blocks would need ~16k calls for the empty tail
+
 def test_fetch_logs_gives_up_below_minimum_chunk():
     eth = StubEth({}, max_span=0)
     with pytest.raises(ValueError, match="chunk"):
@@ -50,6 +72,8 @@ class _StubEth:
     chain_id = 1
     def get_logs(self, params):
         return [_log(3)]
+    def get_code(self, address, block_identifier):
+        return b"\x60"
 
 class _StubWeb3:
     @staticmethod
@@ -78,3 +102,45 @@ def test_to_jsonable_round_trips():
     assert row["blockNumber"] == 7 and row["chain"] == "base-mainnet"
     assert row["transactionHash"] == "0x" + "ab" * 32
     assert row["topics"] == ["0x" + "cd" * 32]
+
+
+class RateLimitedEth(StubEth):
+    """First `n_429` calls raise HTTP 429; afterwards behaves like StubEth."""
+    def __init__(self, logs_by_block, n_429):
+        super().__init__(logs_by_block)
+        self.n_429 = n_429
+        self.spans = []
+
+    def get_logs(self, params):
+        self.spans.append(params["toBlock"] - params["fromBlock"] + 1)
+        if self.n_429 > 0:
+            self.n_429 -= 1
+            import requests
+            resp = requests.Response(); resp.status_code = 429
+            raise requests.exceptions.HTTPError("429 Client Error: Too Many Requests", response=resp)
+        return super().get_logs(params)
+
+
+def test_fetch_logs_retries_a_429_on_the_same_window_without_halving(monkeypatch):
+    import src.collect.erc8004 as mod
+    monkeypatch.setattr(mod.time, "sleep", lambda s: None)
+    eth = RateLimitedEth({7: [_log(7)]}, n_429=3)
+    logs = fetch_logs(eth, "0xabc", 0, 99, chunk=100)
+    assert [l["blockNumber"] for l in logs] == [7]
+    assert eth.spans == [100, 100, 100, 100]
+
+
+def test_first_block_with_code_binary_searches_the_deployment_block():
+    from src.collect.erc8004 import first_block_with_code
+
+    class CodeEth:
+        def __init__(self, deployed_at):
+            self.deployed_at, self.calls = deployed_at, 0
+        def get_code(self, address, block_identifier):
+            self.calls += 1
+            return b"\x60\x80" if block_identifier >= self.deployed_at else b""
+
+    eth = CodeEth(23_456_789)
+    assert first_block_with_code(eth, "0xabc", head=24_000_000) == 23_456_789
+    assert eth.calls < 40
+    assert first_block_with_code(CodeEth(0), "0xabc", head=10) == 0
