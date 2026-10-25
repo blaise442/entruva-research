@@ -25,3 +25,9 @@ Format for each entry:
 - Why: the preregistration names S1, S2 and the GLM but fixes neither the cross-domain training set nor the GLM inputs; these choices were made before the S2 or GLM results were inspected.
 - Decided by: executing agent during Phase 2, for founder review at Gate 3.
 - Effect on preregistered thresholds: none. The S2 rule (paired AUC delta lower CI bound at least 0.05) is applied unchanged.
+
+## 2026-10-25: manipulation-cost dollar floor set (clause 4)
+- What changed: clause 4's floor is fixed as a ratio. The cheapest S3 intervention that lowers an agent's predicted risk by one decile while its true failure rate is unchanged must cost at least 3 times the annual premium saving that one-decile drop would produce, counting the attack as a one-time cost against one year of saving. Attack cost is measured in dollars of compute or fees; the premium saving comes from the hypothetical premium schedule used in clause 3, so no premium is quoted or invented.
+- Why: deferred at Gate 1 (entry 2026-10-19); the preregistration requires it before Phase 3 begins and before any adversarial data exists. A ratio does not depend on a premium we have not priced. A factor of 1 is the weakest rational-attacker standard; 3 leaves a margin for attackers with cheaper compute or non-monetary motives without being a bar no scoring system could clear.
+- Decided by: founder, 2026-10-25, on the executing agent's recommendation. Set after the Phase 2 prediction results were known and before any Phase 3 adversarial run; this ordering is stated so a reader can weigh it.
+- Effect on preregistered thresholds: fills the TODO in clause 4; no other threshold changes.
