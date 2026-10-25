@@ -148,3 +148,18 @@ This table is not a rating plan.
 2. Set the manipulation-cost dollar floor so Phase 3 can begin.
 3. Confirm S2 is reported as not supported, with a note that two sources had
    one held-out agent.
+
+## Decisions at Gate 3 (founder, 2026-10-25)
+
+1. H1 clauses 1 to 3 accepted as written under the preregistered pooled rule.
+   No within-source pass/fail rule is added after the per-source results were
+   seen; the within-source table stays as a descriptive caveat and the final
+   write-up will state that cross-domain generalisation is not established.
+2. Dollar floor set the same day: attack cost at least 3 times the annual
+   premium saving from a one-decile drop (DEVIATIONS.md 2026-10-25).
+3. S2 reported as not supported. SWE-bench and tau-bench are flagged not
+   evaluable (one held-out agent); AgentDojo and WebArena are evaluable and
+   fail the rule.
+4. Gate 3 approved. Phase 3 planning starts once the ERC-8004 collection has
+   run against an RPC endpoint, so that S1 (reputation components) can be
+   included in the Phase 3 scope. Until then no adversarial run starts.
