@@ -1,6 +1,9 @@
 """Robustness for H1: grouped 5-fold CV by agent with pooled OOF predictions,
 reported pooled and within each source (within-source scoring removes the
-between-source base-rate differences that can inflate a pooled AUC)."""
+between-source base-rate differences that can inflate a pooled AUC). Also the
+S2 portability test on the frozen split and the descriptive Poisson GLM
+relativities (actuarial framing, decides no clause)."""
+import json
 import sys
 from datetime import date
 from pathlib import Path
@@ -10,6 +13,8 @@ import pandas as pd
 from src.common.provenance import write_result
 from src.models.cv import cv_oof
 from src.models.fit import SEED
+from src.models.glm import poisson_relativities
+from src.models.portability import portability_report
 from src.models.metrics import auc_delta_with_ci, auc_with_ci, brier_skill, quartile_failure_ratio
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -35,8 +40,12 @@ def main():
     y, groups, src = df["outcome"].to_numpy(), df["agent_id"].to_numpy(), df["source"].to_numpy()
     res = {"pooled": score(y, oof, groups, src == src)}
     res["by_source"] = {s: score(y, oof, groups, src == s) for s in sorted(set(src))}
+    split = json.loads((ROOT / "splits/primary_split.json").read_text())
+    res["s2_portability"] = portability_report(df, split["test_agents"], n_boot=N_BOOT, seed=SEED)
+    res["s2_supported_any_source"] = any(r["s2_supported"] for r in res["s2_portability"].values())
+    res["glm_relativities_per_sd"] = poisson_relativities(df, n_boot=N_BOOT, seed=SEED)
     out = ROOT / "results" / f"{date.today().isoformat()}_H1_robustness_cv.json"
-    write_result(out, "H1 robustness (grouped 5-fold CV)", res, {"cv_seed": SEED, "model_seed": SEED, "n_boot": N_BOOT})
+    write_result(out, "H1 robustness (grouped 5-fold CV)", res, {"cv_seed": SEED, "model_seed": SEED, "split_seed": split["seed"], "n_boot": N_BOOT})
     print(out)
 
 

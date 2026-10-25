@@ -1,0 +1,530 @@
+{
+  "hypothesis": "H1 robustness (grouped 5-fold CV)",
+  "metrics": {
+    "pooled": {
+      "n": 44643,
+      "n_agents": 41,
+      "failure_rate": 0.5139887552359832,
+      "auc_baseline": {
+        "auc": 0.5896736074634668,
+        "ci_low": 0.5187276005234226,
+        "ci_high": 0.6700241135746074,
+        "n_boot_used": 2000
+      },
+      "gbm": {
+        "auc": {
+          "auc": 0.7916026906008046,
+          "ci_low": 0.7545480098338595,
+          "ci_high": 0.8263881342700761,
+          "n_boot_used": 2000
+        },
+        "auc_delta": {
+          "delta": 0.20192908313733782,
+          "ci_low": 0.1397392350415251,
+          "ci_high": 0.25915707784883873,
+          "n_boot_used": 2000
+        },
+        "brier_skill": {
+          "skill": 0.2178769530901562,
+          "ci_low": 0.13318713831248907,
+          "ci_high": 0.2805173499474643,
+          "n_boot_used": 2000
+        },
+        "quartile": {
+          "ratio": 4.207145926153873,
+          "top_failures": 10142.52,
+          "bottom_failures": 2411.0,
+          "top_n": 11160,
+          "bottom_n": 11161,
+          "n_draws": 25
+        }
+      },
+      "logit": {
+        "auc": {
+          "auc": 0.6967467310577561,
+          "ci_low": 0.6346794686705513,
+          "ci_high": 0.7577923601437522,
+          "n_boot_used": 2000
+        },
+        "auc_delta": {
+          "delta": 0.10707312359428933,
+          "ci_low": 0.05614661728664633,
+          "ci_high": 0.1630945525816946,
+          "n_boot_used": 2000
+        },
+        "brier_skill": {
+          "skill": 0.07992386525462114,
+          "ci_low": 0.01257348922638211,
+          "ci_high": 0.1345557647002929,
+          "n_boot_used": 2000
+        },
+        "quartile": {
+          "ratio": 2.2582042697871363,
+          "top_failures": 9312.0,
+          "bottom_failures": 4124.0,
+          "top_n": 11160,
+          "bottom_n": 11161,
+          "n_draws": 25
+        }
+      }
+    },
+    "by_source": {
+      "agentdojo": {
+        "n": 36678,
+        "n_agents": 29,
+        "failure_rate": 0.4559408909973281,
+        "auc_baseline": {
+          "auc": 0.47811916344154903,
+          "ci_low": 0.4290897498511744,
+          "ci_high": 0.5273079513584905,
+          "n_boot_used": 2000
+        },
+        "gbm": {
+          "auc": {
+            "auc": 0.7586231236990758,
+            "ci_low": 0.72269163566356,
+            "ci_high": 0.793418982552066,
+            "n_boot_used": 2000
+          },
+          "auc_delta": {
+            "delta": 0.2805039602575268,
+            "ci_low": 0.22607101345776837,
+            "ci_high": 0.33293661416043585,
+            "n_boot_used": 2000
+          },
+          "brier_skill": {
+            "skill": 0.2374252271271805,
+            "ci_low": 0.15189219282098465,
+            "ci_high": 0.30477278504696687,
+            "n_boot_used": 2000
+          },
+          "quartile": {
+            "ratio": 3.963553555980318,
+            "top_failures": 7415.0,
+            "bottom_failures": 1871.0,
+            "top_n": 9169,
+            "bottom_n": 9170,
+            "n_draws": 25
+          }
+        },
+        "logit": {
+          "auc": {
+            "auc": 0.6344747861723741,
+            "ci_low": 0.5778066580154965,
+            "ci_high": 0.6894412956467181,
+            "n_boot_used": 2000
+          },
+          "auc_delta": {
+            "delta": 0.15635562273082504,
+            "ci_low": 0.09660028545635399,
+            "ci_high": 0.22002742875790368,
+            "n_boot_used": 2000
+          },
+          "brier_skill": {
+            "skill": 0.10663180798607153,
+            "ci_low": 0.05988653509718511,
+            "ci_high": 0.1514864088301467,
+            "n_boot_used": 2000
+          },
+          "quartile": {
+            "ratio": 1.8821454577661114,
+            "top_failures": 6169.0,
+            "bottom_failures": 3278.0,
+            "top_n": 9169,
+            "bottom_n": 9170,
+            "n_draws": 25
+          }
+        }
+      },
+      "swe-bench": {
+        "n": 1167,
+        "n_agents": 4,
+        "failure_rate": 0.8174807197943444,
+        "auc_baseline": {
+          "auc": 0.592186592651647,
+          "ci_low": 0.5131641554321966,
+          "ci_high": 0.7228573509065754,
+          "n_boot_used": 2000
+        },
+        "gbm": {
+          "auc": {
+            "auc": 0.5644260391137883,
+            "ci_low": 0.5178231562252181,
+            "ci_high": 0.68828352032093,
+            "n_boot_used": 2000
+          },
+          "auc_delta": {
+            "delta": -0.027760553537858668,
+            "ci_low": -0.12058166719006225,
+            "ci_high": 0.010097905282331565,
+            "n_boot_used": 2000
+          },
+          "brier_skill": {
+            "skill": -0.4584563750678361,
+            "ci_low": -0.9457213072955533,
+            "ci_high": -0.039878439484233086,
+            "n_boot_used": 2000
+          },
+          "quartile": {
+            "ratio": 1.119389079801451,
+            "top_failures": 251.0,
+            "bottom_failures": 225.0,
+            "top_n": 291,
+            "bottom_n": 292,
+            "n_draws": 25
+          }
+        },
+        "logit": {
+          "auc": {
+            "auc": 0.7089054241592111,
+            "ci_low": 0.6785922711933216,
+            "ci_high": 0.7599331559620923,
+            "n_boot_used": 2000
+          },
+          "auc_delta": {
+            "delta": 0.11671883150756412,
+            "ci_low": -0.01432680404864195,
+            "ci_high": 0.17646708961141955,
+            "n_boot_used": 2000
+          },
+          "brier_skill": {
+            "skill": 0.04821407629023533,
+            "ci_low": 0.0019594557543010094,
+            "ci_high": 0.11256752142999171,
+            "n_boot_used": 2000
+          },
+          "quartile": {
+            "ratio": 1.4037711660701886,
+            "top_failures": 270.0,
+            "bottom_failures": 193.0,
+            "top_n": 291,
+            "bottom_n": 292,
+            "n_draws": 25
+          }
+        }
+      },
+      "tau-bench": {
+        "n": 1980,
+        "n_agents": 2,
+        "failure_rate": 0.4025252525252525,
+        "auc_baseline": {
+          "auc": 0.6477004319876629,
+          "ci_low": 0.6401238458971412,
+          "ci_high": 0.6636586205297318,
+          "n_boot_used": 2000
+        },
+        "gbm": {
+          "auc": {
+            "auc": 0.6673673783026162,
+            "ci_low": 0.6673673783026162,
+            "ci_high": 0.706515344940795,
+            "n_boot_used": 2000
+          },
+          "auc_delta": {
+            "delta": 0.01966694631495325,
+            "ci_low": 0.01966694631495325,
+            "ci_high": 0.06369813489562082,
+            "n_boot_used": 2000
+          },
+          "brier_skill": {
+            "skill": 0.18728510063487747,
+            "ci_low": 0.18625000255534152,
+            "ci_high": 0.18958473954222355,
+            "n_boot_used": 2000
+          },
+          "quartile": {
+            "ratio": 2.5948799999999994,
+            "top_failures": 324.36,
+            "bottom_failures": 125.0,
+            "top_n": 495,
+            "bottom_n": 495,
+            "n_draws": 25
+          }
+        },
+        "logit": {
+          "auc": {
+            "auc": 0.6873100839899412,
+            "ci_low": 0.6873100839899412,
+            "ci_high": 0.698148800474619,
+            "n_boot_used": 2000
+          },
+          "auc_delta": {
+            "delta": 0.039609652002278284,
+            "ci_low": 0.0283404812060174,
+            "ci_high": 0.058024954577477805,
+            "n_boot_used": 2000
+          },
+          "brier_skill": {
+            "skill": -0.3385057909717195,
+            "ci_low": -0.3730800300130708,
+            "ci_high": -0.26169348993157837,
+            "n_boot_used": 2000
+          },
+          "quartile": {
+            "ratio": 2.614173228346457,
+            "top_failures": 332.0,
+            "bottom_failures": 127.0,
+            "top_n": 495,
+            "bottom_n": 495,
+            "n_draws": 25
+          }
+        }
+      },
+      "webarena": {
+        "n": 4818,
+        "n_agents": 6,
+        "failure_rate": 0.9281859692818597,
+        "auc_baseline": {
+          "auc": 0.6179991494927979,
+          "ci_low": 0.5461574243748414,
+          "ci_high": 0.6830348428101237,
+          "n_boot_used": 2000
+        },
+        "gbm": {
+          "auc": {
+            "auc": 0.6417603560238659,
+            "ci_low": 0.5786746394720146,
+            "ci_high": 0.6992305811571503,
+            "n_boot_used": 2000
+          },
+          "auc_delta": {
+            "delta": 0.023761206531068058,
+            "ci_low": -0.004742058042808961,
+            "ci_high": 0.053303385413740335,
+            "n_boot_used": 2000
+          },
+          "brier_skill": {
+            "skill": 0.07747507628644812,
+            "ci_low": -0.0005102052570376048,
+            "ci_high": 0.19211295980374554,
+            "n_boot_used": 2000
+          },
+          "quartile": {
+            "ratio": 1.0968651062779136,
+            "top_failures": 1165.0,
+            "bottom_failures": 1063.0,
+            "top_n": 1204,
+            "bottom_n": 1205,
+            "n_draws": 25
+          }
+        },
+        "logit": {
+          "auc": {
+            "auc": 0.6288179113197597,
+            "ci_low": 0.5486562167164284,
+            "ci_high": 0.7021019180569743,
+            "n_boot_used": 2000
+          },
+          "auc_delta": {
+            "delta": 0.010818761826961842,
+            "ci_low": -0.01280604504597431,
+            "ci_high": 0.02771571335716616,
+            "n_boot_used": 2000
+          },
+          "brier_skill": {
+            "skill": 0.05329047911989737,
+            "ci_low": 0.0005378045383524909,
+            "ci_high": 0.09497609188435543,
+            "n_boot_used": 2000
+          },
+          "quartile": {
+            "ratio": 1.085947930574099,
+            "top_failures": 1161.0,
+            "bottom_failures": 1070.0,
+            "top_n": 1204,
+            "bottom_n": 1205,
+            "n_draws": 25
+          }
+        }
+      }
+    },
+    "s2_portability": {
+      "agentdojo": {
+        "n": 6744,
+        "n_agents": 6,
+        "train_sources": [
+          "swe-bench",
+          "tau-bench",
+          "webarena"
+        ],
+        "n_train_rows": 5411,
+        "auc_cross": {
+          "auc": 0.6686406862444615,
+          "ci_low": 0.6115385649328704,
+          "ci_high": 0.7049232768531014,
+          "n_boot_used": 2000
+        },
+        "auc_baseline": {
+          "auc": 0.5291837702809791,
+          "ci_low": 0.4870101688684429,
+          "ci_high": 0.5944167553282412,
+          "n_boot_used": 2000
+        },
+        "auc_delta": {
+          "delta": 0.13945691596348242,
+          "ci_low": 0.03456689070424157,
+          "ci_high": 0.19213562892199582,
+          "n_boot_used": 2000
+        },
+        "s2_supported": false
+      },
+      "swe-bench": {
+        "n": 289,
+        "n_agents": 1,
+        "train_sources": [
+          "agentdojo",
+          "tau-bench",
+          "webarena"
+        ],
+        "n_train_rows": 34467,
+        "auc_cross": {
+          "auc": 0.594631093544137,
+          "ci_low": 0.594631093544137,
+          "ci_high": 0.594631093544137,
+          "n_boot_used": 2000
+        },
+        "auc_baseline": {
+          "auc": 0.7000329380764163,
+          "ci_low": 0.7000329380764163,
+          "ci_high": 0.7000329380764163,
+          "n_boot_used": 2000
+        },
+        "auc_delta": {
+          "delta": -0.1054018445322793,
+          "ci_low": -0.1054018445322793,
+          "ci_high": -0.1054018445322793,
+          "n_boot_used": 2000
+        },
+        "s2_supported": false
+      },
+      "tau-bench": {
+        "n": 660,
+        "n_agents": 1,
+        "train_sources": [
+          "agentdojo",
+          "swe-bench",
+          "webarena"
+        ],
+        "n_train_rows": 34025,
+        "auc_cross": {
+          "auc": 0.6455838184582298,
+          "ci_low": 0.6455838184582298,
+          "ci_high": 0.6455838184582298,
+          "n_boot_used": 2000
+        },
+        "auc_baseline": {
+          "auc": 0.6483740591048981,
+          "ci_low": 0.6483740591048981,
+          "ci_high": 0.6483740591048981,
+          "n_boot_used": 2000
+        },
+        "auc_delta": {
+          "delta": -0.0027902406466683294,
+          "ci_low": -0.0027902406466683294,
+          "ci_high": -0.0027902406466683294,
+          "n_boot_used": 2000
+        },
+        "s2_supported": false
+      },
+      "webarena": {
+        "n": 1605,
+        "n_agents": 2,
+        "train_sources": [
+          "agentdojo",
+          "swe-bench",
+          "tau-bench"
+        ],
+        "n_train_rows": 32132,
+        "auc_cross": {
+          "auc": 0.5068841013962965,
+          "ci_low": 0.5068841013962965,
+          "ci_high": 0.5235747051114024,
+          "n_boot_used": 2000
+        },
+        "auc_baseline": {
+          "auc": 0.673184964343501,
+          "ci_low": 0.6323558322411533,
+          "ci_high": 0.7075873121131742,
+          "n_boot_used": 2000
+        },
+        "auc_delta": {
+          "delta": -0.16630086294720448,
+          "ci_low": -0.1992429266136162,
+          "ci_high": -0.10878112712975097,
+          "n_boot_used": 2000
+        },
+        "s2_supported": false
+      }
+    },
+    "s2_supported_any_source": false,
+    "glm_relativities_per_sd": {
+      "task_length_steps": {
+        "relativity": 0.7507629418971206,
+        "ci_low": 0.6534530059044448,
+        "ci_high": 0.852812276777335
+      },
+      "n_tool_calls": {
+        "relativity": 1.4768322966156433,
+        "ci_low": 1.316912415256871,
+        "ci_high": 1.7019754932312154
+      },
+      "n_distinct_tools": {
+        "relativity": 0.9571457046604173,
+        "ci_low": 0.8986732867336449,
+        "ci_high": 1.043749411775597
+      },
+      "repeat_call_ratio": {
+        "relativity": 1.1304829669751064,
+        "ci_low": 1.045581049524412,
+        "ci_high": 1.2251758734659544
+      },
+      "n_errors": {
+        "relativity": 0.9685877931732572,
+        "ci_low": 0.9348017417221638,
+        "ci_high": 1.0199138532179346
+      },
+      "error_rate": {
+        "relativity": 1.082876531812811,
+        "ci_low": 1.0372907936906992,
+        "ci_high": 1.12053107361438
+      },
+      "max_error_run": {
+        "relativity": 0.99631660956181,
+        "ci_low": 0.9596257539750003,
+        "ci_high": 1.0272364696933234
+      },
+      "mean_text_len": {
+        "relativity": 0.8617690880543835,
+        "ci_low": 0.8231955596219324,
+        "ci_high": 0.907888888161349
+      },
+      "duration_s": {
+        "relativity": 1.0038383040189902,
+        "ci_low": 0.9680482180074917,
+        "ci_high": 1.0281237673562265
+      },
+      "api_calls": {
+        "relativity": 0.8964842030073797,
+        "ci_low": 0.852265593655745,
+        "ci_high": 0.9927615226572625
+      },
+      "tokens_sent": {
+        "relativity": 1.0346472909993845,
+        "ci_low": 0.9906042228685463,
+        "ci_high": 1.069734859113014
+      }
+    }
+  },
+  "provenance": {
+    "git_commit": "cd99aac77a995434be27f8b99dcbc5a711162830",
+    "git_dirty": true,
+    "manifest_sha256": "c33e21dbcbcf228b6ddae9106d4cd2ab67e6d6e375e7490406b9a1ad20baf1a4",
+    "seeds": {
+      "cv_seed": 20261017,
+      "model_seed": 20261017,
+      "split_seed": 20261017,
+      "n_boot": 2000
+    },
+    "timestamp_utc": "2026-10-25T05:02:31.306804+00:00"
+  }
+}

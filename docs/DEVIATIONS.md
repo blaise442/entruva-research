@@ -19,3 +19,9 @@ Format for each entry:
 - Why: the preregistration fixes the model class, seeds and metrics but not the input set; these choices were made before any model was fit or any test label inspected.
 - Decided by: executing agent during Phase 2, for founder review at Gate 3.
 - Effect on preregistered thresholds: none.
+
+## 2026-10-24: S1 not run in Phase 2; S2 and GLM operationalised (no threshold change)
+- What changed: (1) S1 (reputation components added to telemetry) is not run: no reputation data exists yet because the ERC-8004 collection waits on an RPC endpoint and the external dataset request is unanswered. S1 is deferred, not failed. (2) S2 is operationalised as: for each benchmark source, a gradient boosting model is trained on the other sources' train agents using telemetry, step count and exit status only (model identity and task type do not overlap across sources), scored on that source's held-out agents from the frozen split, and paired against that source's in-domain naive baseline with the preregistered paired cluster-bootstrap AUC delta. (3) The actuarial framing is a Poisson GLM on standardized telemetry features over all benchmark rows, reporting relativities per one-SD increase with cluster-bootstrap CIs over agents. It is descriptive and decides no clause.
+- Why: the preregistration names S1, S2 and the GLM but fixes neither the cross-domain training set nor the GLM inputs; these choices were made before the S2 or GLM results were inspected.
+- Decided by: executing agent during Phase 2, for founder review at Gate 3.
+- Effect on preregistered thresholds: none. The S2 rule (paired AUC delta lower CI bound at least 0.05) is applied unchanged.
