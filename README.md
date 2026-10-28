@@ -6,7 +6,7 @@ Day convention: day 0 is 2026-10-17, day 90 is 2027-01-15. All reports use this 
 
 ## Status
 
-Phase 2 closed 2026-10-25 (day 8). H1 clauses 1 to 3 hold on the frozen held-out split; clause 4 (manipulation cost) is Phase 3 and waits on the founder's dollar floor. S2 portability is not supported. The Gate 3 package is reports/gate3_results.md; weekly reports are reports/week_NN.md.
+Phase 3 closed 2026-10-28 (day 11); Gate 4 waits on the founder. H1 clauses 1 to 3 hold on the frozen held-out split (Gate 3). Clause 4 passes under the preregistered median-agent reading and fails under the any-agent reading; both are in reports/gate4_results.md. S1 is not evaluable, S2 is not supported, S3 and S4 are reported. Weekly reports are reports/week_NN.md.
 
 ## Layout
 
