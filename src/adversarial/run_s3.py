@@ -30,7 +30,10 @@ def _ratios_per_row(test: pd.DataFrame, ratios: pd.DataFrame, default: float = 4
 
 
 def attack_curve(test, score, edges, spec, strength, prices, ratios) -> dict:
-    before = agent_deciles(score(test), test["agent_id"].to_numpy(), edges).set_index("agent_id")
+    p0 = score(test)
+    before = agent_deciles(p0, test["agent_id"].to_numpy(), edges).set_index("agent_id")
+    # premium is defined on the decile, so the saving is the difference of decile mean predictions (design Part B)
+    dmean = pd.Series(p0).groupby(np.searchsorted(edges, p0, side="right") + 1).mean()
     if strength is None:
         attacked = spec["fn"](test)
     elif spec["fn"].__name__ == "call_shaping":
@@ -56,10 +59,11 @@ def attack_curve(test, score, edges, spec, strength, prices, ratios) -> dict:
     moved = [r["decile_before"] - r["decile_after"] for r in movable]
     movers = [r for r, m in zip(movable, moved) if m >= 1]
     return {"attack": spec["fn"].__name__, "strength": strength,
-            "deciles_moved_median": float(np.median(moved)) if moved else 0.0,
+            "deciles_moved_median": float(np.median(moved)) if moved else None,
             "movers_frac": len(movers) / len(movable) if movable else 0.0,
             "any_agent_moved": bool(movers), "n_movable": len(movable),
-            "delta_p": float(np.mean([r["p_before"] - r["p_after"] for r in movers])) if movers else 0.0,
+            "delta_p": float(np.mean([dmean[r["decile_before"]] - dmean[r["decile_after"]] for r in movers])) if movers else 0.0,
+            "decile_mean_p": [float(dmean.get(d, float("nan"))) for d in range(1, 11)],
             "per_run_usd": None if unpriced else float(row_usd.astype(float).mean()),
             "unpriced_models": unpriced, "per_agent": per_agent}
 
@@ -73,7 +77,7 @@ def any_agent_view(curves: list[dict]) -> list[dict]:
 def _figure(curves: list[dict], attack: str, out: Path) -> None:
     cs = [c for c in curves if c["attack"] == attack]
     x = [str(c["strength"]) for c in cs]
-    med = [c["deciles_moved_median"] for c in cs]
+    med = [c["deciles_moved_median"] if c["deciles_moved_median"] is not None else 0.0 for c in cs]
     lo = [min(r["decile_before"] - r["decile_after"] for r in c["per_agent"] if r["movable"]) if c["n_movable"] else 0 for c in cs]
     hi = [max(r["decile_before"] - r["decile_after"] for r in c["per_agent"] if r["movable"]) if c["n_movable"] else 0 for c in cs]
     fig, ax = plt.subplots(figsize=(5, 3.5))

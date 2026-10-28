@@ -1,4 +1,5 @@
 import pandas as pd
+import pytest
 
 from src.adversarial.attacks import ATTACKS
 from src.adversarial.run_s3 import attack_curve
@@ -38,3 +39,28 @@ def test_any_agent_view_counts_single_movers_as_moving():
     v = any_agent_view(curves)
     assert v[0]["deciles_moved_median"] == 1.0 and v[1]["deciles_moved_median"] == 0.0
     assert curves[0]["deciles_moved_median"] == 0.0  # input untouched
+
+
+def _toy():
+    # one row per decile for z, two rows each for x (decile 9) and y (decile 2); p = mean_text_len / 1000
+    rows = [{"agent_id": "z", "mean_text_len": 50.0 + 100 * i} for i in range(10)]
+    rows += [{"agent_id": "x", "mean_text_len": 850.0}] * 2 + [{"agent_id": "y", "mean_text_len": 150.0}] * 2
+    return pd.DataFrame(rows).assign(model_id="m", source="s", tokens_sent=100.0, n_tool_calls=5.0)
+
+
+def test_attack_curve_with_no_movable_agent_reports_none():
+    import numpy as np
+    test = _toy()
+    score = lambda df: np.full(len(df), 0.05)
+    c = attack_curve(test, score, np.linspace(0.1, 0.9, 9), ATTACKS["message_shaping"], 0.5, prices=EMPTY_PRICES, ratios=EMPTY_RATIOS)
+    assert c["n_movable"] == 0 and c["deciles_moved_median"] is None and c["any_agent_moved"] is False
+
+
+def test_delta_p_is_the_difference_of_decile_mean_predictions():
+    import numpy as np
+    test = _toy()
+    score = lambda df: df["mean_text_len"].to_numpy() / 1000
+    c = attack_curve(test, score, np.linspace(0.1, 0.9, 9), ATTACKS["message_shaping"], 0.5, prices=EMPTY_PRICES, ratios=EMPTY_RATIOS)
+    # x: 9 -> 5 (0.85 - 0.45), y: 2 -> 1 (0.15 - 0.05), z: 6 -> 3 (0.55 - 0.25); agent-level drops would average 0.25
+    assert c["delta_p"] == pytest.approx((0.40 + 0.10 + 0.30) / 3)
+    assert c["decile_mean_p"][8] == pytest.approx(0.85) and len(c["decile_mean_p"]) == 10

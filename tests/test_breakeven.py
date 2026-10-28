@@ -49,3 +49,9 @@ def test_clause4_verdict_requires_every_cell():
     unpriced_only = clause4_table([_curve(per_run_usd=None)], SCENARIOS)
     assert all(r["passes"] == "not evaluable" for r in unpriced_only)
     assert clause4_verdict(unpriced_only) == "not evaluable"
+
+
+def test_clause4_table_with_no_movable_agent_is_not_evaluable():
+    table = clause4_table([_curve(deciles_moved_median=None, n_movable=0, delta_p=0.0)], SCENARIOS)
+    assert all(r["passes"] == "not evaluable" for r in table)
+    assert clause4_verdict(table) == "not evaluable"

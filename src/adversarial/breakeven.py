@@ -22,7 +22,7 @@ def breakeven_exposure(one_time_usd: float, per_run_usd: float, runs_per_year: f
 
 
 def _moves(c: dict) -> bool:
-    return c["deciles_moved_median"] >= 1
+    return c["deciles_moved_median"] is not None and c["deciles_moved_median"] >= 1
 
 
 def cheapest_attack(curves: list[dict]) -> dict | None:
@@ -36,6 +36,7 @@ def cheapest_attack(curves: list[dict]) -> dict | None:
 def clause4_table(curves: list[dict], scenarios: list[dict]) -> list[dict]:
     moving = [c for c in curves if _moves(c)]
     unpriced_only = bool(moving) and all(c["per_run_usd"] is None for c in moving)
+    no_movable = bool(curves) and all(c["deciles_moved_median"] is None for c in curves)
     rows = []
     for s in scenarios:
         priced = [c for c in moving if c["per_run_usd"] is not None]
@@ -44,7 +45,7 @@ def clause4_table(curves: list[dict], scenarios: list[dict]) -> list[dict]:
             scored = [(breakeven_exposure(s["one_time_usd"], c["per_run_usd"], s["runs_per_year"], c["delta_p"]), c) for c in priced]
             x_star, best = min(scored, key=lambda t: t[0])
         passes: bool | str
-        if unpriced_only:
+        if unpriced_only or no_movable:
             passes = "not evaluable"
         elif best is None:
             passes = True  # nothing moves a decile

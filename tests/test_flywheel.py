@@ -1,6 +1,7 @@
 import numpy as np
 
 from src.adversarial.breakeven import SCENARIOS
+from src.adversarial.scorer import frozen_scorer
 from src.simulation.flywheel import make_population, refit, simulate
 from tests.test_scorer import small_frozen  # noqa: F401  (fixture)
 
@@ -26,7 +27,7 @@ def test_refit_round_with_one_class_keeps_previous_scorer(small_frozen):
 def test_simulate_with_no_attackers_converges(small_frozen):
     train, test = small_frozen
     out = simulate(test, SCENARIOS[0], cheapest=None, f=0.0, rounds=3, burn_in=1, rows_per_agent=5, n_agents=8, seed=1,
-                   baseline_auc=0.5, gbm_ci=(0.0, 1.0))
+                   baseline_auc=0.5, gbm_ci=(0.0, 1.0), scorer0=frozen_scorer(train))
     assert out["converged"] and not out["collapsed"] and len(out["rounds"]) == 3
     assert {"auc", "top_quartile_premium_share", "attackers_active", "refit_ok"} <= set(out["rounds"][0])
     assert all(r["attackers_active"] == 0 for r in out["rounds"])
@@ -37,7 +38,7 @@ def test_simulate_attackers_act_when_breakeven_says_it_pays(small_frozen):
     cheapest = {"attack": "error_suppression", "strength": None, "per_run_usd": 0.0, "delta_p": 0.05}
     scen = {"runs_per_year": 1000, "exposure_usd": 1_000_000, "one_time_usd": 0}
     out = simulate(test, scen, cheapest=cheapest, f=0.5, rounds=2, burn_in=1, rows_per_agent=5, n_agents=8, seed=1,
-                   baseline_auc=0.5, gbm_ci=(0.0, 1.0))
+                   baseline_auc=0.5, gbm_ci=(0.0, 1.0), scorer0=frozen_scorer(train))
     assert out["rounds"][0]["attackers_active"] >= 0 and out["n_attackers"] == 4
 
 
@@ -49,3 +50,21 @@ def test_overwrite_attacked_rows_keeps_integer_columns():
     out = overwrite_rows(observed, attacked, observed.sim_agent_id.to_numpy() == "a")
     assert list(out.n_errors) == [0.0, 0.0, 0.0] and out.outcome.dtype == observed.outcome.dtype
     assert list(observed.n_errors) == [2.0, 1.0, 0.0]  # pure
+
+
+def test_attack_pays_compares_saving_to_cost_without_the_insurer_floor():
+    from src.simulation.flywheel import attack_pays
+    assert attack_pays(dp=0.05, exposure_usd=100_000, cost_usd=10_000) is False  # saving 5,000; floor rule would say yes
+    assert attack_pays(dp=0.05, exposure_usd=1_000_000, cost_usd=10_000) is True
+    assert attack_pays(dp=0.0, exposure_usd=1_000_000, cost_usd=0) is False
+
+
+def test_simulate_round0_uses_the_given_scorer(small_frozen):
+    _, test = small_frozen
+    calls = []
+    def scorer0(df):
+        calls.append(len(df))
+        return np.full(len(df), 0.5)
+    simulate(test, SCENARIOS[0], cheapest=None, f=0.0, rounds=1, burn_in=0, rows_per_agent=5, n_agents=4, seed=1,
+             baseline_auc=0.5, gbm_ci=(0.0, 1.0), scorer0=scorer0)
+    assert calls == [20]

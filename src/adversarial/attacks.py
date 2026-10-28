@@ -13,7 +13,7 @@ def _zeros(before: pd.DataFrame, after: pd.DataFrame) -> pd.Series:
 
 
 def _added_chars(before: pd.DataFrame, after: pd.DataFrame) -> pd.Series:
-    total = lambda df: df["mean_text_len"] * df["task_length_steps"]
+    total = lambda df: df["mean_text_len"] * df["n_tool_calls"]  # extractor: mean over tool-call steps
     return (total(after) - total(before)).clip(lower=0).fillna(0.0)
 
 
@@ -42,20 +42,30 @@ def retry_diversification(rows: pd.DataFrame) -> pd.DataFrame:
 
 
 def call_shaping(rows: pd.DataFrame, k: int, pad_chars: int = 50, chars_per_token: float = 4.0) -> pd.DataFrame:
-    """Add k cheap successful calls to one extra tool, each with distinct arguments
-    and a short message of pad_chars characters."""
+    """k > 0: add k cheap successful calls to one extra tool, each with distinct
+    arguments and a short message of pad_chars characters. k < 0: drop up to |k|
+    redundant calls (the repeated ones, so never more than the row has), free."""
     out = rows.copy()
-    if k <= 0:
+    if k == 0:
         return out
     old = out["n_tool_calls"]
-    steps = out["task_length_steps"]
+    if k < 0:
+        d = np.minimum(-k, (out["repeat_call_ratio"] * old).round())
+        new = old - d
+        out["n_tool_calls"] = new
+        out["task_length_steps"] = out["task_length_steps"] - d
+        out["error_rate"] = out["n_errors"] / new
+        out["repeat_call_ratio"] = ((out["repeat_call_ratio"] * old).round() - d) / new
+        out["api_calls"] = out["api_calls"] - d
+        out["tokens_sent"] = out["tokens_sent"] * new / old
+        return out
     new = old + k
     out["n_tool_calls"] = new
-    out["task_length_steps"] = steps + k
+    out["task_length_steps"] = out["task_length_steps"] + k
     out["n_distinct_tools"] = out["n_distinct_tools"] + 1
     out["error_rate"] = out["n_errors"] / new
     out["repeat_call_ratio"] = out["repeat_call_ratio"] * old / new
-    out["mean_text_len"] = (out["mean_text_len"] * steps + k * pad_chars) / (steps + k)
+    out["mean_text_len"] = (out["mean_text_len"] * old + k * pad_chars) / new
     out["api_calls"] = out["api_calls"] + k
     out["tokens_sent"] = out["tokens_sent"] + k * pad_chars / chars_per_token
     return out
@@ -74,7 +84,7 @@ ATTACKS = {
                           "trace_change": error_suppression.__doc__},
     "retry_diversification": {"fn": retry_diversification, "strengths": [None], "per_run_chars": _zeros,
                               "trace_change": retry_diversification.__doc__},
-    "call_shaping": {"fn": call_shaping, "strengths": [1, 2, 4, 8, 16, 32], "per_run_chars": _added_chars,
+    "call_shaping": {"fn": call_shaping, "strengths": [-32, -16, -8, -4, -2, -1, 1, 2, 4, 8, 16, 32], "per_run_chars": _added_chars,
                      "trace_change": call_shaping.__doc__},
     "message_shaping": {"fn": message_shaping, "strengths": [0.25, 0.5, 0.75, 1.5, 2, 4], "per_run_chars": _added_chars,
                         "trace_change": message_shaping.__doc__},

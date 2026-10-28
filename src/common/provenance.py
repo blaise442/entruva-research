@@ -41,3 +41,8 @@ def write_result(path: Path, hypothesis: str, metrics: dict, seeds: dict) -> Non
 def headline_results(results_dir: Path) -> list[Path]:
     """Every result JSON that may feed a headline: synthetic outputs are excluded by name."""
     return sorted(p for p in Path(results_dir).glob("*.json") if "synthetic" not in p.name)
+
+
+def synthetic_leaks(results_dir: Path) -> list[Path]:
+    """Simulation outputs (S4, flywheel) that would feed a headline because their name lacks the tag."""
+    return [p for p in headline_results(results_dir) if "S4" in p.name or "flywheel" in p.name]

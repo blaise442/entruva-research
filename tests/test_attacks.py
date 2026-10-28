@@ -77,3 +77,26 @@ def test_attack_registry_shape():
     assert set(ATTACKS) == {"error_suppression", "retry_diversification", "call_shaping", "message_shaping"}
     for spec in ATTACKS.values():
         assert {"fn", "strengths", "trace_change", "per_run_chars"} <= set(spec) and spec["trace_change"]
+
+
+def test_call_shaping_weights_text_length_by_tool_calls_not_steps():
+    # extractor: mean_text_len is the mean over tool-call steps (n = n_tool_calls), not task_length_steps
+    row = _row(n_tool_calls=10.0, task_length_steps=30.0, mean_text_len=100.0)
+    out = call_shaping(row, k=10, pad_chars=50)
+    assert out.mean_text_len.iloc[0] == pytest.approx(75.0)
+    assert ATTACKS["call_shaping"]["per_run_chars"](row, out).iloc[0] == pytest.approx(500.0)
+    assert ATTACKS["message_shaping"]["per_run_chars"](row, message_shaping(row, 2.0)).iloc[0] == pytest.approx(1000.0)
+
+
+def test_call_shaping_negative_k_drops_repeated_calls():
+    row = _row(n_tool_calls=10.0, repeat_call_ratio=0.3, task_length_steps=30.0, n_errors=1.0, error_rate=0.1,
+               api_calls=10.0, tokens_sent=1000.0, mean_text_len=100.0, n_distinct_tools=3.0)
+    out = call_shaping(row, k=-2)
+    assert out.n_tool_calls.iloc[0] == 8 and out.task_length_steps.iloc[0] == 28
+    assert out.repeat_call_ratio.iloc[0] == pytest.approx(1 / 8) and out.error_rate.iloc[0] == pytest.approx(1 / 8)
+    assert out.api_calls.iloc[0] == 8 and out.tokens_sent.iloc[0] == pytest.approx(800.0)
+    assert out.mean_text_len.iloc[0] == 100.0 and out.n_distinct_tools.iloc[0] == 3 and out.n_errors.iloc[0] == 1
+    capped = call_shaping(row, k=-5)  # only the 3 repeats are redundant
+    assert capped.n_tool_calls.iloc[0] == 7 and capped.repeat_call_ratio.iloc[0] == 0 and capped.tokens_sent.iloc[0] == pytest.approx(700.0)
+    assert ATTACKS["call_shaping"]["per_run_chars"](row, capped).iloc[0] == 0
+    assert ATTACKS["call_shaping"]["strengths"] == [-32, -16, -8, -4, -2, -1, 1, 2, 4, 8, 16, 32]

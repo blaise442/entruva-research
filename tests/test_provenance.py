@@ -28,3 +28,17 @@ def test_headline_results_excludes_synthetic(tmp_path):
     (tmp_path / "a_S3.json").write_text("{}")
     (tmp_path / "b_S4_flywheel_synthetic.json").write_text("{}")
     assert [p.name for p in headline_results(tmp_path)] == ["a_S3.json"]
+
+
+def test_synthetic_leaks_lists_simulation_files_without_the_tag(tmp_path):
+    from src.common.provenance import synthetic_leaks
+    for n in ["a_S3.json", "b_S4_flywheel.json", "c_S4_flywheel_synthetic.json"]:
+        (tmp_path / n).write_text("{}")
+    assert [p.name for p in synthetic_leaks(tmp_path)] == ["b_S4_flywheel.json"]
+
+
+def test_committed_results_have_no_synthetic_leaks():
+    from src.common.provenance import synthetic_leaks
+    results = Path(__file__).resolve().parents[1] / "results"
+    assert any("S4" in p.name for p in results.glob("*.json"))  # the check is not vacuous
+    assert synthetic_leaks(results) == []

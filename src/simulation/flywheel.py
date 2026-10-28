@@ -13,7 +13,6 @@ import pandas as pd
 from sklearn.metrics import roc_auc_score
 
 from src.adversarial.attacks import ATTACKS
-from src.adversarial.breakeven import breakeven_exposure
 from src.adversarial.scorer import frozen_scorer
 from src.models.fit import NUMERIC
 
@@ -66,10 +65,16 @@ def _apply(rows: pd.DataFrame, cheapest: dict) -> pd.DataFrame:
     return spec["fn"](rows) if cheapest["strength"] is None else spec["fn"](rows, cheapest["strength"])
 
 
-def simulate(test, scenario, cheapest, f, rounds, burn_in, rows_per_agent, n_agents, seed, baseline_auc, gbm_ci) -> dict:
+def attack_pays(dp: float, exposure_usd: float, cost_usd: float) -> bool:
+    """The attacker's own rule: saving over the year exceeds cost. The 3x in the
+    breakeven table is the insurer's floor, not the attacker's."""
+    return dp * exposure_usd > cost_usd
+
+
+def simulate(test, scenario, cheapest, f, rounds, burn_in, rows_per_agent, n_agents, seed, baseline_auc, gbm_ci, scorer0) -> dict:
     rng = np.random.default_rng(seed)
     pop = make_population(test, n_agents, f, seed)
-    scorer = frozen_scorer(test) if test["outcome"].nunique() > 1 else (lambda df: np.full(len(df), 0.5))
+    scorer = scorer0  # round 0 uses the Phase 2 scorer (design Part D)
     paid = np.zeros(n_agents, dtype=bool)
     R, X, E = scenario["runs_per_year"], scenario["exposure_usd"], scenario["one_time_usd"]
     out = []
@@ -85,7 +90,7 @@ def simulate(test, scenario, cheapest, f, rounds, burn_in, rows_per_agent, n_age
                     continue
                 m = (honest["sim_agent_id"] == sid).to_numpy()
                 dp = float(p_h[m].mean() - p_a[m].mean())
-                if breakeven_exposure(0.0 if paid[i] else E, cheapest["per_run_usd"], R, dp) < X:
+                if attack_pays(dp, X, (0.0 if paid[i] else E) + cheapest["per_run_usd"] * R):
                     observed = overwrite_rows(observed, attacked, m)
                     paid[i] = True
                     active += 1
