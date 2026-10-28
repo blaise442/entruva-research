@@ -1,0 +1,121 @@
+{
+  "hypothesis": "S3 reputation layer (descriptive)",
+  "metrics": {
+    "descriptives": {
+      "n_registered": 55407,
+      "n_feedback": 34493,
+      "registrations_per_week_bin": {
+        "0": 23107,
+        "1": 960,
+        "2": 1443,
+        "3": 2389,
+        "4": 464,
+        "5": 136,
+        "6": 585,
+        "7": 90,
+        "8": 2616,
+        "9": 84,
+        "10": 46,
+        "11": 43,
+        "12": 82,
+        "13": 102,
+        "14": 201,
+        "15": 1188,
+        "16": 467,
+        "17": 241,
+        "18": 178,
+        "19": 442,
+        "20": 572,
+        "21": 618,
+        "22": 451,
+        "23": 109,
+        "24": 163,
+        "25": 10167,
+        "26": 279,
+        "27": 2630,
+        "28": 490,
+        "29": 203,
+        "30": 149,
+        "31": 79,
+        "32": 102,
+        "33": 515,
+        "34": 679,
+        "35": 479,
+        "36": 1613,
+        "37": 1142,
+        "38": 103
+      },
+      "agents_with_feedback": 2651,
+      "feedback_per_agent": {
+        "min": 1.0,
+        "p25": 1.0,
+        "median": 1.0,
+        "p75": 9.0,
+        "max": 636.0,
+        "mean": 13.01131648434553
+      },
+      "givers_per_agent": {
+        "min": 1.0,
+        "p25": 1.0,
+        "median": 1.0,
+        "p75": 1.0,
+        "max": 127.0,
+        "mean": 1.3930592229347416
+      },
+      "agents_with_single_giver": 2444,
+      "share_feedback_from_registrant_wallets": 0.014988548401124865,
+      "n_distinct_givers": 721,
+      "event_counts": {
+        "identity": {
+          "MetadataSet": 106830,
+          "Transfer": 73794,
+          "Registered": 55407,
+          "MetadataUpdate": 37150,
+          "URIUpdated": 1566,
+          "ApprovalForAll": 363,
+          "Approval": 3,
+          "Upgraded": 2,
+          "Initialized": 2,
+          "OwnershipTransferred": 1
+        },
+        "reputation": {
+          "NewFeedback": 34493,
+          "ResponseAppended": 37,
+          "Upgraded": 2,
+          "Initialized": 2,
+          "OwnershipTransferred": 1
+        }
+      }
+    },
+    "attack_costs": {
+      "registration_eth": 6.8431831323598e-05,
+      "feedback_eth": 3.97893475365295e-05,
+      "sybil_eth": 0.0001082211788601275,
+      "collusion_eth": 0.0007957869507305899,
+      "whitewash_eth": 6.8431831323598e-05,
+      "median_feedback": 1,
+      "ring_k": 5,
+      "n_gas_sampled": 400,
+      "registration_usd": 0.17242432638125005,
+      "feedback_usd": 0.09649829849801217,
+      "sybil_usd": 0.2689226248792622,
+      "collusion_usd": 1.9299659699602434,
+      "whitewash_usd": 0.17242432638125005
+    },
+    "eth_usd": {
+      "source": "Coinbase public spot by date",
+      "days": 101,
+      "min": 1568.84,
+      "max": 3008.77
+    }
+  },
+  "provenance": {
+    "git_commit": "885a098052924afe117602effb703fe50879ca58",
+    "git_dirty": true,
+    "manifest_sha256": "771db30070a7e44fbf4c634b28f891a4edc27275a7472354b509cae108fb4abb",
+    "seeds": {
+      "gas_sample_seed": 20261017
+    },
+    "timestamp_utc": "2026-10-28T03:31:42.307431+00:00"
+  }
+}

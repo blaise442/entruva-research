@@ -14,3 +14,4 @@ reproduce:
 	$(PY) -m src.models.run_primary
 	$(PY) -m src.models.run_robustness
 	$(PY) -m src.adversarial.run_s3
+	$(PY) -m src.adversarial.run_reputation

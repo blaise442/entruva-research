@@ -223,3 +223,33 @@ Format:
 - SHA-256: c0063e0932fab68079bb1287e5e1ca1afa55d4413446dfa9c1ac06c5526a4a3b
 - License: public blockchain data
 - Known limitations: fetched 2026-10-25 from the keyless public endpoint https://rpc.mevblocker.io (Ethereum mainnet only; Base not yet fetched); ValidationRegistry has no published curated address
+
+## erc8004 contract ABI pin
+- URL / contract address: https://github.com/erc-8004/erc-8004-contracts/tree/b9e466c250744a7e06b13dff9d3c2844ed64f825/abis
+- Fetch date: 2026-10-27
+- Method (script path): src/adversarial/run_reputation.py
+- Row count: 0
+- File: IdentityRegistry.json
+- SHA-256: cdb8e30f41a56ed53421126dab87551ff2a178b8463646f69f75bc5dc9620564
+- License: public data
+- Known limitations: IdentityRegistry.json and ReputationRegistry.json copied from commit b9e466c250744a7e06b13dff9d3c2844ed64f825; used only to decode events
+
+## erc8004 gas sample (receipts)
+- URL / contract address: https://rpc.mevblocker.io
+- Fetch date: 2026-10-27
+- Method (script path): src/adversarial/run_reputation.py
+- Row count: 400
+- File: gas_sample.csv
+- SHA-256: b1046d6832c9b0255957683facb970185638f05ed10dc019bf1a32f1cd8cab19
+- License: public data
+- Known limitations: 200 seeded transactions per event type (Registered, NewFeedback) via eth_getTransactionReceipt on the keyless public endpoint https://rpc.mevblocker.io
+
+## erc8004 ETH-USD daily spot
+- URL / contract address: https://api.coinbase.com/v2/prices/ETH-USD/spot
+- Fetch date: 2026-10-27
+- Method (script path): src/adversarial/run_reputation.py
+- Row count: 101
+- File: eth_usd_daily.csv
+- SHA-256: 51711c0c8a9f36cfe65e7e961fb2c43fe182172ac8c92f5fe031bdc8278a003d
+- License: public data
+- Known limitations: Coinbase public spot price by date (api.coinbase.com/v2/prices/ETH-USD/spot?date=), one row per block day in the gas sample; no key
