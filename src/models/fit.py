@@ -52,12 +52,17 @@ def _clean(df, cols):
     return X
 
 
+def model_columns(train, with_model_id: bool = True) -> list[str]:
+    """The exact input columns a fit uses: categoricals first (the ordinal-encoder
+    mask depends on it), all-missing numerics dropped (they carry nothing)."""
+    cols = MODEL_INPUTS if with_model_id else [c for c in MODEL_INPUTS if c != "model_id"]
+    cols = [c for c in cols if c in CATEGORICAL] + [c for c in cols if c not in CATEGORICAL]
+    return [c for c in cols if c in CATEGORICAL or train[c].notna().any()]
+
+
 def fit_predict(train, test, with_model_id: bool = True) -> dict:
     """Out-of-sample failure probabilities for every model on the test rows."""
-    cols = MODEL_INPUTS if with_model_id else [c for c in MODEL_INPUTS if c != "model_id"]
-    # column order must put categoricals first for the ordinal-encoder mask
-    cols = [c for c in cols if c in CATEGORICAL] + [c for c in cols if c not in CATEGORICAL]
-    cols = [c for c in cols if c in CATEGORICAL or train[c].notna().any()]  # an all-missing column carries nothing
+    cols = model_columns(train, with_model_id)
     ytr = train["outcome"].to_numpy()
     out = {"baseline": naive_baseline(train["model_id"], train["task_type"], train["task_length_steps"], ytr,
                                       test["model_id"], test["task_type"], test["task_length_steps"])}
