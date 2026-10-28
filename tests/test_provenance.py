@@ -21,3 +21,10 @@ def test_write_result_embeds_provenance(tmp_path: Path):
     assert d["hypothesis"] == "H1"
     assert d["metrics"]["ratio"] == "inf"
     assert d["provenance"]["seeds"] == {"cv": 1}
+
+
+def test_headline_results_excludes_synthetic(tmp_path):
+    from src.common.provenance import headline_results
+    (tmp_path / "a_S3.json").write_text("{}")
+    (tmp_path / "b_S4_flywheel_synthetic.json").write_text("{}")
+    assert [p.name for p in headline_results(tmp_path)] == ["a_S3.json"]

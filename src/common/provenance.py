@@ -36,3 +36,8 @@ def _json_safe(value):
 def write_result(path: Path, hypothesis: str, metrics: dict, seeds: dict) -> None:
     payload = {"hypothesis": hypothesis, "metrics": _json_safe(metrics), "provenance": provenance(seeds)}
     path.write_text(json.dumps(payload, indent=2, allow_nan=False) + "\n")
+
+
+def headline_results(results_dir: Path) -> list[Path]:
+    """Every result JSON that may feed a headline: synthetic outputs are excluded by name."""
+    return sorted(p for p in Path(results_dir).glob("*.json") if "synthetic" not in p.name)

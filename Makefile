@@ -15,3 +15,4 @@ reproduce:
 	$(PY) -m src.models.run_robustness
 	$(PY) -m src.adversarial.run_s3
 	$(PY) -m src.adversarial.run_reputation
+	$(PY) -m src.simulation.run_s4
