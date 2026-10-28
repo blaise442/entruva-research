@@ -1,0 +1,11 @@
+model_id,input_usd_per_mtok,output_usd_per_mtok,source_url,fetched_on,note
+gpt-4o,2.50,10.00,https://developers.openai.com/api/docs/pricing,2026-10-27,
+gpt-4o-2024-05-13,5.00,15.00,https://developers.openai.com/api/docs/pricing,2026-10-27,
+gpt-4o-2024-05-13-transformers_pi_detector,5.00,15.00,https://developers.openai.com/api/docs/pricing,2026-10-27,AgentDojo run of gpt-4o-2024-05-13 with a prompt-injection detector; priced as the underlying model
+gpt-4-turbo-2024-04-09,10.00,30.00,https://developers.openai.com/api/docs/pricing,2026-10-27,
+gpt-3.5-turbo-0125,0.50,1.50,https://developers.openai.com/api/docs/pricing,2026-10-27,
+gpt35_16k,,,https://developers.openai.com/api/docs/pricing,2026-10-27,gpt-3.5-turbo-16k is not listed on the current pricing page; unpriced
+claude-3-5-sonnet-20241022,,,https://platform.claude.com/docs/en/about-claude/model-deprecations,2026-10-27,retired 2025-10-28 and absent from the current pricing page (platform.claude.com/docs/en/about-claude/pricing); unpriced
+claude-3-haiku-20240307,,,https://platform.claude.com/docs/en/about-claude/model-deprecations,2026-10-27,retired 2026-04-20 and absent from the current pricing page (platform.claude.com/docs/en/about-claude/pricing); unpriced
+claude3.5sonnet,,,https://platform.claude.com/docs/en/about-claude/model-deprecations,2026-10-27,SWE-agent id for a Claude 3.5 Sonnet release (version not recorded); both releases retired 2025-10-28 and absent from the current pricing page; unpriced
+meta-llama_Llama-3.3-70B-Instruct,,,https://github.com/meta-llama/llama-models,2026-10-27,open-weights model with no vendor list price; unpriced

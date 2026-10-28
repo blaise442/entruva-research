@@ -1,0 +1,14 @@
+source,model_id,encoding,chars_per_token,n_chars_sampled,measured_on
+agentdojo,cl100k_base,cl100k_base,3.0655,602518,2026-10-27
+agentdojo,claude-3-5-sonnet-20241022,cl100k_base,3.0655,602518,2026-10-27
+agentdojo,claude-3-haiku-20240307,cl100k_base,3.0655,602518,2026-10-27
+agentdojo,gpt-3.5-turbo-0125,cl100k_base,3.0655,602518,2026-10-27
+agentdojo,gpt-4-turbo-2024-04-09,cl100k_base,3.0655,602518,2026-10-27
+agentdojo,gpt-4o-2024-05-13-transformers_pi_detector,o200k_base,3.0628,602518,2026-10-27
+agentdojo,meta-llama_Llama-3.3-70B-Instruct,cl100k_base,3.0655,602518,2026-10-27
+swe-bench,cl100k_base,cl100k_base,4.1522,3357895,2026-10-27
+swe-bench,claude3.5sonnet,cl100k_base,4.1522,3357895,2026-10-27
+tau-bench,cl100k_base,cl100k_base,2.8441,1505911,2026-10-27
+tau-bench,gpt-4o,o200k_base,2.845,1505911,2026-10-27
+webarena,cl100k_base,cl100k_base,3.2935,90053,2026-10-27
+webarena,gpt35_16k,cl100k_base,3.2935,90053,2026-10-27
