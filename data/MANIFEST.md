@@ -253,3 +253,53 @@ Format:
 - SHA-256: 51711c0c8a9f36cfe65e7e961fb2c43fe182172ac8c92f5fe031bdc8278a003d
 - License: public data
 - Known limitations: Coinbase public spot price by date (api.coinbase.com/v2/prices/ETH-USD/spot?date=), one row per block day in the gas sample; no key
+
+## dataverse HJZW8Q agents_core.csv
+- URL / contract address: https://doi.org/10.7910/DVN/HJZW8Q (file id 13683212)
+- Fetch date: 2026-10-28
+- Method (script path): src/collect/dataverse.py
+- Row count: 10000
+- File: agents_core.csv
+- SHA-256: 5c6fe3da38d4f3acbadbce71c723e9ce4aaa08eac96b8dba528e9de3b3583784
+- License: CC0 1.0
+- Known limitations: first 10,000 Ethereum agents (ids 0 to 9999) at an observation block the data dictionary does not state; released 2026-07-01
+
+## dataverse HJZW8Q transfer_history.csv
+- URL / contract address: https://doi.org/10.7910/DVN/HJZW8Q (file id 13683210)
+- Fetch date: 2026-10-28
+- Method (script path): src/collect/dataverse.py
+- Row count: 1961
+- File: transfer_history.csv
+- SHA-256: 9cbd19a964da6d03aaece72b94816cb759dbd5dbc0f8a3bd44ab9c89a1320bd7
+- License: CC0 1.0
+- Known limitations: first 10,000 Ethereum agents (ids 0 to 9999) at an observation block the data dictionary does not state; released 2026-07-01
+
+## dataverse HJZW8Q agent_feedback_records.csv
+- URL / contract address: https://doi.org/10.7910/DVN/HJZW8Q (file id 13683215)
+- Fetch date: 2026-10-28
+- Method (script path): src/collect/dataverse.py
+- Row count: 980
+- File: agent_feedback_records.csv
+- SHA-256: 554200d21d4f47e8929c91863e211a6b7f2b8a4a782b80f28a3244bd319fee95
+- License: CC0 1.0
+- Known limitations: first 10,000 Ethereum agents (ids 0 to 9999) at an observation block the data dictionary does not state; released 2026-07-01
+
+## dataverse HJZW8Q agent_reputation_summary.csv
+- URL / contract address: https://doi.org/10.7910/DVN/HJZW8Q (file id 14033649)
+- Fetch date: 2026-10-28
+- Method (script path): src/collect/dataverse.py
+- Row count: 10000
+- File: agent_reputation_summary.csv
+- SHA-256: 2663fa2db7d326f10c545f904d2b41e8dc80c1ff2c723e9783ee5ae9dd8ecbc8
+- License: CC0 1.0
+- Known limitations: first 10,000 Ethereum agents (ids 0 to 9999) at an observation block the data dictionary does not state; released 2026-07-01
+
+## dataverse HJZW8Q data_dictionary.md
+- URL / contract address: https://doi.org/10.7910/DVN/HJZW8Q (file id 13687590)
+- Fetch date: 2026-10-28
+- Method (script path): src/collect/dataverse.py
+- Row count: 0
+- File: data_dictionary.md
+- SHA-256: 039aad4c70b85ce81471da72b90b7ce244302815889c07945d90146ebe50a1e4
+- License: CC0 1.0
+- Known limitations: first 10,000 Ethereum agents (ids 0 to 9999) at an observation block the data dictionary does not state; released 2026-07-01
