@@ -363,3 +363,33 @@ Format:
 - SHA-256: d9fd4f97c5f461d9e72ab53848380c17a435e126e8dcb26b84361bbb095d00fe
 - License: public blockchain data
 - Known limitations: fetched from the keyless public endpoint https://bsc-rpc.publicnode.com; window of 380000 blocks (130116686..130496686) because the endpoint serves no older history; ValidationRegistry has no published curated address
+
+## 8004scan newest agent ethereum-mainnet
+- URL / contract address: https://api.8004scan.io/api/v1/agents?chain_id=1&limit=1&is_active=any&is_registered=true
+- Fetch date: 2026-10-29
+- Method (script path): src/crosscheck/run_chains.py
+- Row count: 1
+- File: ethereum-mainnet_newest.json
+- SHA-256: 556bd78e08b56c67143ee396c31f30628f26f8e53afa386bc9c22080ed0c8adb
+- License: public API, anonymous tier
+- Known limitations: one request; newest token_id on the request date bounds our registration count; the total field is recorded, not used
+
+## 8004scan newest agent base-mainnet
+- URL / contract address: https://api.8004scan.io/api/v1/agents?chain_id=8453&limit=1&is_active=any&is_registered=true
+- Fetch date: 2026-10-29
+- Method (script path): src/crosscheck/run_chains.py
+- Row count: 1
+- File: base-mainnet_newest.json
+- SHA-256: c94c3e1666099a9cfe292782121789726cd92a2b364d4879680ae7755865061a
+- License: public API, anonymous tier
+- Known limitations: one request; newest token_id on the request date bounds our registration count; the total field is recorded, not used
+
+## 8004scan newest agent bnb-mainnet
+- URL / contract address: https://api.8004scan.io/api/v1/agents?chain_id=56&limit=1&is_active=any&is_registered=true
+- Fetch date: 2026-10-29
+- Method (script path): src/crosscheck/run_chains.py
+- Row count: 1
+- File: bnb-mainnet_newest.json
+- SHA-256: 893e772c6745c00e690e38a3d51d2cd49527463bc6f27002ced72ef060afd634
+- License: public API, anonymous tier
+- Known limitations: one request; newest token_id on the request date bounds our registration count; the total field is recorded, not used

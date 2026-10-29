@@ -1,0 +1,63 @@
+{
+  "hypothesis": "Phase 4 reputation descriptives",
+  "metrics": {
+    "chain": "base-mainnet",
+    "windowed_fetch": true,
+    "window": {
+      "from_block": 53162845,
+      "head": 53248845,
+      "days": 1.9907407407407407,
+      "registrations": 5605,
+      "registrations_per_day": 2815.5348837209303,
+      "feedback_events": 2161,
+      "feedback_per_day": 1085.5255813953488,
+      "agents_with_feedback": 2106,
+      "single_giver_share": 0.9995251661918328,
+      "distinct_givers": 2098
+    },
+    "descriptives": {
+      "n_registered": 5605,
+      "n_feedback": 2161,
+      "registrations_per_week_bin": {
+        "0": 3710,
+        "1": 1895
+      },
+      "agents_with_feedback": 2106,
+      "feedback_per_agent": {
+        "min": 1.0,
+        "p25": 1.0,
+        "median": 1.0,
+        "p75": 1.0,
+        "max": 46.0,
+        "mean": 1.0261158594491928
+      },
+      "givers_per_agent": {
+        "min": 1.0,
+        "p25": 1.0,
+        "median": 1.0,
+        "p75": 1.0,
+        "max": 44.0,
+        "mean": 1.020417853751187
+      },
+      "agents_with_single_giver": 2105,
+      "share_feedback_from_registrant_wallets": 0.027302174919018974,
+      "n_distinct_givers": 2098
+    },
+    "count_check": {
+      "status": "not applicable",
+      "n_registered": 5605,
+      "max_agent_id": 1143328,
+      "api_token_id": 1143354,
+      "api_total": 1043351
+    },
+    "n_identity_logs": 32961,
+    "n_reputation_logs": 2161
+  },
+  "provenance": {
+    "git_commit": "f1b025b169c40f729b8ec85554effc8c1cc5053f",
+    "git_dirty": true,
+    "manifest_sha256": "0028cc9228afb87cffe3b7921f713ec30028b9a39c1359d16e4acac0eda71576",
+    "seeds": {},
+    "timestamp_utc": "2026-10-29T15:34:53.848918+00:00"
+  }
+}
