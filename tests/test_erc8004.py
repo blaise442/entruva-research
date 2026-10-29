@@ -4,6 +4,13 @@ from pathlib import Path
 import pytest
 from src.collect.erc8004 import _chain_name, fetch_logs, run, to_jsonable
 
+
+@pytest.fixture(autouse=True)
+def no_pacing(monkeypatch):
+    """Stubs answer instantly; the real pacing is for public endpoints."""
+    import src.collect.erc8004 as mod
+    monkeypatch.setattr(mod, "CALL_GAP", 0.0)
+
 class StubEth:
     """get_logs stub: holds (block, log) pairs; raises on ranges wider than max_span."""
     def __init__(self, logs_by_block: dict[int, list[dict]], max_span: int | None = None):
@@ -200,3 +207,21 @@ def test_first_block_with_code_retries_on_throttling(monkeypatch):
     from src.collect.erc8004 import first_block_with_code
     monkeypatch.setattr(mod.time, "sleep", lambda s: None)
     assert first_block_with_code(ThrottledCodeEth(3), "0xabc", 100) == 40
+
+
+def test_rpc_calls_are_paced(monkeypatch):
+    import src.collect.erc8004 as mod
+    slept = []
+    monkeypatch.setattr(mod.time, "sleep", slept.append)
+    eth = StubEth({5: [_log(5)], 60: [_log(60)], 140: [_log(140)]})
+    fetch_logs(eth, "0xabc", 0, 149, chunk=50)
+    assert slept.count(mod.CALL_GAP) >= 3
+
+
+def test_throttling_waits_a_fixed_long_time_instead_of_hammering(monkeypatch):
+    import src.collect.erc8004 as mod
+    from src.collect.erc8004 import first_block_with_code
+    slept = []
+    monkeypatch.setattr(mod.time, "sleep", slept.append)
+    assert first_block_with_code(ThrottledCodeEth(3), "0xabc", 100) == 40
+    assert slept.count(mod.BAN_WAIT) == 3

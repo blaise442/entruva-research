@@ -16,6 +16,11 @@ from src.common.manifest import append_entry
 
 MIN_CHUNK = 1
 MAX_429_RETRIES = 8
+# publicnode blocks a client that sends a burst of calls (about ten in two seconds)
+# with 403 for minutes, and every retry during the block extends it: pace every
+# call, and on a block wait a fixed long time rather than backing off from 2 s.
+CALL_GAP = 0.5
+BAN_WAIT = 120
 
 
 def _is_rate_limit(exc: Exception) -> bool:
@@ -25,14 +30,16 @@ def _is_rate_limit(exc: Exception) -> bool:
 
 
 def _throttled(call):
-    """Run one RPC call, waiting and retrying while the provider throttles it."""
-    for waits in range(1, MAX_429_RETRIES + 1):
+    """Run one paced RPC call, waiting and retrying while the provider throttles it."""
+    for _ in range(MAX_429_RETRIES):
+        time.sleep(CALL_GAP)
         try:
             return call()
         except Exception as exc:
             if not _is_rate_limit(exc):
                 raise
-            time.sleep(min(2 ** waits, 60))
+            time.sleep(BAN_WAIT)
+    time.sleep(CALL_GAP)
     return call()
 
 # Chain ids verified against chainlist.org entries for the chains with
@@ -52,24 +59,18 @@ def fetch_logs(eth, address: str, from_block: int, to_block: int, chunk: int = 5
     sparse remainder."""
     logs: list[dict] = []
     lo = from_block
-    waits = 0
     max_chunk = chunk
     while lo <= to_block:
         hi = min(lo + chunk - 1, to_block)
-        try:
-            logs.extend(eth.get_logs({"address": address, "fromBlock": lo, "toBlock": hi}))
+        try:  # throttling is retried on the same window inside _throttled; any other error halves the window
+            logs.extend(_throttled(lambda: eth.get_logs({"address": address, "fromBlock": lo, "toBlock": hi})))
         except Exception as exc:
-            if _is_rate_limit(exc):  # provider throttling, not a range problem: wait, keep the window
-                waits += 1
-                if waits > MAX_429_RETRIES:
-                    raise
-                time.sleep(min(2 ** waits, 60))
-                continue
+            if _is_rate_limit(exc):
+                raise
             if chunk <= MIN_CHUNK:
                 raise ValueError(f"provider rejects even chunk={chunk}; cannot fetch {lo}..{hi}")
             chunk = max(MIN_CHUNK, chunk // 2)
             continue
-        waits = 0
         lo = hi + 1
         chunk = min(chunk * 2, max_chunk)
     return logs
