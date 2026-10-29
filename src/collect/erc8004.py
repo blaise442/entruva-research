@@ -124,13 +124,21 @@ def run(out_dir: Path, manifest_path: Path) -> int:
     out_dir.mkdir(parents=True, exist_ok=True)
     head = w3.eth.block_number
     endpoint_chain = _chain_name(w3.eth.chain_id)  # raises on any unmapped chain
+    # WINDOW_BLOCKS: fetch only the last N blocks (a keyless endpoint that serves no
+    # older history); the exact span is recorded from block timestamps.
+    window = int(os.environ["WINDOW_BLOCKS"]) if os.environ.get("WINDOW_BLOCKS") else None
     for chain, regs in REGISTRIES.items():
         # shortcut: one RPC endpoint serves one chain; fetch only the chain it reports,
         # upgrade to per-chain endpoints when a second RPC is provided.
         if chain != endpoint_chain:
             continue
+        if window is not None:
+            start_w = head - window
+            ts = [_throttled(lambda b=b: w3.eth.get_block(b)["timestamp"]) for b in (start_w, head)]
+            (out_dir / f"{chain}_window.json").write_text(json.dumps(
+                {"from_block": start_w, "head": head, "from_timestamp": ts[0], "head_timestamp": ts[1]}) + "\n")
         for registry, address in regs.items():
-            start = first_block_with_code(w3.eth, address, head)
+            start = start_w if window is not None else first_block_with_code(w3.eth, address, head)
             print(f"erc8004: {chain} {registry} deployed by block {start}; scanning {start}..{head}")
             logs = fetch_logs(w3.eth, address, start, head)
             rows = [to_jsonable(dict(l), chain=chain, registry=registry) for l in logs]
@@ -141,6 +149,7 @@ def run(out_dir: Path, manifest_path: Path) -> int:
                          method="src/collect/erc8004.py", row_count=len(rows), file_path=path,
                          license="public blockchain data",
                          limitations=(f"fetched from the keyless public endpoint {public}" if public else "fetched via a private RPC endpoint (not recorded)")
+                         + (f"; window of {window} blocks ({start}..{head}) because the endpoint serves no older history" if window is not None else "")
                          + "; ValidationRegistry has no published curated address")
     return 0
 

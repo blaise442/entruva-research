@@ -81,6 +81,8 @@ class _StubEth:
         return [_log(3)]
     def get_code(self, address, block_identifier):
         return b"\x60"
+    def get_block(self, n):
+        return {"timestamp": 1_000_000 + 12 * n}
 
 class _StubWeb3:
     @staticmethod
@@ -225,3 +227,17 @@ def test_throttling_waits_a_fixed_long_time_instead_of_hammering(monkeypatch):
     monkeypatch.setattr(mod.time, "sleep", slept.append)
     assert first_block_with_code(ThrottledCodeEth(3), "0xabc", 100) == 40
     assert slept.count(mod.BAN_WAIT) == 3
+
+
+def test_run_honours_a_block_window_and_records_it(tmp_path, monkeypatch):
+    import web3
+    monkeypatch.delenv("RPC_URL", raising=False)
+    monkeypatch.setenv("PUBLIC_RPC_URL", "https://base-rpc.publicnode.com")
+    monkeypatch.setenv("WINDOW_BLOCKS", "3")
+    monkeypatch.setattr(web3, "Web3", _StubWeb3)
+    manifest = tmp_path / "MANIFEST.md"
+    manifest.write_text("# manifest\n")
+    assert run(tmp_path / "erc8004", manifest) == 0
+    w = json.loads((tmp_path / "erc8004" / "ethereum-mainnet_window.json").read_text())
+    assert w == {"from_block": 2, "head": 5, "from_timestamp": 1_000_024, "head_timestamp": 1_000_060}
+    assert "window of 3 blocks" in manifest.read_text()
