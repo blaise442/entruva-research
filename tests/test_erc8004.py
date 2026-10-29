@@ -82,7 +82,15 @@ class _StubEth:
     def get_code(self, address, block_identifier):
         return b"\x60"
     def get_block(self, n):
-        return {"timestamp": 1_000_000 + 12 * n}
+        raise AssertionError("block headers are read raw: get_block fails on proof-of-authority chains")
+
+
+class _StubProvider:
+    """eth_getBlockByNumber answered raw, as a POA chain's header would need."""
+    @staticmethod
+    def make_request(method, params):
+        assert method == "eth_getBlockByNumber"
+        return {"result": {"timestamp": hex(1_000_000 + 12 * int(params[0], 16)), "extraData": "0x" + "00" * 280}}
 
 class _StubWeb3:
     @staticmethod
@@ -90,6 +98,7 @@ class _StubWeb3:
         return url
     def __init__(self, provider):
         self.eth = _StubEth()
+        self.provider = _StubProvider()
 
 def test_run_never_writes_the_rpc_secret_anywhere(tmp_path, monkeypatch):
     import web3

@@ -134,7 +134,8 @@ def run(out_dir: Path, manifest_path: Path) -> int:
             continue
         if window is not None:
             start_w = head - window
-            ts = [_throttled(lambda b=b: w3.eth.get_block(b)["timestamp"]) for b in (start_w, head)]
+            # raw header read: w3.eth.get_block rejects proof-of-authority headers (BNB Smart Chain)
+            ts = [_throttled(lambda b=b: int(w3.provider.make_request("eth_getBlockByNumber", [hex(b), False])["result"]["timestamp"], 16)) for b in (start_w, head)]
             (out_dir / f"{chain}_window.json").write_text(json.dumps(
                 {"from_block": start_w, "head": head, "from_timestamp": ts[0], "head_timestamp": ts[1]}) + "\n")
         for registry, address in regs.items():
