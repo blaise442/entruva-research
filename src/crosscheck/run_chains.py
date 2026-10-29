@@ -20,15 +20,15 @@ CHAIN_IDS = {"ethereum-mainnet": 1, "base-mainnet": 8453, "bnb-mainnet": 56}
 ETH_SLOT_SECONDS, WINDOW_DAYS = 12, 2.0  # the Ethereum window is cut from the full file (DEVIATIONS 2026-10-29)
 
 
-def _window(raw: Path, chain: str, identity) -> tuple[dict, bool]:
-    """(window stats, windowed fetch?) from the collector's window file, or the last
-    two days of a full-history file using the slot time."""
+def _window(raw: Path, chain: str, identity, feedback) -> tuple[dict, float, bool]:
+    """(window bounds, days, windowed fetch?) from the collector's window file, or the last
+    two days of a full-history file using the slot time, ending at the later of its two files."""
     wf = raw / f"{chain}_window.json"
     if wf.exists():
         w = json.loads(wf.read_text())
         days = (w["head_timestamp"] - w["from_timestamp"]) / 86400
         return w, days, True
-    head = int(identity.blockNumber.max())
+    head = int(max(identity.blockNumber.max(), feedback.blockNumber.max()))
     return {"from_block": head - int(WINDOW_DAYS * 86400 / ETH_SLOT_SECONDS), "head": head}, WINDOW_DAYS, False
 
 
@@ -43,15 +43,19 @@ def main():
         desc = descriptives(identity, feedback)
         reg = identity[identity.event == "Registered"]
         max_id = int(reg.args.map(lambda a: int(a["agentId"])).max()) if len(reg) else -1
-        w, days, windowed = _window(raw, chain, identity)
+        w, days, windowed = _window(raw, chain, identity, feedback)
         window = window_stats(identity, feedback, w["from_block"], w["head"], days)
         try:
-            api = newest_token_id(chain_id)
             scan = ROOT / "data/raw/8004scan"; scan.mkdir(parents=True, exist_ok=True)
-            p = scan / f"{chain}_newest.json"; p.write_text(json.dumps(api, indent=2) + "\n")
-            append_entry(manifest, name=f"8004scan newest agent {chain}", url=api["url"], method="src/crosscheck/run_chains.py",
-                         row_count=1, file_path=p, license="public API, anonymous tier",
-                         limitations="one request; newest token_id on the request date bounds our registration count; the total field is recorded, not used")
+            p = scan / f"{chain}_newest.json"
+            if p.exists():  # one request per chain: a rerun reuses the pinned response and adds no MANIFEST entry
+                api = json.loads(p.read_text())
+            else:
+                api = newest_token_id(chain_id)
+                p.write_text(json.dumps(api, indent=2) + "\n")
+                append_entry(manifest, name=f"8004scan newest agent {chain}", url=api["url"], method="src/crosscheck/run_chains.py",
+                             row_count=1, file_path=p, license="public API, anonymous tier",
+                             limitations="one request; newest token_id on the request date bounds our registration count; the total field is recorded, not used")
             check = count_check(len(reg), max_id, api, complete=not windowed)
         except RuntimeError as exc:
             check = {**count_check(len(reg), max_id, None), "error": str(exc)}

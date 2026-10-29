@@ -18,8 +18,9 @@ def main():
     identity = decode_events(raw / "ethereum-mainnet_identity.jsonl", ROOT / "data/abi/IdentityRegistry.json")
     reputation = decode_events(raw / "ethereum-mainnet_reputation.jsonl", ROOT / "data/abi/ReputationRegistry.json")
     reg, tr, fb = registered(identity), transfers(identity), feedback(reputation)
-    checks = {"agents_core": check_agents_core(pd.read_csv(dv / "agents_core.csv"), reg, tr),
-              "transfer_history": check_transfers(pd.read_csv(dv / "transfer_history.csv"), tr),
+    core = pd.read_csv(dv / "agents_core.csv")
+    checks = {"agents_core": check_agents_core(core, reg, tr),
+              "transfer_history": check_transfers(pd.read_csv(dv / "transfer_history.csv"), tr, set(core.agent_id.astype(int))),
               "agent_feedback_records": check_feedback(pd.read_csv(dv / "agent_feedback_records.csv"), fb),
               "agent_reputation_summary": check_summary(pd.read_csv(dv / "agent_reputation_summary.csv"), fb)}
     v = verdict(checks)

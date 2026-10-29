@@ -60,10 +60,10 @@
     "n_reputation_logs": 9
   },
   "provenance": {
-    "git_commit": "f1b025b169c40f729b8ec85554effc8c1cc5053f",
+    "git_commit": "81b416481c915bc5859324c6b8c7223616ef1793",
     "git_dirty": true,
-    "manifest_sha256": "cc7d349afb081a2dee6af49c140a3741ca744fd6a4040f854d9fce5932470728",
+    "manifest_sha256": "2f9a68400d357ac4e4095c500001d58d74c043ddd176e57133de919716ba5640",
     "seeds": {},
-    "timestamp_utc": "2026-10-29T15:34:55.882476+00:00"
+    "timestamp_utc": "2026-10-29T23:40:30.792566+00:00"
   }
 }

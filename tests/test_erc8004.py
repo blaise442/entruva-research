@@ -250,3 +250,19 @@ def test_run_honours_a_block_window_and_records_it(tmp_path, monkeypatch):
     w = json.loads((tmp_path / "erc8004" / "ethereum-mainnet_window.json").read_text())
     assert w == {"from_block": 2, "head": 5, "from_timestamp": 1_000_024, "head_timestamp": 1_000_060}
     assert "window of 3 blocks" in manifest.read_text()
+
+
+def test_run_without_a_window_removes_a_stale_window_file(tmp_path, monkeypatch):
+    """A later full-history fetch must not be reported as windowed by a file from an earlier windowed run."""
+    import web3
+    monkeypatch.delenv("RPC_URL", raising=False)
+    monkeypatch.delenv("WINDOW_BLOCKS", raising=False)
+    monkeypatch.setenv("PUBLIC_RPC_URL", "https://base-rpc.publicnode.com")
+    monkeypatch.setattr(web3, "Web3", _StubWeb3)
+    out = tmp_path / "erc8004"; out.mkdir()
+    stale = out / "ethereum-mainnet_window.json"
+    stale.write_text("{}\n")
+    manifest = tmp_path / "MANIFEST.md"
+    manifest.write_text("# manifest\n")
+    assert run(out, manifest) == 0
+    assert not stale.exists()

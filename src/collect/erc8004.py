@@ -132,11 +132,14 @@ def run(out_dir: Path, manifest_path: Path) -> int:
         # upgrade to per-chain endpoints when a second RPC is provided.
         if chain != endpoint_chain:
             continue
-        if window is not None:
+        wf = out_dir / f"{chain}_window.json"
+        if window is None:
+            wf.unlink(missing_ok=True)  # a stale file would mark a full-history fetch as windowed
+        else:
             start_w = head - window
             # raw header read: w3.eth.get_block rejects proof-of-authority headers (BNB Smart Chain)
             ts = [_throttled(lambda b=b: int(w3.provider.make_request("eth_getBlockByNumber", [hex(b), False])["result"]["timestamp"], 16)) for b in (start_w, head)]
-            (out_dir / f"{chain}_window.json").write_text(json.dumps(
+            wf.write_text(json.dumps(
                 {"from_block": start_w, "head": head, "from_timestamp": ts[0], "head_timestamp": ts[1]}) + "\n")
         for registry, address in regs.items():
             start = start_w if window is not None else first_block_with_code(w3.eth, address, head)

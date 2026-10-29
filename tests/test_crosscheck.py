@@ -62,7 +62,7 @@ def test_observation_block_is_the_smallest_block_with_full_agreement():
 def test_transfers_exclude_mints_from_our_window_count():
     dv = pd.DataFrame([{"agent_id": 1, "tx_hash": "11" * 32, "log_index": 0, "block_number": 50},
                        {"agent_id": 1, "tx_hash": "22" * 32, "log_index": 0, "block_number": 90}])
-    out = check_transfers(dv, transfers(_identity()))
+    out = check_transfers(dv, transfers(_identity()), {0, 1, 2})
     assert out["rows"] == 2 and out["agreeing"] == 2 and out["ours_in_window"] == 2 and out["theirs"] == 2
 
 
@@ -89,3 +89,15 @@ def test_verdict_names_the_failing_checks():
     assert verdict(failing).startswith("differs: agent_feedback_records")
     extra = {**clean, "transfer_history": {"disagreeing": 0, "ours_in_window": 3, "theirs": 2}}
     assert verdict(extra) == "differs: transfer_history"
+
+
+def test_transfers_notice_an_agent_whose_rows_the_dataset_lacks():
+    """The window count runs over every core agent, not only agents the dataset lists."""
+    ident = _identity()
+    ident = pd.concat([ident, pd.DataFrame([{"blockNumber": 50, "logIndex": 1, "transactionHash": "0x" + "33" * 32, "event": "Transfer",
+                                             "args": {"from": A, "to": B, "tokenId": 2}}])], ignore_index=True)
+    dv = pd.DataFrame([{"agent_id": 1, "tx_hash": "11" * 32, "log_index": 0, "block_number": 50},
+                       {"agent_id": 1, "tx_hash": "22" * 32, "log_index": 0, "block_number": 90}])
+    out = check_transfers(dv, transfers(ident), {0, 1, 2})
+    assert out["ours_in_window"] == 3 and out["theirs"] == 2 and out["their_max_block"] == 90
+    assert verdict({"transfer_history": out}) == "differs: transfer_history"

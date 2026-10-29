@@ -324,26 +324,6 @@ Format:
 - License: public blockchain data
 - Known limitations: fetched from the keyless public endpoint https://base-rpc.publicnode.com; window of 86000 blocks (53162845..53248845) because the endpoint serves no older history; ValidationRegistry has no published curated address
 
-## 8004scan newest agent ethereum-mainnet
-- URL / contract address: https://api.8004scan.io/api/v1/agents?chain_id=1&limit=1&is_active=any&is_registered=true
-- Fetch date: 2026-10-29
-- Method (script path): src/crosscheck/run_chains.py
-- Row count: 1
-- File: ethereum-mainnet_newest.json
-- SHA-256: ca1492867ac9384e3ebb12edeaf526cb52a92821de27541e2e46803f3268b3a0
-- License: public API, anonymous tier
-- Known limitations: one request; newest token_id on the request date bounds our registration count; the total field is recorded, not used
-
-## 8004scan newest agent base-mainnet
-- URL / contract address: https://api.8004scan.io/api/v1/agents?chain_id=8453&limit=1&is_active=any&is_registered=true
-- Fetch date: 2026-10-29
-- Method (script path): src/crosscheck/run_chains.py
-- Row count: 1
-- File: base-mainnet_newest.json
-- SHA-256: 10fc06537f39339099a4a92427b325168c3a388b3072925c881541b5658d2024
-- License: public API, anonymous tier
-- Known limitations: one request; newest token_id on the request date bounds our registration count; the total field is recorded, not used
-
 ## erc8004 bnb-mainnet identity registry events
 - URL / contract address: https://github.com/erc-8004/erc-8004-contracts (address source); events via eth_getLogs
 - Fetch date: 2026-10-29

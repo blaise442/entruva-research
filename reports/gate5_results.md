@@ -2,7 +2,7 @@
 
 Phase 4 closed 2026-10-29 (day 12 of 90). Everything below is computed by
 `src/crosscheck/run_crosscheck.py` and `src/crosscheck/run_chains.py` with commit
-hash and manifest hash in the result files `results/2026-10-28_erc8004_crosscheck.json`
+hash and manifest hash in the result files `results/2026-10-29_erc8004_crosscheck.json`
 and `results/2026-10-29_erc8004_descriptive_<chain>.json` (ethereum-mainnet,
 base-mainnet, bnb-mainnet). The rules were fixed in `docs/DEVIATIONS.md`
 (2026-10-28 cross-check rules; 2026-10-29 two-day window) before each run; the
@@ -35,8 +35,7 @@ is not in theirs. The nine agents whose feedback count differs all have more
 feedback in our later fetch, never less.
 
 The owner comparison needs an observation block. The smallest block at which
-every one of the 10,000 owners agrees is 24,744,960; from that block to our
-head all 10,000 agree. This block is inferred from the data, not stated by the
+every one of the 10,000 owners agrees is 24,744,960. This block is inferred from the data, not stated by the
 dataset, and sits later than the last transfer in their transfer_history
 (24,429,384), so their owner column was taken from a later snapshot than
 their transfer table. Mint blocks and transaction hashes do not depend on it.
@@ -57,7 +56,7 @@ agents with a registration file and is recorded, not used.
 | Chain | Our Registered events | Our max agent id | API newest token id | Check |
 |---|---|---|---|---|
 | Ethereum mainnet (full history to 2026-10-25) | 55,407 | 55,406 | 56,006 | pass: count equals max id plus one, and max id is below the newest id four days later |
-| Base mainnet (two-day window) | 5,605 | 1,143,328 | 1,143,354 | not applicable to a window; max id is 26 below the id the API saw two hours later |
+| Base mainnet (two-day window) | 5,605 | 1,143,328 | 1,143,354 | not applicable to a window; max id is 26 below the id the API saw shortly after the fetch |
 | BNB Smart Chain (two-day window) | 3,506 | 397,366 | 397,378 | not applicable to a window; max id is 12 below the API's |
 
 ## Base and BNB Smart Chain: a two-day window, not full history
@@ -77,15 +76,14 @@ are window statistics and are not the full-history descriptives of Gate 4.
 | Span (days, from block timestamps; Ethereum from the 12 s slot time) | 2.00 | 1.99 | 1.98 |
 | Registrations | 102 | 5,605 | 3,506 |
 | Registrations per day | 51 | 2,816 | 1,770 |
-| Feedback events | 2,571 | 2,161 | 9 |
-| Feedback events per day | 1,286 | 1,086 | 4.5 |
-| Agents receiving feedback | 792 | 2,106 | 7 |
+| Feedback events | 2,591 | 2,161 | 9 |
+| Feedback events per day | 1,296 | 1,086 | 4.5 |
+| Agents receiving feedback | 794 | 2,106 | 7 |
 | Share of those agents with a single giver | 1.00 | 1.00 (2,105 of 2,106) | 0.86 (6 of 7) |
 | Distinct feedback givers | 1 | 2,098 | 4 |
-| Share of feedback from registrant wallets (window) | 0.015 (full history) | 0.027 | 0.00 |
 
 Reading: in its last two days Ethereum's feedback came from one wallet writing
-2,571 entries across 792 agents, which is the concentration the Phase 3
+2,591 entries across 794 agents, which is the concentration the Phase 3
 reputation section described. Base in the same span looks different: each
 feedback giver touches about one agent (2,098 givers for 2,106 agents), so the
 single-giver share is the same but the givers are not. BNB had nine feedback
@@ -105,7 +103,10 @@ feedback, 2,444 of them from a single giver, 721 distinct givers).
 | BNB identity and reputation logs | 2026-10-29 | https://bsc-rpc.publicnode.com (keyless), window 130,116,686 to 130,496,686 | 23,666 and 9 | erc8004 bnb-mainnet * |
 | 8004scan newest agent, three chains | 2026-10-29 | https://api.8004scan.io/api/v1/agents, anonymous | 1 each | 8004scan newest agent <chain> |
 
-`verify_manifest` over data/raw returns no mismatch after all fetches. The
+`verify_manifest` over data/raw returns no mismatch after all fetches. The Ethereum
+window ends at the later of its two files (block 26,271,911, the last feedback
+event); the registrant-wallet share is not in the window table because for a
+windowed fetch it would count only wallets that registered inside the window. The
 collector gained three things for this phase, each with a test: the BNB chain,
 recording of a keyless public endpoint, and paced calls with a fixed wait when
 publicnode blocks a burst (it blocks about ten calls in two seconds for several

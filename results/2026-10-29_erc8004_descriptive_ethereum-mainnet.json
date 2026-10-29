@@ -4,14 +4,14 @@
     "chain": "ethereum-mainnet",
     "windowed_fetch": false,
     "window": {
-      "from_block": 26257057,
-      "head": 26271457,
+      "from_block": 26257511,
+      "head": 26271911,
       "days": 2.0,
       "registrations": 102,
       "registrations_per_day": 51.0,
-      "feedback_events": 2571,
-      "feedback_per_day": 1285.5,
-      "agents_with_feedback": 792,
+      "feedback_events": 2591,
+      "feedback_per_day": 1295.5,
+      "agents_with_feedback": 794,
       "single_giver_share": 1.0,
       "distinct_givers": 1
     },
@@ -91,10 +91,10 @@
     "n_reputation_logs": 34535
   },
   "provenance": {
-    "git_commit": "f1b025b169c40f729b8ec85554effc8c1cc5053f",
+    "git_commit": "81b416481c915bc5859324c6b8c7223616ef1793",
     "git_dirty": true,
-    "manifest_sha256": "95e138f53e6bf7fdf217c896763c666585f8d32507c30c0f75b0b98a52944318",
+    "manifest_sha256": "2f9a68400d357ac4e4095c500001d58d74c043ddd176e57133de919716ba5640",
     "seeds": {},
-    "timestamp_utc": "2026-10-29T15:34:50.375148+00:00"
+    "timestamp_utc": "2026-10-29T23:40:29.669952+00:00"
   }
 }

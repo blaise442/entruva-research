@@ -29,7 +29,7 @@
 
 The reputation numbers in the Phase 3 report rest on a collection that an
 independent dataset reproduces exactly. In the same two days, Ethereum's
-feedback came from a single wallet writing to 792 agents while Base's came
+feedback came from a single wallet writing to 794 agents while Base's came
 from 2,098 wallets each writing to about one agent, so feedback concentration
 differs by chain and the Sybil-cost finding should be read as Ethereum's
 pattern until a full-history fetch of the other chains exists.

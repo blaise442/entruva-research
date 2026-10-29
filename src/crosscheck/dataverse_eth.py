@@ -58,13 +58,16 @@ def check_agents_core(core: pd.DataFrame, reg: pd.DataFrame, tr: pd.DataFrame) -
             "keys": sorted(m.loc[~ok, "agent_id"].astype(int).tolist()), "observation_block": obs}
 
 
-def check_transfers(dv_tr: pd.DataFrame, tr: pd.DataFrame) -> dict:
+def check_transfers(dv_tr: pd.DataFrame, tr: pd.DataFrame, agent_ids: set) -> dict:
+    """agent_ids: the dataset's core agents (0 to 9999); the window count covers all of them,
+    so an agent whose transfers the dataset dropped entirely still shows up."""
     ours = set(zip(tr.agent_id.astype(int), tr.tx, tr.log_index.astype(int)))
     theirs = list(zip(dv_tr.agent_id.astype(int), _hex(dv_tr.tx_hash), dv_tr.log_index.astype(int)))
     missing = [list(k) for k in theirs if k not in ours]
-    window = tr[(tr.frm != ZERO) & tr.agent_id.isin(set(dv_tr.agent_id.astype(int))) & (tr.block <= int(dv_tr.block_number.max()))] if len(dv_tr) else tr.iloc[0:0]
+    their_max = int(dv_tr.block_number.max()) if len(dv_tr) else None
+    window = tr[(tr.frm != ZERO) & tr.agent_id.isin(agent_ids) & (tr.block <= their_max)] if len(dv_tr) else tr.iloc[0:0]
     return {"rows": len(theirs), "agreeing": len(theirs) - len(missing), "disagreeing": len(missing), "keys": missing,
-            "ours_in_window": int(len(window)), "theirs": len(theirs)}
+            "ours_in_window": int(len(window)), "theirs": len(theirs), "their_max_block": their_max}
 
 
 def check_feedback(dv_fb: pd.DataFrame, fb: pd.DataFrame) -> dict:
