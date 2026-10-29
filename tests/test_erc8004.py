@@ -144,3 +144,27 @@ def test_first_block_with_code_binary_searches_the_deployment_block():
     assert first_block_with_code(eth, "0xabc", head=24_000_000) == 23_456_789
     assert eth.calls < 40
     assert first_block_with_code(CodeEth(0), "0xabc", head=10) == 0
+
+
+def test_chain_name_maps_bnb_smart_chain():
+    from src.collect.addresses import REGISTRIES
+    assert _chain_name(56) == "bnb-mainnet"
+    assert REGISTRIES["bnb-mainnet"] == REGISTRIES["ethereum-mainnet"]
+
+
+def test_chain_name_refuses_unmapped_chain_even_when_public(monkeypatch):
+    monkeypatch.setenv("PUBLIC_RPC_URL", "https://example-rpc.publicnode.com")
+    with pytest.raises(ValueError):
+        _chain_name(10)
+
+
+def test_run_records_a_public_endpoint_in_the_manifest(tmp_path, monkeypatch):
+    import web3
+    monkeypatch.delenv("RPC_URL", raising=False)
+    monkeypatch.setenv("PUBLIC_RPC_URL", "https://base-rpc.publicnode.com")
+    monkeypatch.setattr(web3, "Web3", _StubWeb3)
+    manifest = tmp_path / "MANIFEST.md"
+    manifest.write_text("# manifest\n")
+    assert run(tmp_path / "erc8004", manifest) == 0
+    text = manifest.read_text()
+    assert "keyless public endpoint https://base-rpc.publicnode.com" in text and "private RPC endpoint" not in text

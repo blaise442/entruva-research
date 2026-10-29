@@ -1,8 +1,9 @@
 """ERC-8004 registry event collector.
 
-Reads RPC_URL from research/.env or the environment. Raw logs go to
-data/raw/erc8004/<chain>_<registry>.jsonl; the endpoint value is never written
-anywhere (the MANIFEST url field is the public source of the addresses).
+Reads RPC_URL from research/.env or the environment, or PUBLIC_RPC_URL for a
+keyless public endpoint. Raw logs go to data/raw/erc8004/<chain>_<registry>.jsonl;
+a private endpoint value is never written anywhere (the MANIFEST url field is the
+public source of the addresses); a public one is recorded in the MANIFEST limitations.
 """
 import json
 import os
@@ -21,9 +22,9 @@ def _is_rate_limit(exc: Exception) -> bool:
     resp = getattr(exc, "response", None)
     return getattr(resp, "status_code", None) == 429
 
-# Chain ids verified against chainlist.org entries for the two chains with
+# Chain ids verified against chainlist.org entries for the chains with
 # published registry addresses; anything else must fail, never be mislabeled.
-CHAIN_IDS = {1: "ethereum-mainnet", 8453: "base-mainnet"}
+CHAIN_IDS = {1: "ethereum-mainnet", 8453: "base-mainnet", 56: "bnb-mainnet"}
 
 def _chain_name(chain_id: int) -> str:
     if chain_id not in CHAIN_IDS:
@@ -99,7 +100,8 @@ def _rpc_url() -> str | None:
     return None
 
 def run(out_dir: Path, manifest_path: Path) -> int:
-    url = _rpc_url()
+    public = os.environ.get("PUBLIC_RPC_URL")
+    url = public or _rpc_url()
     if not url:
         print("erc8004: RPC_URL not set; skipping. The gap is recorded in data/MANIFEST.md.")
         return 1
@@ -124,7 +126,8 @@ def run(out_dir: Path, manifest_path: Path) -> int:
                          url="https://github.com/erc-8004/erc-8004-contracts (address source); events via eth_getLogs",
                          method="src/collect/erc8004.py", row_count=len(rows), file_path=path,
                          license="public blockchain data",
-                         limitations="fetched via a private RPC endpoint (not recorded); ValidationRegistry has no published curated address")
+                         limitations=(f"fetched from the keyless public endpoint {public}" if public else "fetched via a private RPC endpoint (not recorded)")
+                         + "; ValidationRegistry has no published curated address")
     return 0
 
 if __name__ == "__main__":
