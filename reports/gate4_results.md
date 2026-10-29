@@ -297,4 +297,46 @@ have no on-chain identity, and the on-chain agents have no task outcomes
 
 ## Decisions at Gate 4 (founder)
 
-To be filled by the founder.
+Draft by the executing agent, 2026-10-28, awaiting founder approval. The
+founder's edits replace this text; nothing below is decided until then.
+
+1. The preregistered median-agent reading leads the final write-up: clause 4
+   passes, H1 is supported. Reason: the reading was fixed in DEVIATIONS before
+   any attack was run, and replacing it after seeing that the harsher reading
+   fails is what the preregistration exists to prevent. The any-agent result is
+   stated in the same headline sentence, not in a footnote: one held-out agent
+   in ten can be moved a decile at zero per-run cost, and under that reading
+   clause 4 fails. The write-up's verdict sentence reads: supported under the
+   preregistered rule, gameable at the margin for one agent in ten at no cost.
+2. The S4 convergence band stays as fixed. "Converged" is false everywhere
+   because the band sits above the simulation's ceiling; this is reported as a
+   limitation and not patched. A rerun with a band from a no-attacker
+   calibration round is not part of this study.
+3. Phase 4 is reduced. No reply has come from the authors of arXiv 2606.26028,
+   and a search on 2026-10-28 found no public release of their dataset. Two
+   public sources exist, and neither carries task outcomes, so external
+   validation of the H1 model is not possible with any data available to the
+   study; this is recorded in DEVIATIONS. What Phase 4 can do is cross-check
+   the ERC-8004 collection and extend the reputation descriptives beyond
+   Ethereum:
+   - Harvard Dataverse doi:10.7910/DVN/HJZW8Q (Liu, "A dataset of early
+     blockchain-registered AI agents on Ethereum", arXiv 2604.22652), published
+     2026-07-01, CC0 1.0, twelve public files: the first 10,000 ERC-8004 agents
+     on Ethereum mainnet with feedback records, reputation summaries, transfers
+     and resolved metadata. Use: a row-level cross-check of the Ethereum
+     collection over its block range.
+   - The 8004scan public API (https://api.8004scan.io/api/v1, OpenAPI at
+     https://api.8004scan.io/openapi.json), agents and feedbacks across 29
+     networks; anonymous tier 30 requests per minute and 1,000 per day, a free
+     key raises the daily cap to 100,000. Use: Base and BNB Smart Chain
+     feedback descriptives beside the Ethereum ones, at zero spend, with the
+     fetch recorded in MANIFEST. A direct Base mainnet eth_getLogs collection
+     through a keyless endpoint remains the preferred source if one with no
+     range cap is found.
+   The data request stays open; if the authors reply, their multi-chain crawl
+   through 2026-05-13 is added as a third cross-check.
+4. None of the thirteen deferred review minors is required before the final
+   write-up. The per-model "not evaluable" rule is the one to fix first if any
+   are taken up, and it would need a DEVIATIONS entry before a rerun.
+5. Gate 4 approved; Phase 3 is closed. The final write-up is drafted from this
+   report and the Gate 3 report once the Phase 4 cross-checks have run.
