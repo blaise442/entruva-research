@@ -19,8 +19,21 @@ MAX_429_RETRIES = 8
 
 
 def _is_rate_limit(exc: Exception) -> bool:
+    # 429 is the usual throttle code; publicnode answers a burst with 403 Forbidden
     resp = getattr(exc, "response", None)
-    return getattr(resp, "status_code", None) == 429
+    return getattr(resp, "status_code", None) in (429, 403)
+
+
+def _throttled(call):
+    """Run one RPC call, waiting and retrying while the provider throttles it."""
+    for waits in range(1, MAX_429_RETRIES + 1):
+        try:
+            return call()
+        except Exception as exc:
+            if not _is_rate_limit(exc):
+                raise
+            time.sleep(min(2 ** waits, 60))
+    return call()
 
 # Chain ids verified against chainlist.org entries for the chains with
 # published registry addresses; anything else must fail, never be mislabeled.
@@ -68,7 +81,7 @@ def first_block_with_code(eth, address: str, head: int) -> int:
     lo, hi = 0, head
     while lo < hi:
         mid = (lo + hi) // 2
-        if eth.get_code(address, block_identifier=mid):
+        if _throttled(lambda: eth.get_code(address, block_identifier=mid)):
             hi = mid
         else:
             lo = mid + 1

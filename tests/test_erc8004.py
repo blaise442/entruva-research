@@ -106,9 +106,10 @@ def test_to_jsonable_round_trips():
 
 class RateLimitedEth(StubEth):
     """First `n_429` calls raise HTTP 429; afterwards behaves like StubEth."""
-    def __init__(self, logs_by_block, n_429):
+    def __init__(self, logs_by_block, n_429, status=429):
         super().__init__(logs_by_block)
         self.n_429 = n_429
+        self.status = status
         self.spans = []
 
     def get_logs(self, params):
@@ -116,7 +117,7 @@ class RateLimitedEth(StubEth):
         if self.n_429 > 0:
             self.n_429 -= 1
             import requests
-            resp = requests.Response(); resp.status_code = 429
+            resp = requests.Response(); resp.status_code = self.status
             raise requests.exceptions.HTTPError("429 Client Error: Too Many Requests", response=resp)
         return super().get_logs(params)
 
@@ -168,3 +169,34 @@ def test_run_records_a_public_endpoint_in_the_manifest(tmp_path, monkeypatch):
     assert run(tmp_path / "erc8004", manifest) == 0
     text = manifest.read_text()
     assert "keyless public endpoint https://base-rpc.publicnode.com" in text and "private RPC endpoint" not in text
+
+
+def test_fetch_logs_treats_a_403_as_throttling(monkeypatch):
+    """publicnode answers a burst with 403 Forbidden rather than 429."""
+    import src.collect.erc8004 as mod
+    monkeypatch.setattr(mod.time, "sleep", lambda s: None)
+    eth = RateLimitedEth({7: [_log(7)]}, n_429=2, status=403)
+    logs = fetch_logs(eth, "0xabc", 0, 99, chunk=100)
+    assert [l["blockNumber"] for l in logs] == [7]
+    assert eth.spans == [100, 100, 100]
+
+
+class ThrottledCodeEth:
+    """get_code raises HTTP 403 for the first n calls, then reports code from block 40 on."""
+    def __init__(self, n):
+        self.n = n
+
+    def get_code(self, address, block_identifier):
+        if self.n > 0:
+            self.n -= 1
+            import requests
+            resp = requests.Response(); resp.status_code = 403
+            raise requests.HTTPError("403", response=resp)
+        return b"\x60" if block_identifier >= 40 else b""
+
+
+def test_first_block_with_code_retries_on_throttling(monkeypatch):
+    import src.collect.erc8004 as mod
+    from src.collect.erc8004 import first_block_with_code
+    monkeypatch.setattr(mod.time, "sleep", lambda s: None)
+    assert first_block_with_code(ThrottledCodeEth(3), "0xabc", 100) == 40
