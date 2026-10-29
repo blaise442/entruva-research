@@ -1,0 +1,45 @@
+{
+  "hypothesis": "Phase 4 Ethereum cross-check (Dataverse HJZW8Q)",
+  "metrics": {
+    "verdict": "matches row for row",
+    "checks": {
+      "agents_core": {
+        "rows": 10000,
+        "agreeing": 10000,
+        "disagreeing": 0,
+        "keys": [],
+        "observation_block": 24744960
+      },
+      "transfer_history": {
+        "rows": 1961,
+        "agreeing": 1961,
+        "disagreeing": 0,
+        "keys": [],
+        "ours_in_window": 1961,
+        "theirs": 1961
+      },
+      "agent_feedback_records": {
+        "rows": 980,
+        "agreeing": 980,
+        "disagreeing": 0,
+        "keys": []
+      },
+      "agent_reputation_summary": {
+        "rows": 10000,
+        "at_most_ours": 10000,
+        "equal": 9991,
+        "disagreeing": 0,
+        "keys": []
+      }
+    },
+    "dataverse_release": "2026-07-01",
+    "our_fetch_date": "2026-10-25"
+  },
+  "provenance": {
+    "git_commit": "e810f82251d414bfcae359d9bfebb89c8999f406",
+    "git_dirty": true,
+    "manifest_sha256": "be2525102e58642ebe6c7459e2a7db851f8b328912e2a29551e175516e7161c8",
+    "seeds": {},
+    "timestamp_utc": "2026-10-29T04:19:09.346164+00:00"
+  }
+}
