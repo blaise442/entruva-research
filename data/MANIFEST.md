@@ -303,3 +303,63 @@ Format:
 - SHA-256: 039aad4c70b85ce81471da72b90b7ce244302815889c07945d90146ebe50a1e4
 - License: CC0 1.0
 - Known limitations: first 10,000 Ethereum agents (ids 0 to 9999) at an observation block the data dictionary does not state; released 2026-07-01
+
+## erc8004 base-mainnet identity registry events
+- URL / contract address: https://github.com/erc-8004/erc-8004-contracts (address source); events via eth_getLogs
+- Fetch date: 2026-10-29
+- Method (script path): src/collect/erc8004.py
+- Row count: 32961
+- File: base-mainnet_identity.jsonl
+- SHA-256: 41d0e1f15b7e4559fc65221d41b8766db07041648beb648344602d0ce7ce5446
+- License: public blockchain data
+- Known limitations: fetched from the keyless public endpoint https://base-rpc.publicnode.com; window of 86000 blocks (53162845..53248845) because the endpoint serves no older history; ValidationRegistry has no published curated address
+
+## erc8004 base-mainnet reputation registry events
+- URL / contract address: https://github.com/erc-8004/erc-8004-contracts (address source); events via eth_getLogs
+- Fetch date: 2026-10-29
+- Method (script path): src/collect/erc8004.py
+- Row count: 2161
+- File: base-mainnet_reputation.jsonl
+- SHA-256: 7ce00444ce92e8a92b7c5ff7d973f88469bc2545ca4afbf4ddd1544026ccf787
+- License: public blockchain data
+- Known limitations: fetched from the keyless public endpoint https://base-rpc.publicnode.com; window of 86000 blocks (53162845..53248845) because the endpoint serves no older history; ValidationRegistry has no published curated address
+
+## 8004scan newest agent ethereum-mainnet
+- URL / contract address: https://api.8004scan.io/api/v1/agents?chain_id=1&limit=1&is_active=any&is_registered=true
+- Fetch date: 2026-10-29
+- Method (script path): src/crosscheck/run_chains.py
+- Row count: 1
+- File: ethereum-mainnet_newest.json
+- SHA-256: ca1492867ac9384e3ebb12edeaf526cb52a92821de27541e2e46803f3268b3a0
+- License: public API, anonymous tier
+- Known limitations: one request; newest token_id on the request date bounds our registration count; the total field is recorded, not used
+
+## 8004scan newest agent base-mainnet
+- URL / contract address: https://api.8004scan.io/api/v1/agents?chain_id=8453&limit=1&is_active=any&is_registered=true
+- Fetch date: 2026-10-29
+- Method (script path): src/crosscheck/run_chains.py
+- Row count: 1
+- File: base-mainnet_newest.json
+- SHA-256: 10fc06537f39339099a4a92427b325168c3a388b3072925c881541b5658d2024
+- License: public API, anonymous tier
+- Known limitations: one request; newest token_id on the request date bounds our registration count; the total field is recorded, not used
+
+## erc8004 bnb-mainnet identity registry events
+- URL / contract address: https://github.com/erc-8004/erc-8004-contracts (address source); events via eth_getLogs
+- Fetch date: 2026-10-29
+- Method (script path): src/collect/erc8004.py
+- Row count: 23666
+- File: bnb-mainnet_identity.jsonl
+- SHA-256: 3089057fa87282781b0dedc348b02f644045a56c8c1d4ca599b4ffc2e87a20a3
+- License: public blockchain data
+- Known limitations: fetched from the keyless public endpoint https://bsc-rpc.publicnode.com; window of 380000 blocks (130116686..130496686) because the endpoint serves no older history; ValidationRegistry has no published curated address
+
+## erc8004 bnb-mainnet reputation registry events
+- URL / contract address: https://github.com/erc-8004/erc-8004-contracts (address source); events via eth_getLogs
+- Fetch date: 2026-10-29
+- Method (script path): src/collect/erc8004.py
+- Row count: 9
+- File: bnb-mainnet_reputation.jsonl
+- SHA-256: d9fd4f97c5f461d9e72ab53848380c17a435e126e8dcb26b84361bbb095d00fe
+- License: public blockchain data
+- Known limitations: fetched from the keyless public endpoint https://bsc-rpc.publicnode.com; window of 380000 blocks (130116686..130496686) because the endpoint serves no older history; ValidationRegistry has no published curated address
