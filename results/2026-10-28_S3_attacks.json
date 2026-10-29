@@ -22,7 +22,19 @@
         "movers_frac": 0.1,
         "any_agent_moved": true,
         "n_movable": 10,
-        "delta_p": 0.025339296640661313,
+        "delta_p": 0.1509176112806624,
+        "decile_mean_p": [
+          0.12425707670568467,
+          0.18797900023083583,
+          0.24511390531220084,
+          0.311015611607779,
+          0.40901766925836514,
+          0.5599352805390275,
+          0.7167298131202106,
+          0.8994697473233141,
+          0.9513209290017639,
+          0.974951327887145
+        ],
         "per_run_usd": 0.0,
         "unpriced_models": [],
         "per_agent": [
@@ -125,7 +137,19 @@
         "movers_frac": 0.1,
         "any_agent_moved": true,
         "n_movable": 10,
-        "delta_p": 0.005322032464184778,
+        "delta_p": 0.1509176112806624,
+        "decile_mean_p": [
+          0.12425707670568467,
+          0.18797900023083583,
+          0.24511390531220084,
+          0.311015611607779,
+          0.40901766925836514,
+          0.5599352805390275,
+          0.7167298131202106,
+          0.8994697473233141,
+          0.9513209290017639,
+          0.974951327887145
+        ],
         "per_run_usd": 0.0,
         "unpriced_models": [],
         "per_agent": [
@@ -223,12 +247,714 @@
       },
       {
         "attack": "call_shaping",
+        "strength": -32,
+        "deciles_moved_median": 0.0,
+        "movers_frac": 0.0,
+        "any_agent_moved": false,
+        "n_movable": 10,
+        "delta_p": 0.0,
+        "decile_mean_p": [
+          0.12425707670568467,
+          0.18797900023083583,
+          0.24511390531220084,
+          0.311015611607779,
+          0.40901766925836514,
+          0.5599352805390275,
+          0.7167298131202106,
+          0.8994697473233141,
+          0.9513209290017639,
+          0.974951327887145
+        ],
+        "per_run_usd": 0.0,
+        "unpriced_models": [],
+        "per_agent": [
+          {
+            "agent_id": "claude-3-5-sonnet-20241022::agentdojo",
+            "decile_before": 4,
+            "decile_after": 4,
+            "p_before": 0.30501172039770746,
+            "p_after": 0.3066967531615712,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "claude-3-haiku-20240307::agentdojo",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.5476082452730116,
+            "p_after": 0.4996537009238683,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "claude3.5sonnet::sweagent",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.6029300727420139,
+            "p_after": 0.5999040675878492,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-3.5-turbo-0125::agentdojo",
+            "decile_before": 5,
+            "decile_after": 5,
+            "p_before": 0.39970475480245593,
+            "p_after": 0.39880411009978367,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-4-turbo-2024-04-09::agentdojo",
+            "decile_before": 5,
+            "decile_after": 5,
+            "p_before": 0.3786176347081626,
+            "p_after": 0.3783199723215289,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-4o-2024-05-13-transformers_pi_detector::agentdojo",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.5236636948658484,
+            "p_after": 0.5401201851911622,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-4o::tau-bench",
+            "decile_before": 5,
+            "decile_after": 5,
+            "p_before": 0.4237573652705844,
+            "p_after": 0.42945233607917294,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt35_16k::webarena-cot",
+            "decile_before": 8,
+            "decile_after": 8,
+            "p_before": 0.9311705937350956,
+            "p_after": 0.9239650041799096,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt35_16k::webarena-direct",
+            "decile_before": 8,
+            "decile_after": 8,
+            "p_before": 0.9387343850284071,
+            "p_after": 0.9248687247274787,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "meta-llama_Llama-3.3-70B-Instruct::agentdojo",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.4791698158022708,
+            "p_after": 0.4781319985692501,
+            "movable": true,
+            "per_run_usd": 0.0
+          }
+        ]
+      },
+      {
+        "attack": "call_shaping",
+        "strength": -16,
+        "deciles_moved_median": 0.0,
+        "movers_frac": 0.0,
+        "any_agent_moved": false,
+        "n_movable": 10,
+        "delta_p": 0.0,
+        "decile_mean_p": [
+          0.12425707670568467,
+          0.18797900023083583,
+          0.24511390531220084,
+          0.311015611607779,
+          0.40901766925836514,
+          0.5599352805390275,
+          0.7167298131202106,
+          0.8994697473233141,
+          0.9513209290017639,
+          0.974951327887145
+        ],
+        "per_run_usd": 0.0,
+        "unpriced_models": [],
+        "per_agent": [
+          {
+            "agent_id": "claude-3-5-sonnet-20241022::agentdojo",
+            "decile_before": 4,
+            "decile_after": 4,
+            "p_before": 0.30501172039770746,
+            "p_after": 0.3066967531615712,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "claude-3-haiku-20240307::agentdojo",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.5476082452730116,
+            "p_after": 0.4996537009238683,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "claude3.5sonnet::sweagent",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.6029300727420139,
+            "p_after": 0.5999040675878492,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-3.5-turbo-0125::agentdojo",
+            "decile_before": 5,
+            "decile_after": 5,
+            "p_before": 0.39970475480245593,
+            "p_after": 0.39880411009978367,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-4-turbo-2024-04-09::agentdojo",
+            "decile_before": 5,
+            "decile_after": 5,
+            "p_before": 0.3786176347081626,
+            "p_after": 0.3783199723215289,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-4o-2024-05-13-transformers_pi_detector::agentdojo",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.5236636948658484,
+            "p_after": 0.5401201851911622,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-4o::tau-bench",
+            "decile_before": 5,
+            "decile_after": 5,
+            "p_before": 0.4237573652705844,
+            "p_after": 0.42945233607917294,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt35_16k::webarena-cot",
+            "decile_before": 8,
+            "decile_after": 8,
+            "p_before": 0.9311705937350956,
+            "p_after": 0.9239650041799096,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt35_16k::webarena-direct",
+            "decile_before": 8,
+            "decile_after": 8,
+            "p_before": 0.9387343850284071,
+            "p_after": 0.9248687247274787,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "meta-llama_Llama-3.3-70B-Instruct::agentdojo",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.4791698158022708,
+            "p_after": 0.4781319985692501,
+            "movable": true,
+            "per_run_usd": 0.0
+          }
+        ]
+      },
+      {
+        "attack": "call_shaping",
+        "strength": -8,
+        "deciles_moved_median": 0.0,
+        "movers_frac": 0.0,
+        "any_agent_moved": false,
+        "n_movable": 10,
+        "delta_p": 0.0,
+        "decile_mean_p": [
+          0.12425707670568467,
+          0.18797900023083583,
+          0.24511390531220084,
+          0.311015611607779,
+          0.40901766925836514,
+          0.5599352805390275,
+          0.7167298131202106,
+          0.8994697473233141,
+          0.9513209290017639,
+          0.974951327887145
+        ],
+        "per_run_usd": 0.0,
+        "unpriced_models": [],
+        "per_agent": [
+          {
+            "agent_id": "claude-3-5-sonnet-20241022::agentdojo",
+            "decile_before": 4,
+            "decile_after": 4,
+            "p_before": 0.30501172039770746,
+            "p_after": 0.3066967531615712,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "claude-3-haiku-20240307::agentdojo",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.5476082452730116,
+            "p_after": 0.5124412828373693,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "claude3.5sonnet::sweagent",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.6029300727420139,
+            "p_after": 0.5999040675878492,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-3.5-turbo-0125::agentdojo",
+            "decile_before": 5,
+            "decile_after": 5,
+            "p_before": 0.39970475480245593,
+            "p_after": 0.39880411009978367,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-4-turbo-2024-04-09::agentdojo",
+            "decile_before": 5,
+            "decile_after": 5,
+            "p_before": 0.3786176347081626,
+            "p_after": 0.3783199723215289,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-4o-2024-05-13-transformers_pi_detector::agentdojo",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.5236636948658484,
+            "p_after": 0.5387139704829402,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-4o::tau-bench",
+            "decile_before": 5,
+            "decile_after": 5,
+            "p_before": 0.4237573652705844,
+            "p_after": 0.42945233607917294,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt35_16k::webarena-cot",
+            "decile_before": 8,
+            "decile_after": 8,
+            "p_before": 0.9311705937350956,
+            "p_after": 0.9239650041799096,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt35_16k::webarena-direct",
+            "decile_before": 8,
+            "decile_after": 8,
+            "p_before": 0.9387343850284071,
+            "p_after": 0.9248687247274787,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "meta-llama_Llama-3.3-70B-Instruct::agentdojo",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.4791698158022708,
+            "p_after": 0.4782254182083339,
+            "movable": true,
+            "per_run_usd": 0.0
+          }
+        ]
+      },
+      {
+        "attack": "call_shaping",
+        "strength": -4,
+        "deciles_moved_median": 0.0,
+        "movers_frac": 0.0,
+        "any_agent_moved": false,
+        "n_movable": 10,
+        "delta_p": 0.0,
+        "decile_mean_p": [
+          0.12425707670568467,
+          0.18797900023083583,
+          0.24511390531220084,
+          0.311015611607779,
+          0.40901766925836514,
+          0.5599352805390275,
+          0.7167298131202106,
+          0.8994697473233141,
+          0.9513209290017639,
+          0.974951327887145
+        ],
+        "per_run_usd": 0.0,
+        "unpriced_models": [],
+        "per_agent": [
+          {
+            "agent_id": "claude-3-5-sonnet-20241022::agentdojo",
+            "decile_before": 4,
+            "decile_after": 4,
+            "p_before": 0.30501172039770746,
+            "p_after": 0.3066967531615712,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "claude-3-haiku-20240307::agentdojo",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.5476082452730116,
+            "p_after": 0.5189469575649364,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "claude3.5sonnet::sweagent",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.6029300727420139,
+            "p_after": 0.5998121390068832,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-3.5-turbo-0125::agentdojo",
+            "decile_before": 5,
+            "decile_after": 5,
+            "p_before": 0.39970475480245593,
+            "p_after": 0.39880411009978367,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-4-turbo-2024-04-09::agentdojo",
+            "decile_before": 5,
+            "decile_after": 5,
+            "p_before": 0.3786176347081626,
+            "p_after": 0.37845775696995443,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-4o-2024-05-13-transformers_pi_detector::agentdojo",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.5236636948658484,
+            "p_after": 0.541480802044971,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-4o::tau-bench",
+            "decile_before": 5,
+            "decile_after": 5,
+            "p_before": 0.4237573652705844,
+            "p_after": 0.42945233607917294,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt35_16k::webarena-cot",
+            "decile_before": 8,
+            "decile_after": 8,
+            "p_before": 0.9311705937350956,
+            "p_after": 0.9239154313213216,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt35_16k::webarena-direct",
+            "decile_before": 8,
+            "decile_after": 8,
+            "p_before": 0.9387343850284071,
+            "p_after": 0.9250071981507125,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "meta-llama_Llama-3.3-70B-Instruct::agentdojo",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.4791698158022708,
+            "p_after": 0.47817576790140365,
+            "movable": true,
+            "per_run_usd": 0.0
+          }
+        ]
+      },
+      {
+        "attack": "call_shaping",
+        "strength": -2,
+        "deciles_moved_median": 0.0,
+        "movers_frac": 0.0,
+        "any_agent_moved": false,
+        "n_movable": 10,
+        "delta_p": 0.0,
+        "decile_mean_p": [
+          0.12425707670568467,
+          0.18797900023083583,
+          0.24511390531220084,
+          0.311015611607779,
+          0.40901766925836514,
+          0.5599352805390275,
+          0.7167298131202106,
+          0.8994697473233141,
+          0.9513209290017639,
+          0.974951327887145
+        ],
+        "per_run_usd": 0.0,
+        "unpriced_models": [],
+        "per_agent": [
+          {
+            "agent_id": "claude-3-5-sonnet-20241022::agentdojo",
+            "decile_before": 4,
+            "decile_after": 4,
+            "p_before": 0.30501172039770746,
+            "p_after": 0.3066967531615712,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "claude-3-haiku-20240307::agentdojo",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.5476082452730116,
+            "p_after": 0.52911033231117,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "claude3.5sonnet::sweagent",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.6029300727420139,
+            "p_after": 0.5997261113716037,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-3.5-turbo-0125::agentdojo",
+            "decile_before": 5,
+            "decile_after": 5,
+            "p_before": 0.39970475480245593,
+            "p_after": 0.39880411009978367,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-4-turbo-2024-04-09::agentdojo",
+            "decile_before": 5,
+            "decile_after": 5,
+            "p_before": 0.3786176347081626,
+            "p_after": 0.3785501691031047,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-4o-2024-05-13-transformers_pi_detector::agentdojo",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.5236636948658484,
+            "p_after": 0.543181528051735,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-4o::tau-bench",
+            "decile_before": 5,
+            "decile_after": 5,
+            "p_before": 0.4237573652705844,
+            "p_after": 0.42945233607917294,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt35_16k::webarena-cot",
+            "decile_before": 8,
+            "decile_after": 8,
+            "p_before": 0.9311705937350956,
+            "p_after": 0.9247450859140026,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt35_16k::webarena-direct",
+            "decile_before": 8,
+            "decile_after": 8,
+            "p_before": 0.9387343850284071,
+            "p_after": 0.9259648137499411,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "meta-llama_Llama-3.3-70B-Instruct::agentdojo",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.4791698158022708,
+            "p_after": 0.4781633984245604,
+            "movable": true,
+            "per_run_usd": 0.0
+          }
+        ]
+      },
+      {
+        "attack": "call_shaping",
+        "strength": -1,
+        "deciles_moved_median": 0.0,
+        "movers_frac": 0.0,
+        "any_agent_moved": false,
+        "n_movable": 10,
+        "delta_p": 0.0,
+        "decile_mean_p": [
+          0.12425707670568467,
+          0.18797900023083583,
+          0.24511390531220084,
+          0.311015611607779,
+          0.40901766925836514,
+          0.5599352805390275,
+          0.7167298131202106,
+          0.8994697473233141,
+          0.9513209290017639,
+          0.974951327887145
+        ],
+        "per_run_usd": 0.0,
+        "unpriced_models": [],
+        "per_agent": [
+          {
+            "agent_id": "claude-3-5-sonnet-20241022::agentdojo",
+            "decile_before": 4,
+            "decile_after": 4,
+            "p_before": 0.30501172039770746,
+            "p_after": 0.3066967531615712,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "claude-3-haiku-20240307::agentdojo",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.5476082452730116,
+            "p_after": 0.5346990801898135,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "claude3.5sonnet::sweagent",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.6029300727420139,
+            "p_after": 0.600739225077696,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-3.5-turbo-0125::agentdojo",
+            "decile_before": 5,
+            "decile_after": 5,
+            "p_before": 0.39970475480245593,
+            "p_after": 0.39883792327311074,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-4-turbo-2024-04-09::agentdojo",
+            "decile_before": 5,
+            "decile_after": 5,
+            "p_before": 0.3786176347081626,
+            "p_after": 0.37847633465417785,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-4o-2024-05-13-transformers_pi_detector::agentdojo",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.5236636948658484,
+            "p_after": 0.5401544430022819,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt-4o::tau-bench",
+            "decile_before": 5,
+            "decile_after": 5,
+            "p_before": 0.4237573652705844,
+            "p_after": 0.42945233607917294,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt35_16k::webarena-cot",
+            "decile_before": 8,
+            "decile_after": 8,
+            "p_before": 0.9311705937350956,
+            "p_after": 0.9277242486960554,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "gpt35_16k::webarena-direct",
+            "decile_before": 8,
+            "decile_after": 8,
+            "p_before": 0.9387343850284071,
+            "p_after": 0.9321431534556262,
+            "movable": true,
+            "per_run_usd": 0.0
+          },
+          {
+            "agent_id": "meta-llama_Llama-3.3-70B-Instruct::agentdojo",
+            "decile_before": 6,
+            "decile_after": 6,
+            "p_before": 0.4791698158022708,
+            "p_after": 0.4782623459815871,
+            "movable": true,
+            "per_run_usd": 0.0
+          }
+        ]
+      },
+      {
+        "attack": "call_shaping",
         "strength": 1,
         "deciles_moved_median": 0.0,
         "movers_frac": 0.0,
         "any_agent_moved": false,
         "n_movable": 10,
         "delta_p": 0.0,
+        "decile_mean_p": [
+          0.12425707670568467,
+          0.18797900023083583,
+          0.24511390531220084,
+          0.311015611607779,
+          0.40901766925836514,
+          0.5599352805390275,
+          0.7167298131202106,
+          0.8994697473233141,
+          0.9513209290017639,
+          0.974951327887145
+        ],
         "per_run_usd": null,
         "unpriced_models": [
           "claude-3-5-sonnet-20241022",
@@ -243,7 +969,7 @@
             "decile_before": 4,
             "decile_after": 5,
             "p_before": 0.30501172039770746,
-            "p_after": 0.42299495943136023,
+            "p_after": 0.4118202664064873,
             "movable": true,
             "per_run_usd": null
           },
@@ -252,7 +978,7 @@
             "decile_before": 6,
             "decile_after": 6,
             "p_before": 0.5476082452730116,
-            "p_after": 0.5627719341231738,
+            "p_after": 0.5488817563605842,
             "movable": true,
             "per_run_usd": null
           },
@@ -270,36 +996,36 @@
             "decile_before": 5,
             "decile_after": 5,
             "p_before": 0.39970475480245593,
-            "p_after": 0.4224593861404243,
+            "p_after": 0.42372600744709743,
             "movable": true,
-            "per_run_usd": 3.26211058554885e-05
+            "per_run_usd": 3.2621105855488496e-05
           },
           {
             "agent_id": "gpt-4-turbo-2024-04-09::agentdojo",
             "decile_before": 5,
             "decile_after": 5,
             "p_before": 0.3786176347081626,
-            "p_after": 0.4397324370132356,
+            "p_after": 0.42875709829259473,
             "movable": true,
-            "per_run_usd": 0.0006333606475527783
+            "per_run_usd": 0.0006333606475527782
           },
           {
             "agent_id": "gpt-4o-2024-05-13-transformers_pi_detector::agentdojo",
             "decile_before": 6,
             "decile_after": 6,
             "p_before": 0.5236636948658484,
-            "p_after": 0.4975276387457687,
+            "p_after": 0.4944024834293954,
             "movable": true,
-            "per_run_usd": 0.0003212954633080581
+            "per_run_usd": 0.00032129546330805813
           },
           {
             "agent_id": "gpt-4o::tau-bench",
             "decile_before": 5,
             "decile_after": 5,
             "p_before": 0.4237573652705844,
-            "p_after": 0.4450314150656595,
+            "p_after": 0.4317784433569549,
             "movable": true,
-            "per_run_usd": 0.0002136922831123182
+            "per_run_usd": 0.00021369228311231828
           },
           {
             "agent_id": "gpt35_16k::webarena-cot",
@@ -324,7 +1050,7 @@
             "decile_before": 6,
             "decile_after": 6,
             "p_before": 0.4791698158022708,
-            "p_after": 0.5630875932120323,
+            "p_after": 0.5588324374619998,
             "movable": true,
             "per_run_usd": null
           }
@@ -338,6 +1064,18 @@
         "any_agent_moved": false,
         "n_movable": 10,
         "delta_p": 0.0,
+        "decile_mean_p": [
+          0.12425707670568467,
+          0.18797900023083583,
+          0.24511390531220084,
+          0.311015611607779,
+          0.40901766925836514,
+          0.5599352805390275,
+          0.7167298131202106,
+          0.8994697473233141,
+          0.9513209290017639,
+          0.974951327887145
+        ],
         "per_run_usd": null,
         "unpriced_models": [
           "claude-3-5-sonnet-20241022",
@@ -352,7 +1090,7 @@
             "decile_before": 4,
             "decile_after": 5,
             "p_before": 0.30501172039770746,
-            "p_after": 0.4292905521628922,
+            "p_after": 0.3997496681638956,
             "movable": true,
             "per_run_usd": null
           },
@@ -361,7 +1099,7 @@
             "decile_before": 6,
             "decile_after": 6,
             "p_before": 0.5476082452730116,
-            "p_after": 0.5454900851137059,
+            "p_after": 0.5252085452637321,
             "movable": true,
             "per_run_usd": null
           },
@@ -379,16 +1117,16 @@
             "decile_before": 5,
             "decile_after": 5,
             "p_before": 0.39970475480245593,
-            "p_after": 0.41201278082356246,
+            "p_after": 0.3997775943101218,
             "movable": true,
-            "per_run_usd": 6.5242211710977e-05
+            "per_run_usd": 6.524221171097698e-05
           },
           {
             "agent_id": "gpt-4-turbo-2024-04-09::agentdojo",
             "decile_before": 5,
             "decile_after": 5,
             "p_before": 0.3786176347081626,
-            "p_after": 0.4346939415305036,
+            "p_after": 0.4001965512471036,
             "movable": true,
             "per_run_usd": 0.0012667212951055565
           },
@@ -397,16 +1135,16 @@
             "decile_before": 6,
             "decile_after": 6,
             "p_before": 0.5236636948658484,
-            "p_after": 0.4831706741354502,
+            "p_after": 0.49249402645652063,
             "movable": true,
-            "per_run_usd": 0.0006425909266161163
+            "per_run_usd": 0.0006425909266161162
           },
           {
             "agent_id": "gpt-4o::tau-bench",
             "decile_before": 5,
             "decile_after": 5,
             "p_before": 0.4237573652705844,
-            "p_after": 0.4526943083167361,
+            "p_after": 0.43278190935115,
             "movable": true,
             "per_run_usd": 0.00042738456622463657
           },
@@ -433,7 +1171,7 @@
             "decile_before": 6,
             "decile_after": 6,
             "p_before": 0.4791698158022708,
-            "p_after": 0.549545133300023,
+            "p_after": 0.5404859717439789,
             "movable": true,
             "per_run_usd": null
           }
@@ -447,6 +1185,18 @@
         "any_agent_moved": false,
         "n_movable": 10,
         "delta_p": 0.0,
+        "decile_mean_p": [
+          0.12425707670568467,
+          0.18797900023083583,
+          0.24511390531220084,
+          0.311015611607779,
+          0.40901766925836514,
+          0.5599352805390275,
+          0.7167298131202106,
+          0.8994697473233141,
+          0.9513209290017639,
+          0.974951327887145
+        ],
         "per_run_usd": null,
         "unpriced_models": [
           "claude-3-5-sonnet-20241022",
@@ -461,7 +1211,7 @@
             "decile_before": 4,
             "decile_after": 5,
             "p_before": 0.30501172039770746,
-            "p_after": 0.4068654761848205,
+            "p_after": 0.41264484853620836,
             "movable": true,
             "per_run_usd": null
           },
@@ -470,7 +1220,7 @@
             "decile_before": 6,
             "decile_after": 6,
             "p_before": 0.5476082452730116,
-            "p_after": 0.545022576607394,
+            "p_after": 0.5386960836922705,
             "movable": true,
             "per_run_usd": null
           },
@@ -488,7 +1238,7 @@
             "decile_before": 5,
             "decile_after": 5,
             "p_before": 0.39970475480245593,
-            "p_after": 0.3755240255475754,
+            "p_after": 0.37672434732083554,
             "movable": true,
             "per_run_usd": 0.00013048442342195399
           },
@@ -497,7 +1247,7 @@
             "decile_before": 5,
             "decile_after": 5,
             "p_before": 0.3786176347081626,
-            "p_after": 0.41416446893475595,
+            "p_after": 0.394225229705139,
             "movable": true,
             "per_run_usd": 0.002533442590211113
           },
@@ -506,7 +1256,7 @@
             "decile_before": 6,
             "decile_after": 6,
             "p_before": 0.5236636948658484,
-            "p_after": 0.49041465701306347,
+            "p_after": 0.5084079598753565,
             "movable": true,
             "per_run_usd": 0.0012851818532322323
           },
@@ -515,9 +1265,9 @@
             "decile_before": 5,
             "decile_after": 5,
             "p_before": 0.4237573652705844,
-            "p_after": 0.47758026250388647,
+            "p_after": 0.4518742677563319,
             "movable": true,
-            "per_run_usd": 0.0008547691324492728
+            "per_run_usd": 0.0008547691324492731
           },
           {
             "agent_id": "gpt35_16k::webarena-cot",
@@ -542,7 +1292,7 @@
             "decile_before": 6,
             "decile_after": 6,
             "p_before": 0.4791698158022708,
-            "p_after": 0.5325057000755935,
+            "p_after": 0.5117453722630714,
             "movable": true,
             "per_run_usd": null
           }
@@ -556,6 +1306,18 @@
         "any_agent_moved": false,
         "n_movable": 10,
         "delta_p": 0.0,
+        "decile_mean_p": [
+          0.12425707670568467,
+          0.18797900023083583,
+          0.24511390531220084,
+          0.311015611607779,
+          0.40901766925836514,
+          0.5599352805390275,
+          0.7167298131202106,
+          0.8994697473233141,
+          0.9513209290017639,
+          0.974951327887145
+        ],
         "per_run_usd": null,
         "unpriced_models": [
           "claude-3-5-sonnet-20241022",
@@ -570,7 +1332,7 @@
             "decile_before": 4,
             "decile_after": 6,
             "p_before": 0.30501172039770746,
-            "p_after": 0.5085010469029733,
+            "p_after": 0.49983769372136877,
             "movable": true,
             "per_run_usd": null
           },
@@ -579,7 +1341,7 @@
             "decile_before": 6,
             "decile_after": 6,
             "p_before": 0.5476082452730116,
-            "p_after": 0.5773463551955935,
+            "p_after": 0.5660799978854534,
             "movable": true,
             "per_run_usd": null
           },
@@ -597,7 +1359,7 @@
             "decile_before": 5,
             "decile_after": 5,
             "p_before": 0.39970475480245593,
-            "p_after": 0.45709111113980916,
+            "p_after": 0.44815570837076013,
             "movable": true,
             "per_run_usd": 0.00026096884684390797
           },
@@ -606,7 +1368,7 @@
             "decile_before": 5,
             "decile_after": 5,
             "p_before": 0.3786176347081626,
-            "p_after": 0.4739795452529001,
+            "p_after": 0.45777862642326395,
             "movable": true,
             "per_run_usd": 0.005066885180422226
           },
@@ -615,7 +1377,7 @@
             "decile_before": 6,
             "decile_after": 6,
             "p_before": 0.5236636948658484,
-            "p_after": 0.5640901342098871,
+            "p_after": 0.5845294123154686,
             "movable": true,
             "per_run_usd": 0.002570363706464465
           },
@@ -624,9 +1386,9 @@
             "decile_before": 5,
             "decile_after": 6,
             "p_before": 0.4237573652705844,
-            "p_after": 0.5685352336637093,
+            "p_after": 0.5407828400807589,
             "movable": true,
-            "per_run_usd": 0.0017095382648985456
+            "per_run_usd": 0.0017095382648985463
           },
           {
             "agent_id": "gpt35_16k::webarena-cot",
@@ -651,7 +1413,7 @@
             "decile_before": 6,
             "decile_after": 6,
             "p_before": 0.4791698158022708,
-            "p_after": 0.5877967227880053,
+            "p_after": 0.5678007081870949,
             "movable": true,
             "per_run_usd": null
           }
@@ -665,6 +1427,18 @@
         "any_agent_moved": false,
         "n_movable": 10,
         "delta_p": 0.0,
+        "decile_mean_p": [
+          0.12425707670568467,
+          0.18797900023083583,
+          0.24511390531220084,
+          0.311015611607779,
+          0.40901766925836514,
+          0.5599352805390275,
+          0.7167298131202106,
+          0.8994697473233141,
+          0.9513209290017639,
+          0.974951327887145
+        ],
         "per_run_usd": null,
         "unpriced_models": [
           "claude-3-5-sonnet-20241022",
@@ -679,7 +1453,7 @@
             "decile_before": 4,
             "decile_after": 7,
             "p_before": 0.30501172039770746,
-            "p_after": 0.6508422099680371,
+            "p_after": 0.7091894308661989,
             "movable": true,
             "per_run_usd": null
           },
@@ -688,7 +1462,7 @@
             "decile_before": 6,
             "decile_after": 7,
             "p_before": 0.5476082452730116,
-            "p_after": 0.6774589744621933,
+            "p_after": 0.6940924063864938,
             "movable": true,
             "per_run_usd": null
           },
@@ -706,16 +1480,16 @@
             "decile_before": 5,
             "decile_after": 6,
             "p_before": 0.39970475480245593,
-            "p_after": 0.5979491095195317,
+            "p_after": 0.6220444331683905,
             "movable": true,
             "per_run_usd": 0.0005219376936878159
           },
           {
             "agent_id": "gpt-4-turbo-2024-04-09::agentdojo",
             "decile_before": 5,
-            "decile_after": 6,
+            "decile_after": 7,
             "p_before": 0.3786176347081626,
-            "p_after": 0.6121014039493067,
+            "p_after": 0.6591180712420817,
             "movable": true,
             "per_run_usd": 0.010133770360844452
           },
@@ -724,16 +1498,16 @@
             "decile_before": 6,
             "decile_after": 7,
             "p_before": 0.5236636948658484,
-            "p_after": 0.7057010200923786,
+            "p_after": 0.728090075431439,
             "movable": true,
-            "per_run_usd": 0.005140727412928929
+            "per_run_usd": 0.00514072741292893
           },
           {
             "agent_id": "gpt-4o::tau-bench",
             "decile_before": 5,
-            "decile_after": 7,
+            "decile_after": 6,
             "p_before": 0.4237573652705844,
-            "p_after": 0.6484921377780799,
+            "p_after": 0.6156202033966212,
             "movable": true,
             "per_run_usd": 0.0034190765297970925
           },
@@ -760,7 +1534,7 @@
             "decile_before": 6,
             "decile_after": 7,
             "p_before": 0.4791698158022708,
-            "p_after": 0.6800320260612238,
+            "p_after": 0.7122963856367598,
             "movable": true,
             "per_run_usd": null
           }
@@ -774,6 +1548,18 @@
         "any_agent_moved": false,
         "n_movable": 10,
         "delta_p": 0.0,
+        "decile_mean_p": [
+          0.12425707670568467,
+          0.18797900023083583,
+          0.24511390531220084,
+          0.311015611607779,
+          0.40901766925836514,
+          0.5599352805390275,
+          0.7167298131202106,
+          0.8994697473233141,
+          0.9513209290017639,
+          0.974951327887145
+        ],
         "per_run_usd": null,
         "unpriced_models": [
           "claude-3-5-sonnet-20241022",
@@ -788,7 +1574,7 @@
             "decile_before": 4,
             "decile_after": 7,
             "p_before": 0.30501172039770746,
-            "p_after": 0.7032689920208318,
+            "p_after": 0.7912112374765181,
             "movable": true,
             "per_run_usd": null
           },
@@ -797,7 +1583,7 @@
             "decile_before": 6,
             "decile_after": 7,
             "p_before": 0.5476082452730116,
-            "p_after": 0.7241466267576342,
+            "p_after": 0.7616714816934259,
             "movable": true,
             "per_run_usd": null
           },
@@ -815,7 +1601,7 @@
             "decile_before": 5,
             "decile_after": 7,
             "p_before": 0.39970475480245593,
-            "p_after": 0.6577177279347006,
+            "p_after": 0.6833874793759841,
             "movable": true,
             "per_run_usd": 0.0010438753873756319
           },
@@ -824,7 +1610,7 @@
             "decile_before": 5,
             "decile_after": 7,
             "p_before": 0.3786176347081626,
-            "p_after": 0.6690538667371179,
+            "p_after": 0.7513013617910506,
             "movable": true,
             "per_run_usd": 0.020267540721688904
           },
@@ -833,7 +1619,7 @@
             "decile_before": 6,
             "decile_after": 7,
             "p_before": 0.5236636948658484,
-            "p_after": 0.740677719838484,
+            "p_after": 0.7360802622826279,
             "movable": true,
             "per_run_usd": 0.01028145482585786
           },
@@ -842,7 +1628,7 @@
             "decile_before": 5,
             "decile_after": 7,
             "p_before": 0.4237573652705844,
-            "p_after": 0.7366770943621264,
+            "p_after": 0.7239791121847298,
             "movable": true,
             "per_run_usd": 0.006838153059594185
           },
@@ -869,7 +1655,7 @@
             "decile_before": 6,
             "decile_after": 7,
             "p_before": 0.4791698158022708,
-            "p_after": 0.723569780802448,
+            "p_after": 0.7874610292912455,
             "movable": true,
             "per_run_usd": null
           }
@@ -883,6 +1669,18 @@
         "any_agent_moved": false,
         "n_movable": 10,
         "delta_p": 0.0,
+        "decile_mean_p": [
+          0.12425707670568467,
+          0.18797900023083583,
+          0.24511390531220084,
+          0.311015611607779,
+          0.40901766925836514,
+          0.5599352805390275,
+          0.7167298131202106,
+          0.8994697473233141,
+          0.9513209290017639,
+          0.974951327887145
+        ],
         "per_run_usd": 0.0,
         "unpriced_models": [],
         "per_agent": [
@@ -986,6 +1784,18 @@
         "any_agent_moved": false,
         "n_movable": 10,
         "delta_p": 0.0,
+        "decile_mean_p": [
+          0.12425707670568467,
+          0.18797900023083583,
+          0.24511390531220084,
+          0.311015611607779,
+          0.40901766925836514,
+          0.5599352805390275,
+          0.7167298131202106,
+          0.8994697473233141,
+          0.9513209290017639,
+          0.974951327887145
+        ],
         "per_run_usd": 0.0,
         "unpriced_models": [],
         "per_agent": [
@@ -1089,6 +1899,18 @@
         "any_agent_moved": false,
         "n_movable": 10,
         "delta_p": 0.0,
+        "decile_mean_p": [
+          0.12425707670568467,
+          0.18797900023083583,
+          0.24511390531220084,
+          0.311015611607779,
+          0.40901766925836514,
+          0.5599352805390275,
+          0.7167298131202106,
+          0.8994697473233141,
+          0.9513209290017639,
+          0.974951327887145
+        ],
         "per_run_usd": 0.0,
         "unpriced_models": [],
         "per_agent": [
@@ -1192,6 +2014,18 @@
         "any_agent_moved": false,
         "n_movable": 10,
         "delta_p": 0.0,
+        "decile_mean_p": [
+          0.12425707670568467,
+          0.18797900023083583,
+          0.24511390531220084,
+          0.311015611607779,
+          0.40901766925836514,
+          0.5599352805390275,
+          0.7167298131202106,
+          0.8994697473233141,
+          0.9513209290017639,
+          0.974951327887145
+        ],
         "per_run_usd": null,
         "unpriced_models": [
           "claude-3-5-sonnet-20241022",
@@ -1235,7 +2069,7 @@
             "p_before": 0.39970475480245593,
             "p_after": 0.40460187731815866,
             "movable": true,
-            "per_run_usd": 0.0032898573916053594
+            "per_run_usd": 0.0011826342214461894
           },
           {
             "agent_id": "gpt-4-turbo-2024-04-09::agentdojo",
@@ -1244,7 +2078,7 @@
             "p_before": 0.3786176347081626,
             "p_after": 0.4060055009108346,
             "movable": true,
-            "per_run_usd": 0.05952923883460943
+            "per_run_usd": 0.018280408513285516
           },
           {
             "agent_id": "gpt-4o-2024-05-13-transformers_pi_detector::agentdojo",
@@ -1253,7 +2087,7 @@
             "p_before": 0.5236636948658484,
             "p_after": 0.492151407374582,
             "movable": true,
-            "per_run_usd": 0.020462750050430085
+            "per_run_usd": 0.006681857308045255
           },
           {
             "agent_id": "gpt-4o::tau-bench",
@@ -1262,7 +2096,7 @@
             "p_before": 0.4237573652705844,
             "p_after": 0.45744566300748246,
             "movable": true,
-            "per_run_usd": 0.047606493091788854
+            "per_run_usd": 0.011471071656814186
           },
           {
             "agent_id": "gpt35_16k::webarena-cot",
@@ -1301,6 +2135,18 @@
         "any_agent_moved": false,
         "n_movable": 10,
         "delta_p": 0.0,
+        "decile_mean_p": [
+          0.12425707670568467,
+          0.18797900023083583,
+          0.24511390531220084,
+          0.311015611607779,
+          0.40901766925836514,
+          0.5599352805390275,
+          0.7167298131202106,
+          0.8994697473233141,
+          0.9513209290017639,
+          0.974951327887145
+        ],
         "per_run_usd": null,
         "unpriced_models": [
           "claude-3-5-sonnet-20241022",
@@ -1344,7 +2190,7 @@
             "p_before": 0.39970475480245593,
             "p_after": 0.4289364757522753,
             "movable": true,
-            "per_run_usd": 0.00657971478321072
+            "per_run_usd": 0.002365268442892379
           },
           {
             "agent_id": "gpt-4-turbo-2024-04-09::agentdojo",
@@ -1353,7 +2199,7 @@
             "p_before": 0.3786176347081626,
             "p_after": 0.4305922742803532,
             "movable": true,
-            "per_run_usd": 0.11905847766921886
+            "per_run_usd": 0.03656081702657103
           },
           {
             "agent_id": "gpt-4o-2024-05-13-transformers_pi_detector::agentdojo",
@@ -1362,7 +2208,7 @@
             "p_before": 0.5236636948658484,
             "p_after": 0.49205755722248384,
             "movable": true,
-            "per_run_usd": 0.04092550010086017
+            "per_run_usd": 0.01336371461609051
           },
           {
             "agent_id": "gpt-4o::tau-bench",
@@ -1371,7 +2217,7 @@
             "p_before": 0.4237573652705844,
             "p_after": 0.4687248027944826,
             "movable": true,
-            "per_run_usd": 0.09521298618357772
+            "per_run_usd": 0.02294214331362837
           },
           {
             "agent_id": "gpt35_16k::webarena-cot",
@@ -1409,7 +2255,19 @@
         "movers_frac": 0.1,
         "any_agent_moved": true,
         "n_movable": 10,
-        "delta_p": 0.09899955826999896,
+        "delta_p": 0.1509176112806624,
+        "decile_mean_p": [
+          0.12425707670568467,
+          0.18797900023083583,
+          0.24511390531220084,
+          0.311015611607779,
+          0.40901766925836514,
+          0.5599352805390275,
+          0.7167298131202106,
+          0.8994697473233141,
+          0.9513209290017639,
+          0.974951327887145
+        ],
         "per_run_usd": null,
         "unpriced_models": [
           "claude-3-5-sonnet-20241022",
@@ -1453,7 +2311,7 @@
             "p_before": 0.39970475480245593,
             "p_after": 0.47155578339965865,
             "movable": true,
-            "per_run_usd": 0.019739144349632157
+            "per_run_usd": 0.007095805328677135
           },
           {
             "agent_id": "gpt-4-turbo-2024-04-09::agentdojo",
@@ -1462,7 +2320,7 @@
             "p_before": 0.3786176347081626,
             "p_after": 0.4534265904991383,
             "movable": true,
-            "per_run_usd": 0.3571754330076565
+            "per_run_usd": 0.10968245107971313
           },
           {
             "agent_id": "gpt-4o-2024-05-13-transformers_pi_detector::agentdojo",
@@ -1471,7 +2329,7 @@
             "p_before": 0.5236636948658484,
             "p_after": 0.42466413659584945,
             "movable": true,
-            "per_run_usd": 0.12277650030258053
+            "per_run_usd": 0.04009114384827154
           },
           {
             "agent_id": "gpt-4o::tau-bench",
@@ -1480,7 +2338,7 @@
             "p_before": 0.4237573652705844,
             "p_after": 0.43867498864583193,
             "movable": true,
-            "per_run_usd": 0.2856389585507332
+            "per_run_usd": 0.06882642994088513
           },
           {
             "agent_id": "gpt35_16k::webarena-cot",
@@ -1655,7 +2513,19 @@
           "movers_frac": 0.1,
           "any_agent_moved": true,
           "n_movable": 10,
-          "delta_p": 0.025339296640661313,
+          "delta_p": 0.1509176112806624,
+          "decile_mean_p": [
+            0.12425707670568467,
+            0.18797900023083583,
+            0.24511390531220084,
+            0.311015611607779,
+            0.40901766925836514,
+            0.5599352805390275,
+            0.7167298131202106,
+            0.8994697473233141,
+            0.9513209290017639,
+            0.974951327887145
+          ],
           "per_run_usd": 0.0,
           "unpriced_models": [],
           "per_agent": [
@@ -1765,7 +2635,19 @@
           "movers_frac": 0.1,
           "any_agent_moved": true,
           "n_movable": 10,
-          "delta_p": 0.025339296640661313,
+          "delta_p": 0.1509176112806624,
+          "decile_mean_p": [
+            0.12425707670568467,
+            0.18797900023083583,
+            0.24511390531220084,
+            0.311015611607779,
+            0.40901766925836514,
+            0.5599352805390275,
+            0.7167298131202106,
+            0.8994697473233141,
+            0.9513209290017639,
+            0.974951327887145
+          ],
           "per_run_usd": 0.0,
           "unpriced_models": [],
           "per_agent": [
@@ -1861,7 +2743,7 @@
             }
           ]
         },
-        "breakeven_exposure_usd": 131547.98180090048,
+        "breakeven_exposure_usd": 22087.106369145436,
         "passes": true
       },
       {
@@ -1875,7 +2757,19 @@
           "movers_frac": 0.1,
           "any_agent_moved": true,
           "n_movable": 10,
-          "delta_p": 0.025339296640661313,
+          "delta_p": 0.1509176112806624,
+          "decile_mean_p": [
+            0.12425707670568467,
+            0.18797900023083583,
+            0.24511390531220084,
+            0.311015611607779,
+            0.40901766925836514,
+            0.5599352805390275,
+            0.7167298131202106,
+            0.8994697473233141,
+            0.9513209290017639,
+            0.974951327887145
+          ],
           "per_run_usd": 0.0,
           "unpriced_models": [],
           "per_agent": [
@@ -1985,7 +2879,19 @@
           "movers_frac": 0.1,
           "any_agent_moved": true,
           "n_movable": 10,
-          "delta_p": 0.025339296640661313,
+          "delta_p": 0.1509176112806624,
+          "decile_mean_p": [
+            0.12425707670568467,
+            0.18797900023083583,
+            0.24511390531220084,
+            0.311015611607779,
+            0.40901766925836514,
+            0.5599352805390275,
+            0.7167298131202106,
+            0.8994697473233141,
+            0.9513209290017639,
+            0.974951327887145
+          ],
           "per_run_usd": 0.0,
           "unpriced_models": [],
           "per_agent": [
@@ -2081,7 +2987,7 @@
             }
           ]
         },
-        "breakeven_exposure_usd": 131547.98180090048,
+        "breakeven_exposure_usd": 22087.106369145436,
         "passes": true
       },
       {
@@ -2095,7 +3001,19 @@
           "movers_frac": 0.1,
           "any_agent_moved": true,
           "n_movable": 10,
-          "delta_p": 0.025339296640661313,
+          "delta_p": 0.1509176112806624,
+          "decile_mean_p": [
+            0.12425707670568467,
+            0.18797900023083583,
+            0.24511390531220084,
+            0.311015611607779,
+            0.40901766925836514,
+            0.5599352805390275,
+            0.7167298131202106,
+            0.8994697473233141,
+            0.9513209290017639,
+            0.974951327887145
+          ],
           "per_run_usd": 0.0,
           "unpriced_models": [],
           "per_agent": [
@@ -2205,7 +3123,19 @@
           "movers_frac": 0.1,
           "any_agent_moved": true,
           "n_movable": 10,
-          "delta_p": 0.025339296640661313,
+          "delta_p": 0.1509176112806624,
+          "decile_mean_p": [
+            0.12425707670568467,
+            0.18797900023083583,
+            0.24511390531220084,
+            0.311015611607779,
+            0.40901766925836514,
+            0.5599352805390275,
+            0.7167298131202106,
+            0.8994697473233141,
+            0.9513209290017639,
+            0.974951327887145
+          ],
           "per_run_usd": 0.0,
           "unpriced_models": [],
           "per_agent": [
@@ -2301,8 +3231,8 @@
             }
           ]
         },
-        "breakeven_exposure_usd": 131547.98180090048,
-        "passes": true
+        "breakeven_exposure_usd": 22087.106369145436,
+        "passes": false
       },
       {
         "runs_per_year": 1000,
@@ -2315,7 +3245,19 @@
           "movers_frac": 0.1,
           "any_agent_moved": true,
           "n_movable": 10,
-          "delta_p": 0.025339296640661313,
+          "delta_p": 0.1509176112806624,
+          "decile_mean_p": [
+            0.12425707670568467,
+            0.18797900023083583,
+            0.24511390531220084,
+            0.311015611607779,
+            0.40901766925836514,
+            0.5599352805390275,
+            0.7167298131202106,
+            0.8994697473233141,
+            0.9513209290017639,
+            0.974951327887145
+          ],
           "per_run_usd": 0.0,
           "unpriced_models": [],
           "per_agent": [
@@ -2425,7 +3367,19 @@
           "movers_frac": 0.1,
           "any_agent_moved": true,
           "n_movable": 10,
-          "delta_p": 0.025339296640661313,
+          "delta_p": 0.1509176112806624,
+          "decile_mean_p": [
+            0.12425707670568467,
+            0.18797900023083583,
+            0.24511390531220084,
+            0.311015611607779,
+            0.40901766925836514,
+            0.5599352805390275,
+            0.7167298131202106,
+            0.8994697473233141,
+            0.9513209290017639,
+            0.974951327887145
+          ],
           "per_run_usd": 0.0,
           "unpriced_models": [],
           "per_agent": [
@@ -2521,7 +3475,7 @@
             }
           ]
         },
-        "breakeven_exposure_usd": 131547.98180090048,
+        "breakeven_exposure_usd": 22087.106369145436,
         "passes": false
       },
       {
@@ -2535,7 +3489,19 @@
           "movers_frac": 0.1,
           "any_agent_moved": true,
           "n_movable": 10,
-          "delta_p": 0.025339296640661313,
+          "delta_p": 0.1509176112806624,
+          "decile_mean_p": [
+            0.12425707670568467,
+            0.18797900023083583,
+            0.24511390531220084,
+            0.311015611607779,
+            0.40901766925836514,
+            0.5599352805390275,
+            0.7167298131202106,
+            0.8994697473233141,
+            0.9513209290017639,
+            0.974951327887145
+          ],
           "per_run_usd": 0.0,
           "unpriced_models": [],
           "per_agent": [
@@ -2645,7 +3611,19 @@
           "movers_frac": 0.1,
           "any_agent_moved": true,
           "n_movable": 10,
-          "delta_p": 0.025339296640661313,
+          "delta_p": 0.1509176112806624,
+          "decile_mean_p": [
+            0.12425707670568467,
+            0.18797900023083583,
+            0.24511390531220084,
+            0.311015611607779,
+            0.40901766925836514,
+            0.5599352805390275,
+            0.7167298131202106,
+            0.8994697473233141,
+            0.9513209290017639,
+            0.974951327887145
+          ],
           "per_run_usd": 0.0,
           "unpriced_models": [],
           "per_agent": [
@@ -2741,7 +3719,7 @@
             }
           ]
         },
-        "breakeven_exposure_usd": 131547.98180090048,
+        "breakeven_exposure_usd": 22087.106369145436,
         "passes": true
       },
       {
@@ -2755,7 +3733,19 @@
           "movers_frac": 0.1,
           "any_agent_moved": true,
           "n_movable": 10,
-          "delta_p": 0.025339296640661313,
+          "delta_p": 0.1509176112806624,
+          "decile_mean_p": [
+            0.12425707670568467,
+            0.18797900023083583,
+            0.24511390531220084,
+            0.311015611607779,
+            0.40901766925836514,
+            0.5599352805390275,
+            0.7167298131202106,
+            0.8994697473233141,
+            0.9513209290017639,
+            0.974951327887145
+          ],
           "per_run_usd": 0.0,
           "unpriced_models": [],
           "per_agent": [
@@ -2865,7 +3855,19 @@
           "movers_frac": 0.1,
           "any_agent_moved": true,
           "n_movable": 10,
-          "delta_p": 0.025339296640661313,
+          "delta_p": 0.1509176112806624,
+          "decile_mean_p": [
+            0.12425707670568467,
+            0.18797900023083583,
+            0.24511390531220084,
+            0.311015611607779,
+            0.40901766925836514,
+            0.5599352805390275,
+            0.7167298131202106,
+            0.8994697473233141,
+            0.9513209290017639,
+            0.974951327887145
+          ],
           "per_run_usd": 0.0,
           "unpriced_models": [],
           "per_agent": [
@@ -2961,7 +3963,7 @@
             }
           ]
         },
-        "breakeven_exposure_usd": 131547.98180090048,
+        "breakeven_exposure_usd": 22087.106369145436,
         "passes": true
       },
       {
@@ -2975,7 +3977,19 @@
           "movers_frac": 0.1,
           "any_agent_moved": true,
           "n_movable": 10,
-          "delta_p": 0.025339296640661313,
+          "delta_p": 0.1509176112806624,
+          "decile_mean_p": [
+            0.12425707670568467,
+            0.18797900023083583,
+            0.24511390531220084,
+            0.311015611607779,
+            0.40901766925836514,
+            0.5599352805390275,
+            0.7167298131202106,
+            0.8994697473233141,
+            0.9513209290017639,
+            0.974951327887145
+          ],
           "per_run_usd": 0.0,
           "unpriced_models": [],
           "per_agent": [
@@ -3085,7 +4099,19 @@
           "movers_frac": 0.1,
           "any_agent_moved": true,
           "n_movable": 10,
-          "delta_p": 0.025339296640661313,
+          "delta_p": 0.1509176112806624,
+          "decile_mean_p": [
+            0.12425707670568467,
+            0.18797900023083583,
+            0.24511390531220084,
+            0.311015611607779,
+            0.40901766925836514,
+            0.5599352805390275,
+            0.7167298131202106,
+            0.8994697473233141,
+            0.9513209290017639,
+            0.974951327887145
+          ],
           "per_run_usd": 0.0,
           "unpriced_models": [],
           "per_agent": [
@@ -3181,8 +4207,8 @@
             }
           ]
         },
-        "breakeven_exposure_usd": 131547.98180090048,
-        "passes": true
+        "breakeven_exposure_usd": 22087.106369145436,
+        "passes": false
       },
       {
         "runs_per_year": 100000,
@@ -3195,7 +4221,19 @@
           "movers_frac": 0.1,
           "any_agent_moved": true,
           "n_movable": 10,
-          "delta_p": 0.025339296640661313,
+          "delta_p": 0.1509176112806624,
+          "decile_mean_p": [
+            0.12425707670568467,
+            0.18797900023083583,
+            0.24511390531220084,
+            0.311015611607779,
+            0.40901766925836514,
+            0.5599352805390275,
+            0.7167298131202106,
+            0.8994697473233141,
+            0.9513209290017639,
+            0.974951327887145
+          ],
           "per_run_usd": 0.0,
           "unpriced_models": [],
           "per_agent": [
@@ -3305,7 +4343,19 @@
           "movers_frac": 0.1,
           "any_agent_moved": true,
           "n_movable": 10,
-          "delta_p": 0.025339296640661313,
+          "delta_p": 0.1509176112806624,
+          "decile_mean_p": [
+            0.12425707670568467,
+            0.18797900023083583,
+            0.24511390531220084,
+            0.311015611607779,
+            0.40901766925836514,
+            0.5599352805390275,
+            0.7167298131202106,
+            0.8994697473233141,
+            0.9513209290017639,
+            0.974951327887145
+          ],
           "per_run_usd": 0.0,
           "unpriced_models": [],
           "per_agent": [
@@ -3401,7 +4451,7 @@
             }
           ]
         },
-        "breakeven_exposure_usd": 131547.98180090048,
+        "breakeven_exposure_usd": 22087.106369145436,
         "passes": false
       }
     ],
@@ -3415,13 +4465,13 @@
     ]
   },
   "provenance": {
-    "git_commit": "1df5e2ba2f039d0e2215d61f02fbb6a977bce927",
+    "git_commit": "57e8d7db15ac5e6b26710e6567060389d8b8a8e9",
     "git_dirty": true,
-    "manifest_sha256": "771db30070a7e44fbf4c634b28f891a4edc27275a7472354b509cae108fb4abb",
+    "manifest_sha256": "804c4d88e9e6cf9b1784fc792cf772a3b90aaf65b415a616e6731efd7f2c9126",
     "seeds": {
       "split_seed": 20261017,
       "model_seed": 20261017
     },
-    "timestamp_utc": "2026-10-28T03:10:07.297110+00:00"
+    "timestamp_utc": "2026-10-28T22:31:29.572953+00:00"
   }
 }

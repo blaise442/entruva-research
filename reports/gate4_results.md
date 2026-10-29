@@ -1,13 +1,18 @@
 # Gate 4 results: clause 4, adversarial cost (S3), reputation layer, flywheel (S4)
 
-Phase 3 closed 2026-10-27 (day 10 of 90). Everything below is computed by
+Phase 3 closed 2026-10-28 (day 11 of 90). Everything below is computed by
 `src/adversarial/run_s3.py`, `src/adversarial/run_reputation.py` and
 `src/simulation/run_s4.py` with seeds, commit hash and manifest hash in the
-result files `results/2026-10-27_S3_attacks.json`,
+result files `results/2026-10-28_S3_attacks.json`,
 `results/2026-10-27_erc8004_descriptive.json` and
-`results/2026-10-27_S4_flywheel_synthetic.json`. The analysis choices were fixed
+`results/2026-10-28_S4_flywheel_synthetic.json`. The analysis choices were fixed
 in `docs/DEVIATIONS.md` (three entries dated 2026-10-27) before any attack was
 run; the design is `docs/superpowers/specs/2026-10-25-research-phase3-design.md`.
+The S3 and S4 numbers are from a rerun on 2026-10-28 after a whole-branch review
+of the first run found seven departures from the design and the feature
+extractor (DEVIATIONS 2026-10-28, written before the rerun). The first run's
+files are in git history at commit 1488a19; its verdicts under both readings
+were the same as below.
 
 ## Clause 4 verdict
 
@@ -26,8 +31,11 @@ median movable held-out agent): no attack moves a decile. Clause 4 passes in all
 
 **Under the harsher any-agent reading (an attack counts when it moves any one
 agent): error suppression, which costs nothing per run, moves one of ten agents
-(the Llama 3.3 70B AgentDojo agent, decile 6 to 5). With E = 0 the breakeven
-exposure is 0 and every E = 0 cell fails. Verdict: fail.**
+(the Llama 3.3 70B AgentDojo agent, decile 6 to 5). dp is the difference of the
+decile mean predicted probabilities, 0.560 for decile 6 and 0.409 for decile 5,
+so 0.151. With E = 0 the breakeven exposure is 0 and every E = 0 cell fails;
+with E = 10,000 USD it is 22,087 USD, so the cells at 100,000 and 1,000,000 USD
+exposure fail as well. Verdict: fail.**
 
 Both readings are reported because the decile unit was chosen before the run
 (DEVIATIONS 2026-10-27) and a reader should see how much the verdict depends on
@@ -40,20 +48,26 @@ sits near a decile boundary can be nudged across for free.
 
 **error suppression**
 
-| strength | deciles moved (median) | agents moved | any agent moved | mean dp over movers | USD per run |
+| strength | deciles moved (median) | agents moved | any agent moved | dp over movers (decile means) | USD per run |
 |---|---|---|---|---|---|
-| None | +0.0 | 1/10 | yes | 0.0253 | 0.000000 |
+| None | +0.0 | 1/10 | yes | 0.1509 | 0.000000 |
 
 **retry diversification**
 
-| strength | deciles moved (median) | agents moved | any agent moved | mean dp over movers | USD per run |
+| strength | deciles moved (median) | agents moved | any agent moved | dp over movers (decile means) | USD per run |
 |---|---|---|---|---|---|
-| None | +0.0 | 1/10 | yes | 0.0053 | 0.000000 |
+| None | +0.0 | 1/10 | yes | 0.1509 | 0.000000 |
 
 **call shaping**
 
-| strength | deciles moved (median) | agents moved | any agent moved | mean dp over movers | USD per run |
+| strength | deciles moved (median) | agents moved | any agent moved | dp over movers (decile means) | USD per run |
 |---|---|---|---|---|---|
+| -32 | +0.0 | 0/10 | no | 0.0000 | 0.000000 |
+| -16 | +0.0 | 0/10 | no | 0.0000 | 0.000000 |
+| -8 | +0.0 | 0/10 | no | 0.0000 | 0.000000 |
+| -4 | +0.0 | 0/10 | no | 0.0000 | 0.000000 |
+| -2 | +0.0 | 0/10 | no | 0.0000 | 0.000000 |
+| -1 | +0.0 | 0/10 | no | 0.0000 | 0.000000 |
 | 1 | +0.0 | 0/10 | no | 0.0000 | unpriced |
 | 2 | +0.0 | 0/10 | no | 0.0000 | unpriced |
 | 4 | +0.0 | 0/10 | no | 0.0000 | unpriced |
@@ -63,14 +77,14 @@ sits near a decile boundary can be nudged across for free.
 
 **message shaping**
 
-| strength | deciles moved (median) | agents moved | any agent moved | mean dp over movers | USD per run |
+| strength | deciles moved (median) | agents moved | any agent moved | dp over movers (decile means) | USD per run |
 |---|---|---|---|---|---|
 | 0.25 | +0.0 | 0/10 | no | 0.0000 | 0.000000 |
 | 0.5 | +0.0 | 0/10 | no | 0.0000 | 0.000000 |
 | 0.75 | +0.0 | 0/10 | no | 0.0000 | 0.000000 |
 | 1.5 | +0.0 | 0/10 | no | 0.0000 | unpriced |
 | 2 | +0.0 | 0/10 | no | 0.0000 | unpriced |
-| 4 | +0.0 | 1/10 | yes | 0.0990 | unpriced |
+| 4 | +0.0 | 1/10 | yes | 0.1509 | unpriced |
 
 ### Per-agent deciles under error suppression
 
@@ -115,26 +129,27 @@ Verdict under this rule: **pass**
 | runs per year | exposure USD | one-time USD | cheapest attack | breakeven exposure USD | passes |
 |---|---|---|---|---|---|
 | 1,000 | 1,000 | 0 | error_suppression (s=None) | 0 | False |
-| 1,000 | 1,000 | 10,000 | error_suppression (s=None) | 131,548 | True |
+| 1,000 | 1,000 | 10,000 | error_suppression (s=None) | 22,087 | True |
 | 1,000 | 10,000 | 0 | error_suppression (s=None) | 0 | False |
-| 1,000 | 10,000 | 10,000 | error_suppression (s=None) | 131,548 | True |
+| 1,000 | 10,000 | 10,000 | error_suppression (s=None) | 22,087 | True |
 | 1,000 | 100,000 | 0 | error_suppression (s=None) | 0 | False |
-| 1,000 | 100,000 | 10,000 | error_suppression (s=None) | 131,548 | True |
+| 1,000 | 100,000 | 10,000 | error_suppression (s=None) | 22,087 | False |
 | 1,000 | 1,000,000 | 0 | error_suppression (s=None) | 0 | False |
-| 1,000 | 1,000,000 | 10,000 | error_suppression (s=None) | 131,548 | False |
+| 1,000 | 1,000,000 | 10,000 | error_suppression (s=None) | 22,087 | False |
 | 100,000 | 1,000 | 0 | error_suppression (s=None) | 0 | False |
-| 100,000 | 1,000 | 10,000 | error_suppression (s=None) | 131,548 | True |
+| 100,000 | 1,000 | 10,000 | error_suppression (s=None) | 22,087 | True |
 | 100,000 | 10,000 | 0 | error_suppression (s=None) | 0 | False |
-| 100,000 | 10,000 | 10,000 | error_suppression (s=None) | 131,548 | True |
+| 100,000 | 10,000 | 10,000 | error_suppression (s=None) | 22,087 | True |
 | 100,000 | 100,000 | 0 | error_suppression (s=None) | 0 | False |
-| 100,000 | 100,000 | 10,000 | error_suppression (s=None) | 131,548 | True |
+| 100,000 | 100,000 | 10,000 | error_suppression (s=None) | 22,087 | False |
 | 100,000 | 1,000,000 | 0 | error_suppression (s=None) | 0 | False |
-| 100,000 | 1,000,000 | 10,000 | error_suppression (s=None) | 131,548 | False |
+| 100,000 | 1,000,000 | 10,000 | error_suppression (s=None) | 22,087 | False |
 
 Verdict under this rule: **fail**
 
 Unpriced models: claude-3-5-sonnet-20241022, claude-3-haiku-20240307, claude3.5sonnet, gpt35_16k, meta-llama_Llama-3.3-70B-Instruct
 Decile edges: 0.160, 0.222, 0.278, 0.353, 0.478, 0.637, 0.822, 0.939, 0.964
+Decile mean predicted probability (1 to 10): 0.124, 0.188, 0.245, 0.311, 0.409, 0.560, 0.717, 0.899, 0.951, 0.975
 
 ## Overall H1 verdict
 
@@ -154,7 +169,15 @@ Per-run cost is added characters converted to tokens with the measured
 chars-per-token ratio for each source (`data/prices/chars_per_token.csv`) at the
 vendor's public list price (`data/prices/model_prices.csv`), input plus an
 equal-size output. Two attacks add no text and cost nothing per run. Figures:
-`results/2026-10-27_S3_<attack>.png`.
+`results/2026-10-28_S3_<attack>.png`.
+
+Call shaping was run in both directions the design names. Dropping redundant
+calls (k < 0 removes up to |k| repeated calls, which costs nothing) moves no
+agent: only 13.5 percent of held-out rows contain a repeated call at all, so
+there is little to drop. Adding calls raises predicted risk for the median agent
+from k = 8 upward. Message shaping at factor 4 moves one agent (the gpt-4o
+prompt-injection-detector AgentDojo agent) but is unpriced for the five agents
+without a list price, so by the preregistered rule it is never the cheapest.
 
 Five of ten held-out agents are unpriced (three retired Claude models, the
 retired gpt-3.5-turbo-16k, and Llama 3.3 70B which has no vendor list price), so
@@ -204,27 +227,34 @@ weight feedback by something other than its count.
 Agent-based simulation, 500 agents whose true failure rates are resampled from
 the ten held-out agents, 50 resampled real rows per agent per round, 12 rounds
 with burn-in 4, attacker fraction f from 0 to 1 in steps of 0.05, one run per
-scenario cell (16 cells), seed 20261017. Each round the insurer refits the Phase 2
-model class on the previous round's observed telemetry (attacked rows included)
-and true outcomes. Attackers are rational: they apply the cheapest attack from
-the any-agent S3 table (error suppression, free per run) whenever the breakeven
-under the current scorer says it pays at the cell's exposure, paying E once.
-Outputs carry `synthetic` in the filename and feed no headline result
-(`results/2026-10-27_S4_flywheel_synthetic.json`, `.png`).
+scenario cell (16 cells), seed 20261017. Round 0 scores with the Phase 2 scorer;
+each later round the insurer refits the Phase 2 model class on the previous
+round's observed telemetry (attacked rows included) and true outcomes.
+Attackers are rational: they apply the cheapest attack from the any-agent S3
+table (error suppression, free per run) whenever their own saving under the
+current scorer, dp times the cell's exposure, exceeds their cost, paying E once.
+The 3x floor is the insurer's rule, not the attacker's. Outputs carry
+`synthetic` in the filename and feed no headline result
+(`results/2026-10-28_S4_flywheel_synthetic.json`, `.png`).
 
 Result: **no collapse in any cell**. AUC after burn-in is 0.757 at f = 0 and
-0.756 at f = 1 in every cell, against a naive baseline of 0.654. Attackers are
-active (294 of 500 agents at f = 1 when E = 0; 0 to 200 when E = 10,000 USD,
-depending on exposure) but error suppression barely moves the refit scorer, so
-trust quality is flat in f. The boundary f is therefore not reached on this grid
-and is reported as none.
+0.756 to 0.757 at f = 1 in every cell, against a naive baseline of 0.654; round
+0 under the Phase 2 scorer is 0.661. Attackers are active when E = 0 (up to 314
+of 500 agents in a round, 179 in the last round at f = 1); when E = 10,000 USD
+nobody attacks below 1,000,000 USD exposure, and at that exposure 233 of 500
+attack at f = 1. Error suppression barely moves the refit scorer, so trust
+quality is flat in f. The share of premium paid by the riskiest true-risk
+quartile of agents is 0.40 at every f. The boundary f is therefore not reached
+on this grid and is reported as none.
 
 Neither of the two preregistered outcomes fired by its fixed rule. "Converged"
 required AUC within the Phase 2 held-out GBM CI [0.777, 0.888]; the simulation's
 ceiling is lower (0.757) because its outcomes are Bernoulli draws from each
 agent's rate, so within-agent variation is pure noise. The rule is kept as fixed
 in DEVIATIONS and the mismatch is listed under limitations rather than patched
-after the run. The substantive finding stands on the plot: a scorer that keeps
+after the run. "No collapse" is also close to guaranteed by construction (see
+limitations): the refit scorer can learn agent identity from model_id, which no
+attack touches. The plot shows what the simulation can show: a scorer that keeps
 refitting on gamed telemetry neither improves nor degrades under the one attack
 that pays.
 
@@ -253,6 +283,17 @@ have no on-chain identity, and the on-chain agents have no task outcomes
   (the Phase 2 GBM CI) was set above the AUC ceiling of a Bernoulli-outcome
   population, so "converged" is false everywhere even though the curve is flat;
   a future run should fix the band from a no-attacker calibration round.
+- "No collapse" in S4 is close to guaranteed by construction, not only by the
+  band: outcomes are Bernoulli draws from the agent's rate, independent of the
+  resampled row, and model_id, which no attack touches, nearly identifies the
+  ten source agents, so a refit scorer can learn agent identity and no
+  telemetry attack that leaves model_id intact can collapse it. The S4 result
+  is not evidence about a flywheel whose scorer cannot see model identity.
+- The S3 and S4 numbers are from the 2026-10-28 rerun after review; the
+  corrections (DEVIATIONS 2026-10-28) were made after the first run's numbers
+  were known. Neither verdict changed; the any-agent breakeven at E = 10,000
+  USD fell from 131,548 to 22,087 USD because dp is now the decile-mean
+  difference the design asked for.
 
 ## Decisions at Gate 4 (founder)
 

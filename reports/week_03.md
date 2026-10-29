@@ -9,8 +9,9 @@
   1.9 million block scan.
 - Phase 3 designed with the founder 2026-10-26 to 27 (attacker model, S1 not
   evaluable, breakeven table instead of an invented premium, scorer-refit
-  flywheel) and executed 2026-10-27 to 28: nine plan tasks, 36 new tests, suite
-  at 137.
+  flywheel) and executed 2026-10-27 to 28: nine plan tasks, then a fresh
+  whole-branch review and one fix pass with a rerun of S3 and S4 (45 new tests,
+  suite at 146).
 - Four telemetry attacks priced against the frozen Phase 2 scorer; the clause 4
   breakeven table under two readings; the reputation layer described and its
   attacks priced from 400 real receipts; the flywheel simulation run over 16
@@ -22,8 +23,9 @@ Editing telemetry alone does not move the typical held-out agent a decile: under
 the preregistered median-agent reading no attack qualifies and clause 4 passes,
 so H1 is supported. Under the harsher any-agent reading a free attack (swallow
 errors, retry silently) moves one of ten agents across a decile boundary and
-clause 4 fails, which would make the verdict "predictive but gameable". The
-scorer resists manipulation mostly because its signal sits in model identity and
+clause 4 fails, which would make the verdict "predictive but gameable"; under
+that reading the breakeven exposure with a 10,000 USD one-time cost is 22,087
+USD. The review-driven rerun changed neither verdict. The scorer resists manipulation mostly because its signal sits in model identity and
 task type, which an operator cannot forge. On-chain, reputation is cheap to
 fake: a fresh identity with as much feedback as the median rated agent costs
 about 27 cents in gas, and 92 percent of rated agents have a single feedback
@@ -34,6 +36,11 @@ telemetry stays flat at AUC 0.757 from no attackers to all attackers.
 
 - DEVIATIONS 2026-10-27: S1 not evaluable; attack, decile and breakeven
   definitions; S4 constants. All fixed before any run.
+- DEVIATIONS 2026-10-28: seven corrections from the whole-branch review (call
+  shaping's drop direction, the extractor's denominator for mean_text_len,
+  decile-mean dp, the no-movable-agent case, the S4 attacker rule, S4 round 0,
+  S4's agent-level dp), written after the first run's numbers were known and
+  before the rerun. The first run's files are in git history at 1488a19.
 - Collector: 429 backoff, deployment-block start, chunk regrowth (PR 13).
 - New packages src/adversarial and src/simulation; price table and measured
   chars-per-token ratios under data/prices; pinned ERC-8004 ABI under data/abi.
