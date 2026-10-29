@@ -295,10 +295,10 @@ have no on-chain identity, and the on-chain agents have no task outcomes
   USD fell from 131,548 to 22,087 USD because dp is now the decile-mean
   difference the design asked for.
 
-## Decisions at Gate 4 (founder)
+## Decisions at Gate 4 (founder, 2026-10-28)
 
-Draft by the executing agent, 2026-10-28, awaiting founder approval. The
-founder's edits replace this text; nothing below is decided until then.
+Drafted by the executing agent and approved by the founder as written on
+2026-10-28.
 
 1. The preregistered median-agent reading leads the final write-up: clause 4
    passes, H1 is supported. Reason: the reading was fixed in DEVIATIONS before

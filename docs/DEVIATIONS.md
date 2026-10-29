@@ -55,3 +55,9 @@ Format for each entry:
 - Why: a fresh reviewer read the branch after the first run and found these against the design and the extractor. The first run's result files (2026-10-27 S3 and S4) are superseded and remain in git history at commit 1488a19; the corrected runs are dated 2026-10-28.
 - Decided by: executing agent, 2026-10-28, after the first run's numbers were known and before the rerun; this ordering is stated so a reader can weigh it. The scenario grid, E values, floor and every S4 constant are unchanged.
 - Effect on preregistered thresholds: none.
+
+## 2026-10-28: Phase 4 reduced to collection cross-checks (no external outcome data)
+- What changed: Phase 4 (external validation) cannot validate the H1 model on external data. The data request to the authors of arXiv 2606.26028 (sent week 1) is unanswered, their dataset has no public release, and no public ERC-8004 source carries task outcomes: the Harvard Dataverse dataset doi:10.7910/DVN/HJZW8Q (CC0, Ethereum, first 10,000 agents) and the 8004scan public API (29 networks) hold identity and feedback records only. Phase 4 is reduced to a row-level cross-check of the Ethereum collection against the Dataverse dataset and an extension of the reputation descriptives to Base and BNB Smart Chain through the API or a keyless RPC endpoint, every fetch recorded in MANIFEST. The request stays open; a reply adds a third cross-check.
+- Why: no join between telemetry-and-outcome agents and on-chain agents exists anywhere available (same gap as S1), so there is no external set on which the failure model can be scored.
+- Decided by: founder, Gate 4, 2026-10-28.
+- Effect on preregistered thresholds: none. H1's verdict rests on the frozen held-out split (Gate 3) and the clause 4 breakeven (Gate 4); the final write-up states that external validation was not possible.
