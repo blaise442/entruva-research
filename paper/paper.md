@@ -101,7 +101,7 @@ The S4 flywheel is synthetic and feeds no headline result. Five hundred agents d
 
 ### 4.1 Pooled prediction
 
-All three prediction clauses held on the held-out agents (Table 2). The telemetry model's AUC lower bound exceeded the baseline point estimate by 0.124 against a required 0.05; the Brier skill interval excluded zero; the top quartile failed 4.14 times as often as the bottom (2,249.4 of 2,324 runs against 544 of 2,325, averaged over 25 tie-break draws) and the decile table was perfectly monotone.
+All three prediction clauses held on the held-out agents (Table 2). The telemetry model's AUC lower bound exceeded the baseline point estimate by 0.124 against a required 0.05; the Brier skill interval excluded zero; the top quartile failed 4.14 times as often as the bottom (2,249.4 of 2,324 runs against 544 of 2,325, averaged over 25 tie-break draws) and the decile table was perfectly monotone (Figure 2).
 
 Table 2. Held-out performance, 10 agents, 9,298 rows. Intervals are 95 percent cluster bootstraps over agents.
 
@@ -112,7 +112,11 @@ Table 2. Held-out performance, 10 agents, 9,298 rows. Intervals are 95 percent c
 | Gradient boosting, telemetry only | 0.839 [0.768, 0.885] | 0.186 [0.058, 0.290] | 0.233 [0.047, 0.326] | 4.04 |
 | Logistic regression, same inputs as primary | 0.767 [0.638, 0.849] | 0.113 [-0.004, 0.230] | 0.104 [-0.089, 0.213] | 2.84 |
 
-The telemetry-only model matches the primary model, so the gain is not model identity leaking through telemetry. The linear model would not have passed clauses 1 or 2, so the signal is non-linear or carried by interactions. The reliability curve under-predicts in the 0.3 to 0.5 band (predicted 0.35 to 0.45 against observed 0.49 to 0.63) and is close to the diagonal elsewhere; a premium schedule built on these probabilities would need recalibration on the target book. Grouped five-fold cross-validation over all 41 agents gave a pooled out-of-fold baseline AUC of 0.590, telemetry model 0.792 [0.755, 0.826], paired gain 0.202 [0.140, 0.259], Brier skill 0.218 [0.133, 0.281] and quartile ratio 4.21, so the primary result is not an artefact of one split.
+The telemetry-only model matches the primary model, so the gain is not model identity leaking through telemetry. The linear model would not have passed clauses 1 or 2, so the signal is non-linear or carried by interactions. The reliability curve (Figure 1) under-predicts in the 0.3 to 0.5 band (predicted 0.35 to 0.45 against observed 0.49 to 0.63) and is close to the diagonal elsewhere; a premium schedule built on these probabilities would need recalibration on the target book. Grouped five-fold cross-validation over all 41 agents gave a pooled out-of-fold baseline AUC of 0.590, telemetry model 0.792 [0.755, 0.826], paired gain 0.202 [0.140, 0.259], Brier skill 0.218 [0.133, 0.281] and quartile ratio 4.21, so the primary result is not an artefact of one split.
+
+![Figure 1. Reliability of the telemetry model on the held-out agents: observed failure rate against predicted probability by decile. The dashed line is perfect calibration; the curve under-predicts between 0.3 and 0.5 and is close to the diagonal elsewhere.](../results/2026-10-25_H1_reliability.png)
+
+![Figure 2. Observed failure rate by predicted-risk decile on the held-out agents. The deciles are monotone (Spearman 1.00); the top quartile fails 4.14 times as often as the bottom.](../results/2026-10-25_H1_decile_lift.png)
 
 The Poisson frequency model, fit on all benchmark rows without a source control, gives relativities per standard deviation whose intervals exclude one for tool calls 1.48 [1.32, 1.70], repeat-call ratio 1.13 [1.05, 1.23], error rate 1.08 [1.04, 1.12], API calls 0.90 [0.85, 0.99], mean message length 0.86 [0.82, 0.91] and task length 0.75 [0.65, 0.85]. More tool calls, more repeated identical calls and a higher error rate load toward failure. This is descriptive: task length is measured in different units per source and the model has no source control, so it is not a rating plan.
 
@@ -135,7 +139,7 @@ The pooled pass is carried by AgentDojo, which is 82 percent of rows and 72 perc
 
 Under the preregistered median-agent reading no attack moves a decile, and clause 4 passes in all 16 scenario cells. Under the any-agent reading, error suppression moves one held-out agent (Llama 3.3 70B on AgentDojo) from decile 6, with a decile-mean predicted probability of 0.560, to decile 5 at 0.409, a drop of 0.151, at zero per-run cost. With no engineering cost the breakeven exposure is 0 USD and every such cell fails; with a 10,000 USD engineering cost it is 22,087 USD, so the cells at 100,000 and 1,000,000 USD exposure fail as well. Twelve of 16 cells fail under this reading. The preregistered verdict is therefore "supported, and gameable at the margin for one agent in ten at no cost".
 
-The tail matters more to an insurer than the median. Across all twenty attack settings there are three downward decile moves in the whole held-out set, and all three are mid-distribution agents moving from decile 6 to 5 (Table 4). The two worst-scoring held-out agents, both WebArena agents at a predicted probability of 0.93, never move down a decile under any attack; the free attacks push their scores up, not down, and error suppression moves one of them up a decile. The gameable margin is a middle-of-the-distribution effect: an agent whose honest score sits near a decile boundary can nudge itself across for free, while the agents an insurer most needs to identify stay identified. The held-out tail is two or three agents, and both of the worst are WebArena agents, where the within-domain signal is weak, so this is evidence about where the attacks act rather than proof that the tail is safe.
+The tail matters more to an insurer than the median. Across all twenty attack settings (Figure 3) there are three downward decile moves in the whole held-out set, and all three are mid-distribution agents moving from decile 6 to 5 (Table 4). The two worst-scoring held-out agents, both WebArena agents at a predicted probability of 0.93, never move down a decile under any attack; the free attacks push their scores up, not down, and error suppression moves one of them up a decile. The gameable margin is a middle-of-the-distribution effect: an agent whose honest score sits near a decile boundary can nudge itself across for free, while the agents an insurer most needs to identify stay identified. The held-out tail is two or three agents, and both of the worst are WebArena agents, where the within-domain signal is weak, so this is evidence about where the attacks act rather than proof that the tail is safe.
 
 Table 4. Downward decile moves across all attack settings, held-out agents.
 
@@ -144,6 +148,8 @@ Table 4. Downward decile moves across all attack settings, held-out agents.
 | Error suppression | none | 0 | Llama 3.3 70B, AgentDojo | 6 to 5 |
 | Retry diversification | none | 0 | Llama 3.3 70B, AgentDojo | 6 to 5 |
 | Message shaping | 4x | 0.04 | GPT-4o with injection detector, AgentDojo | 6 to 5 |
+
+![Figure 3. The four attacks on the held-out agents. Left axis and circles: deciles moved per agent (before minus after, positive means a lower predicted risk), median across movable agents with the minimum-to-maximum range as bars. Right axis and dashed squares: per-run cost in USD at public list prices; a missing dashed point means the attack is unpriced for every agent at that strength. No attack moves the median agent; the ranges reach one decile only at the margin.](figures/fig3_attacks.png)
 
 ### 4.4 Portability
 
@@ -162,7 +168,7 @@ S1, whether reputation adds value beyond telemetry, could not be evaluated: the 
 
 ### 4.5 The reputation layer across three chains
 
-The complete event history of the ERC-8004 identity and reputation registries on Ethereum, Base and BNB Smart Chain passes the integrity check on every chain, and the count of registered agents matches a public block explorer on each (Table 6).
+The complete event history of the ERC-8004 identity and reputation registries on Ethereum, Base and BNB Smart Chain passes the integrity check on every chain, and the count of registered agents matches a public block explorer on each (Table 6, Figure 4).
 
 Table 6. ERC-8004 registries, full history (Ethereum to 2026-10-25, Base and BNB to 2026-11-02).
 
@@ -178,9 +184,13 @@ Table 6. ERC-8004 registries, full history (Ethereum to 2026-10-25, Base and BNB
 
 Fewer than one registered agent in twenty has received any feedback on Ethereum and BNB Smart Chain, about one in eight on Base, and on every chain the median rated agent has one entry from one wallet. Base differs in scale, not in shape: a single agent holds 390,890 of its 673,980 feedback entries. On Ethereum, from 400 sampled receipts at the block-day price, one registration costs 0.17 USD in gas, one feedback event 0.10 USD, a Sybil campaign that brings a fresh identity to the median feedback count 0.27 USD, and a five-agent collusion ring 1.93 USD. The independent cross-check against Liu (2026) found every one of that dataset's 10,000 agents, 1,961 transfers and 980 feedback records in our collection, with feedback counts equal for 9,991 agents and at most ours for the rest, which is consistent with our later fetch; the observation block implied by every owner matching is 24,744,960. The study's models use none of this data; the audit bounds what a future reputation-weighted score would cost to game and shows that the registries as deployed carry almost no independent information about any agent.
 
+![Figure 4. ERC-8004 registries. Registrations per block bin on Ethereum (top left) and Base (top right), each dominated by a few bursts, and on BNB Smart Chain (bottom left), spread across its history; bottom right, the number of distinct feedback givers per rated agent on Ethereum, log scale, with the mass at one.](figures/fig4_registries.png)
+
 ### 4.6 Simulation
 
-In the synthetic flywheel, no cell collapsed: post-burn-in AUC was 0.756 to 0.757 at every attacker fraction from 0 to 1 against a baseline of 0.654. Neither preregistered outcome fired by its own rule. "Converged" required AUC inside the Phase 2 interval [0.777, 0.888], which sits above the ceiling of a population whose outcomes are Bernoulli draws from fixed rates, and "no collapse" is close to guaranteed by construction because model identity, which no attack touches, nearly identifies the source agents. The band was kept as fixed and the mismatch is reported as a limitation. The simulation shows that refitting on gamed telemetry does not degrade ranking under these attacks; it does not show that the system is robust to attacks it did not model.
+In the synthetic flywheel (Figure 5), no cell collapsed: post-burn-in AUC was 0.756 to 0.757 at every attacker fraction from 0 to 1 against a baseline of 0.654. Neither preregistered outcome fired by its own rule. "Converged" required AUC inside the Phase 2 interval [0.777, 0.888], which sits above the ceiling of a population whose outcomes are Bernoulli draws from fixed rates, and "no collapse" is close to guaranteed by construction because model identity, which no attack touches, nearly identifies the source agents. The band was kept as fixed and the mismatch is reported as a limitation. The simulation shows that refitting on gamed telemetry does not degrade ranking under these attacks; it does not show that the system is robust to attacks it did not model.
+
+![Figure 5. Synthetic flywheel: AUC after burn-in against attacker fraction for all 16 scenario cells, with the naive baseline AUC dashed. The lines coincide at 0.756 to 0.757. This figure is a simulation output and feeds no headline result.](../results/2026-10-28_S4_flywheel_synthetic.png)
 
 ### 4.7 Deviations register
 

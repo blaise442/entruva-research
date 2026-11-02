@@ -66,3 +66,4 @@ web3==8.0.0
 websockets==17.3
 yarl==1.25.1
 tiktoken==0.14.0
+markdown==3.11.2
