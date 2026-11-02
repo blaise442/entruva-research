@@ -52,8 +52,10 @@ def _chain_name(chain_id: int) -> str:
                          f"published ERC-8004 registry addresses; refusing to label its logs")
     return CHAIN_IDS[chain_id]
 
-def fetch_logs(eth, address: str, from_block: int, to_block: int, chunk: int = 50_000) -> list[dict]:
-    """Chunked eth_getLogs. On a provider range error the chunk is halved and the
+def fetch_logs(eth, address: str, from_block: int, to_block: int, chunk: int = 10_000) -> list[dict]:
+    """Chunked eth_getLogs, at most 10,000 blocks per call: a keyed provider answered
+    a wider BNB range with an incomplete list and no error (measured 2026-11-02).
+    On a provider range error the chunk is halved and the
     same range retried, so every log is returned exactly once; after each success
     it doubles back toward the starting chunk so a dense region does not slow the
     sparse remainder."""

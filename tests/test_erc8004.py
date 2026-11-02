@@ -266,3 +266,11 @@ def test_run_without_a_window_removes_a_stale_window_file(tmp_path, monkeypatch)
     manifest.write_text("# manifest\n")
     assert run(out, manifest) == 0
     assert not stale.exists()
+
+
+def test_fetch_logs_never_asks_for_more_than_ten_thousand_blocks_by_default(monkeypatch):
+    """Alchemy answers a wider BNB range with an incomplete log list and no error
+    (measured 2026-11-02: 293 logs over 50,000 blocks against 309 from narrow queries)."""
+    eth = RateLimitedEth({7: [_log(7)]}, n_429=0)
+    fetch_logs(eth, "0xabc", 0, 24_999)
+    assert eth.spans and max(eth.spans) <= 10_000

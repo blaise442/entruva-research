@@ -17,19 +17,21 @@ from src.crosscheck.window import window_stats
 
 ROOT = Path(__file__).resolve().parents[2]
 CHAIN_IDS = {"ethereum-mainnet": 1, "base-mainnet": 8453, "bnb-mainnet": 56}
-ETH_SLOT_SECONDS, WINDOW_DAYS = 12, 2.0  # the Ethereum window is cut from the full file (DEVIATIONS 2026-10-29)
+WINDOW_DAYS = 2.0  # the window is cut from the end of a full-history file (DEVIATIONS 2026-10-29)
+# seconds per block: Ethereum slot time; Base and BNB measured 2026-10-29 from the window fetch timestamps
+SLOT_SECONDS = {"ethereum-mainnet": 12, "base-mainnet": 2.0, "bnb-mainnet": 0.45}
 
 
 def _window(raw: Path, chain: str, identity, feedback) -> tuple[dict, float, bool]:
     """(window bounds, days, windowed fetch?) from the collector's window file, or the last
-    two days of a full-history file using the slot time, ending at the later of its two files."""
+    two days of a full-history file using the chain's block time, ending at the later of its two files."""
     wf = raw / f"{chain}_window.json"
     if wf.exists():
         w = json.loads(wf.read_text())
         days = (w["head_timestamp"] - w["from_timestamp"]) / 86400
         return w, days, True
     head = int(max(identity.blockNumber.max(), feedback.blockNumber.max()))
-    return {"from_block": head - int(WINDOW_DAYS * 86400 / ETH_SLOT_SECONDS), "head": head}, WINDOW_DAYS, False
+    return {"from_block": head - int(WINDOW_DAYS * 86400 / SLOT_SECONDS[chain]), "head": head}, WINDOW_DAYS, False
 
 
 def main():
