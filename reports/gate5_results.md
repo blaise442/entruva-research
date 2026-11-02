@@ -67,8 +67,9 @@ publicnode endpoints answer 403 Forbidden for anything older than about three
 days on BNB and about 46 days on Base, the official Base and BNB Chain
 endpoints reject eth_getLogs for anonymous use, and the founder's Alchemy app
 has neither network enabled (DEVIATIONS 2026-10-29). Both chains were fetched
-over the two days before their head (block timestamps recorded with each
-fetch), and the same two days were cut from the end of the Ethereum file. These
+over the two days before their head (the block range is in each result file;
+the collector's window file with the head timestamps was replaced by the
+2026-11-02 full-history run, which records no window), and the same two days were cut from the end of the Ethereum file. These
 are window statistics and are not the full-history descriptives of Gate 4.
 
 | Two-day window | Ethereum (to 2026-10-25) | Base (to 2026-10-29) | BNB Smart Chain (to 2026-10-29) |
@@ -103,7 +104,9 @@ feedback, 2,444 of them from a single giver, 721 distinct givers).
 | BNB identity and reputation logs | 2026-10-29 | https://bsc-rpc.publicnode.com (keyless), window 130,116,686 to 130,496,686 | 23,666 and 9 | erc8004 bnb-mainnet * |
 | 8004scan newest agent, three chains | 2026-10-29 | https://api.8004scan.io/api/v1/agents, anonymous | 1 each | 8004scan newest agent <chain> |
 
-`verify_manifest` over data/raw returns no mismatch after all fetches. The Ethereum
+`verify_manifest` over data/raw returns no mismatch after all fetches. Each result
+file records the MANIFEST hash at its own run, so results from different dates
+carry different hashes by design. The Ethereum
 window ends at the later of its two files (block 26,271,911, the last feedback
 event); the registrant-wallet share is not in the window table because for a
 windowed fetch it would count only wallets that registered inside the window. The
