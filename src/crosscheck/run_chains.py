@@ -38,8 +38,10 @@ def main():
         ident_path, rep_path = raw / f"{chain}_identity.jsonl", raw / f"{chain}_reputation.jsonl"
         if not (ident_path.exists() and rep_path.exists()):
             print(f"{chain}: no raw files, skipped"); continue
-        identity = decode_events(ident_path, ROOT / "data/abi/IdentityRegistry.json")
-        feedback = decode_events(rep_path, ROOT / "data/abi/ReputationRegistry.json")
+        # only these two events feed the descriptives; a full Base identity file is 4 GB
+        identity = decode_events(ident_path, ROOT / "data/abi/IdentityRegistry.json", keep={"Registered"})
+        feedback = decode_events(rep_path, ROOT / "data/abi/ReputationRegistry.json", keep={"NewFeedback"})
+        n_logs = {p: sum(1 for _ in open(p)) for p in (ident_path, rep_path)}
         desc = descriptives(identity, feedback)
         reg = identity[identity.event == "Registered"]
         max_id = int(reg.args.map(lambda a: int(a["agentId"])).max()) if len(reg) else -1
@@ -62,7 +64,7 @@ def main():
         out = ROOT / "results" / f"{stamp}_erc8004_descriptive_{chain}.json"
         write_result(out, "Phase 4 reputation descriptives", {"chain": chain, "windowed_fetch": windowed, "window": window,
                      "descriptives": desc, "count_check": check,
-                     "n_identity_logs": int(len(identity)), "n_reputation_logs": int(len(feedback))}, {})
+                     "n_identity_logs": n_logs[ident_path], "n_reputation_logs": n_logs[rep_path]}, {})
         fig, ax = plt.subplots(figsize=(5, 3.5))
         ax.hist(reg.blockNumber, bins=40); ax.set(xlabel="block", ylabel="registrations", title=f"ERC-8004 registrations ({chain}{', 2-day window' if windowed else ''})")
         fig.tight_layout(); fig.savefig(ROOT / "results" / f"{stamp}_erc8004_registrations_{chain}.png", dpi=150); plt.close(fig)

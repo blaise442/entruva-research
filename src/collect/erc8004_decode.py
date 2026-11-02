@@ -39,7 +39,9 @@ def _decode(log: dict, ev: dict) -> dict:
     return args
 
 
-def decode_events(jsonl_path: Path, abi_path: Path) -> pd.DataFrame:
+def decode_events(jsonl_path: Path, abi_path: Path, keep: set[str] | None = None) -> pd.DataFrame:
+    """keep: event names to return; other logs are skipped before decoding so a
+    multi-gigabyte file can be reduced to the rows a caller needs."""
     events = _events(json.loads(Path(abi_path).read_text()))
     rows = []
     with open(jsonl_path) as f:
@@ -47,6 +49,8 @@ def decode_events(jsonl_path: Path, abi_path: Path) -> pd.DataFrame:
             log = json.loads(line)
             t0 = log["topics"][0] if log["topics"] else ""
             ev = events.get(_norm(t0))
+            if keep is not None and (ev is None or ev["name"] not in keep):
+                continue
             rows.append({"blockNumber": log["blockNumber"], "logIndex": log["logIndex"], "transactionHash": log["transactionHash"],
                          "event": ev["name"] if ev else f"unknown:{t0}", "args": _decode(log, ev) if ev else {}})
     return pd.DataFrame(rows, columns=["blockNumber", "logIndex", "transactionHash", "event", "args"])
