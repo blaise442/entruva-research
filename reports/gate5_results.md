@@ -144,11 +144,53 @@ instruction and stand until the founder revises them.
    descriptives Gate 4 asked for stay open. Founder action to close them: enable
    Base Mainnet and BNB Mainnet on the Alchemy app, then rerun
    `src.collect.erc8004` with RPC_URL for each network and `src.crosscheck.run_chains`.
-   The week three note that Alchemy's free tier proved unusable for a 1.9 million
-   block Ethereum scan applies to those chains too, so this is a background job
-   of hours, not a quick fix.
+   Correction 2026-11-02: enabling the networks was not enough, because the free
+   plan caps eth_getLogs at a 10-block range; the fetch needed the paid plan
+   (DEVIATIONS 2026-11-02). Closed on 2026-11-02, see the update below.
 3. No change to any preregistered threshold or to the Gate 3 and Gate 4
    verdicts. The final write-up will carry the H1 verdict from Gate 4 and this
    fidelity check.
 4. Gate 5 approved; Phase 4 is closed. What remains is weekly reports to day 90
    and the final write-up on 2027-01-15.
+
+## Update 2026-11-02: full-history Base and BNB (decision 2 closed)
+
+Fetched through the founder's Alchemy app on the paid plan after the founder
+approved the spend on 2026-11-01 (DEVIATIONS 2026-11-02). The first run was
+incomplete on BNB because the provider answers a range wider than 10,000 blocks
+with a silently short list; both chains were refetched with the collector capped
+at 10,000 blocks per call and pass an integrity check (ids contiguous, feedback
+indices contiguous, no duplicates). Results: results/2026-11-02_erc8004_descriptive_base-mainnet.json
+and results/2026-11-02_erc8004_descriptive_bnb-mainnet.json; Ethereum unchanged
+(results/2026-10-27_erc8004_descriptive.json).
+
+| Full history | Ethereum (to 2026-10-25) | Base (to 2026-11-02) | BNB Smart Chain (to 2026-11-02) |
+|---|---|---|---|
+| Identity registry logs | 275,118 | 6,843,477 | 2,266,711 |
+| Agents registered | 55,407 | 1,149,957 | 401,341 |
+| Feedback events | 34,493 | 673,980 | 30,144 |
+| Agents receiving feedback | 2,651 | 152,281 | 4,482 |
+| Of those, with a single giver | 2,444 | 138,387 | 3,988 |
+| Distinct feedback givers | 721 | 136,371 | 143 |
+| Feedback per agent with feedback (median, p75, max) | 1, 9, 636 | 1, 1, 390,890 | 1, 1, 234 |
+| Givers per agent with feedback (median, max) | 1, 127 | 1, 10,468 | 1, 30 |
+| Share of feedback from registrant wallets | 0.015 | 0.224 | 0.015 |
+
+8004scan count check on the full files, one anonymous request per chain on
+2026-11-02: Base 1,149,957 registrations are ids 0 to 1,149,956, below the
+API's newest id 1,150,706; BNB 401,341 are ids 0 to 401,340, below 401,940.
+Both pass.
+
+Reading: Base has twenty times Ethereum's agents and twenty times its feedback,
+but one agent holds 390,890 of the 673,980 feedback entries and 136,371 distinct
+wallets gave feedback, almost one per agent with feedback. BNB looks like
+Ethereum: few givers (143) writing to few agents. On every chain the median
+agent with feedback has one entry from one giver. The single-giver share is
+0.92 on Ethereum, 0.91 on Base and 0.89 on BNB, so the concentration the
+Phase 3 reputation section described is not an Ethereum artefact.
+
+Fetch record: Base identity and reputation 2026-11-02 00:53 to 02:31 UTC,
+BNB 02:31 to 04:59 UTC, private endpoint not recorded in the MANIFEST, chunk
+10,000 blocks, pacing 0.05 s per call set at run time. The windowed MANIFEST
+entries of 2026-10-29 are removed as superseded; `verify_manifest` over
+data/raw returns no mismatch.
