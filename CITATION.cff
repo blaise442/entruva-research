@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: If you use this repository, cite the paper below and the repository release.
+title: Telemetry predicts agent failure within domains but not across them, evidence and requirements for agent liability rating
+type: software
+authors:
+  - family-names: W
+    given-names: Blaise
+    affiliation: Entruva
+repository-code: https://github.com/blaise442/entruva-research
+url: https://app.entruva.ai/research
+license: MIT
+version: "1.0"
+date-released: "2026-11-02"
+preferred-citation:
+  type: report
+  title: "Telemetry predicts agent failure within domains but not across them: evidence and requirements for agent liability rating"
+  authors:
+    - family-names: W
+      given-names: Blaise
+      affiliation: Entruva
+  year: 2026
+  month: 11
+  institution:
+    name: Entruva
+  url: https://github.com/blaise442/entruva-research/blob/main/paper/paper.pdf
+  notes: Version 1, 2026-11-02. Preregistered study; thresholds frozen at tag prereg-v1.
