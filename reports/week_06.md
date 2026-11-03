@@ -1,14 +1,13 @@
 # Week 6 report (2026-11-02 to 2026-11-09)
 
-Drafted 2026-11-02 after the week 5 report. Nothing else ran in this period
-at the time of writing; if that changes before 2026-11-09 the report is updated.
+Drafted 2026-11-02 after the week 5 report; updated if anything else runs
+before 2026-11-09.
 
 ## What ran
 
 - The final write-up was drafted on 2026-11-02 (day 16) in
-  reports/final_writeup.md from the five gate reports. It becomes final on
-  2027-01-15; until then every number in it traces to a result file and the
-  text changes only if a weekly report records something new.
+  reports/final_writeup.md from the five gate reports. Every number in it
+  traces to a result file.
 - The journal paper was drafted the same day in paper/paper.md: IMRaD, about
   7,300 words, aimed at insurers. Its title is a finding, not a caveat:
   "Telemetry predicts agent failure within domains but not across them:
@@ -33,8 +32,13 @@ at the time of writing; if that changes before 2026-11-09 the report is updated.
   with five figures, two of them composites of existing result plots, by
   paper/build_pdf.py using Chrome headless; no LaTeX or pandoc on the machine.
   One Python dependency was added (markdown 3.11.2).
-- The research page links the draft PDF from its how-to-verify list. One new
-  page test; the research page tests are at 11.
+- The research page links the PDF from its how-to-verify list. One new page
+  test; the research page tests are at 11.
+- The founder decided on 2026-11-02 to publish now rather than on day 90:
+  the write-up and paper are version 1 of 2026-11-02, the repository opens
+  with its full history, and the research page links the preregistration,
+  manifest, splits and deviations register directly. The timing change is
+  the thirteenth deviations entry; it touches no threshold.
 
 ## What it means
 
@@ -48,12 +52,14 @@ within-domain signal is weak.
 
 ## Deviations
 
-None this week. The register holds twelve entries; none changes a threshold.
+One: publication at day 16 rather than day 90 (2026-11-02, decided by the
+founder after all results were known). The register holds thirteen entries;
+none changes a threshold.
 
 ## Next
 
-- Weekly reports through day 90; final write-up and paper become final on
-  2027-01-15.
+- Weekly reports through day 90; any later result is a new dated version of
+  the write-up and paper.
 - Founder read-through of the paper: the 30 held-out agents per domain and
   the 0.05 calibration tolerance in Section 5.3 were set by judgement.
 - The data request to the arXiv 2606.26028 authors remains unanswered.

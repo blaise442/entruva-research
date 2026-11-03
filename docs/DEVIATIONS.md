@@ -79,3 +79,9 @@ Format for each entry:
 - Why: the full-history descriptives are what Gate 4 asked for; a windowed comparison was the zero-spend fallback. The chunk cap is a collection fix, not an analysis choice: the statistics computed are unchanged.
 - Decided by: founder (spend) 2026-11-01; executing agent (chunk cap, integrity check, superseded entries) 2026-11-02.
 - Effect on preregistered thresholds: none.
+
+## 2026-11-02: Write-up and paper published at day 16 rather than day 90 (after all results known)
+- What changed: the final write-up (reports/final_writeup.md) and the journal paper (paper/paper.md, paper/paper.pdf) are published as final on 2026-11-02, study day 16, instead of on 2027-01-15, day 90, and the repository is opened to the public with its full history on the same day. The preregistration and the public criteria named day 90 as the date of the final write-up. The 90-day calendar itself is unchanged: the day-30, day-60 and day-90 checkpoints still get a log entry, weekly reports continue, and any later result would be a new dated version of both documents, not a silent edit.
+- Why: every gate closed by day 16, no further data, spend or analysis is planned, and the only unanswered item (the external data request) has no action available. Waiting ten more weeks would publish the same numbers later. Publishing early is a timing change and touches no hypothesis, threshold or analysis choice.
+- Decided by: founder, 2026-11-02, after all results were known.
+- Effect on preregistered thresholds: none.

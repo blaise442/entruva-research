@@ -2,7 +2,7 @@
 
 Blaise W, Entruva
 
-Draft of 2026-11-02 (study day 16). Results are frozen through Gate 5 of a preregistered 90-day study; the text becomes final on 2027-01-15. Every number below traces to a result file in the study repository (see Data and code availability).
+Version 1, published 2026-11-02 (study day 16). Results are frozen through Gate 5 of a preregistered 90-day study whose analysis closed early; publication before day 90 is recorded in the deviations register. Every number below traces to a result file in the study repository (see Data and code availability).
 
 ## Abstract
 
@@ -40,7 +40,7 @@ ERC-8004 proposes three registries on Ethereum-compatible chains, for identity, 
 
 ### 3.1 Preregistration and governance
 
-The study ran on a fixed 90-day calendar from 2026-10-17. Hypotheses, thresholds, the baseline definition and the data sources were frozen at a tagged commit on 2026-10-19 before any data was fetched. Five gates followed: data readiness (2026-10-23), prediction (2026-10-25), manipulation cost and secondary hypotheses (2026-10-28), external validation (2026-10-28, reduced in scope), and the reputation registry audit (2026-11-02). Every analysis choice the preregistration left open was recorded in a deviations register with its date, its reason and whether it was made before or after the result it affects was known. Twelve entries exist; none changes a threshold. The register is reproduced in Section 4.7.
+The study ran on a fixed 90-day calendar from 2026-10-17. Hypotheses, thresholds, the baseline definition and the data sources were frozen at a tagged commit on 2026-10-19 before any data was fetched. Five gates followed: data readiness (2026-10-23), prediction (2026-10-25), manipulation cost and secondary hypotheses (2026-10-28), external validation (2026-10-28, reduced in scope), and the reputation registry audit (2026-11-02). Every analysis choice the preregistration left open was recorded in a deviations register with its date, its reason and whether it was made before or after the result it affects was known. Thirteen entries exist; none changes a threshold. The register is reproduced in Section 4.7.
 
 ### 3.2 Hypotheses and thresholds
 
@@ -212,6 +212,7 @@ Table 7. Deviations from the preregistration.
 | 2026-10-28 | Cross-check rules, zero tolerance | before the run |
 | 2026-10-29 | Base and BNB reduced to a two-day window at zero spend | before the run; superseded |
 | 2026-11-02 | Base and BNB full history through a paid endpoint; chunk cap after a silent truncation was found | after the windowed run; statistics unchanged |
+| 2026-11-02 | Write-up and paper published at day 16 rather than day 90; repository opened | after all results were known; timing only |
 
 ## 5. Discussion
 
@@ -251,7 +252,7 @@ Runtime telemetry predicts AI agent task failure out of sample within a task dom
 
 ## Declarations
 
-Data and code availability. The study repository contains the preregistration, the deviations register, the data manifest with checksums, the frozen split, every result file with its commit hash and seeds, the collection and analysis code, and the gate reports; it is scheduled for public release on 2027-01-15. Benchmark traces were fetched from the public releases listed in Section 2.2 under their stated licences. ERC-8004 events were read from public chains. The Ethereum cross-check dataset is Liu (2026), CC0 1.0. Synthetic simulation outputs carry "synthetic" in the filename and feed no headline result.
+Data and code availability. The study repository contains the preregistration, the deviations register, the data manifest with checksums, the frozen split, every result file with its commit hash and seeds, the collection and analysis code, and the gate reports; it is public with its full history at https://github.com/blaise442/entruva from 2026-11-02. Benchmark traces were fetched from the public releases listed in Section 2.2 under their stated licences. ERC-8004 events were read from public chains. The Ethereum cross-check dataset is Liu (2026), CC0 1.0. Synthetic simulation outputs carry "synthetic" in the filename and feed no headline result.
 
 Ethics. The study uses no human-subject data. Benchmark traces are machine-generated and public. On-chain data is public by design; wallet addresses are not reported.
 
