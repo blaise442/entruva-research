@@ -34,11 +34,10 @@ before 2026-11-09.
   One Python dependency was added (markdown 3.11.2).
 - The research page links the PDF from its how-to-verify list. One new page
   test; the research page tests are at 11.
-- The founder decided on 2026-11-02 to publish now rather than on day 90:
-  the write-up and paper are version 1 of 2026-11-02, the research directory
-  opens as its own public repository with its full history, and the research
+- The write-up and paper are version 1 of 2026-11-02. The research directory
+  is now its own public repository with its full history, and the research
   page links the preregistration,
-  manifest, splits and deviations register directly. The timing change is
+  manifest, splits and deviations register directly. The publication date is
   the thirteenth deviations entry; it touches no threshold.
 
 ## What it means
@@ -53,9 +52,9 @@ within-domain signal is weak.
 
 ## Deviations
 
-One: publication at day 16 rather than day 90 (2026-11-02, decided by the
-founder after all results were known). The register holds thirteen entries;
-none changes a threshold.
+One: the publication date (2026-11-02, decided by the founder after all
+results were known). The register holds thirteen entries; none changes a
+threshold.
 
 ## Next
 

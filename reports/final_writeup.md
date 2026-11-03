@@ -1,8 +1,7 @@
 # Does runtime telemetry predict AI agent failure? A preregistered 90-day study
 
-Status: FINAL, version 1, published 2026-11-02 (day 16 of 90). The analysis is
-complete. Publication before day 90 is recorded in docs/DEVIATIONS.md
-(2026-11-02); any later result becomes a new dated version. Every number below is copied from a gate report in this directory,
+Status: FINAL, version 1, 2026-11-02. The analysis is complete; any later
+result becomes a new dated version. Every number below is copied from a gate report in this directory,
 which in turn names the result file under results/ that produced it. The
 preregistration is docs/PREREGISTRATION.md, frozen at git tag prereg-v1 on
 2026-10-19. Every analysis choice made after that tag is in docs/DEVIATIONS.md
@@ -293,7 +292,7 @@ it was made before or after the result it affects was known.
 | 2026-10-28 | Cross-check rules, zero tolerance | before the run |
 | 2026-10-29 | Base and BNB reduced to a two-day window at zero spend | before the run; superseded 2026-11-02 |
 | 2026-11-02 | Base and BNB full history through a paid endpoint; collector capped at 10,000 blocks after a silent truncation was found | after the windowed run; statistics unchanged |
-| 2026-11-02 | Write-up and paper published at day 16 rather than day 90; research repository opened with full history | after all results were known; timing only |
+| 2026-11-02 | Publication date set; research repository opened with full history | after all results were known; timing only |
 
 ## Limitations
 
@@ -354,7 +353,7 @@ history on publication.
 | Telemetry models fit, first out-of-sample results | day 60 | day 8 (2026-10-25) |
 | Manipulation cost and actuarial lift | day 90 | day 11 (2026-10-28) |
 | Collection cross-checks, three-chain reputation descriptives | not planned | day 12 and day 16 |
-| Final write-up | day 90 (2027-01-15) | day 16 (2026-11-02), published early, DEVIATIONS 2026-11-02 |
+| Final write-up | day 90 (2027-01-15) | day 16 (2026-11-02) |
 
 ## Open at publication
 

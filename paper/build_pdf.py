@@ -19,24 +19,32 @@ COMPOSITES = {
                             ["2026-11-02_erc8004_registrations_bnb-mainnet.png", "2026-10-27_erc8004_givers.png"]],
 }
 CSS = """
-@page { size: A4; margin: 24mm 22mm; @bottom-center { content: counter(page); font: 9pt "Times New Roman"; } }
-body { font-family: "Times New Roman", Times, serif; font-size: 11pt; line-height: 1.35; color: #000; max-width: 100%; }
-h1 { font-size: 17pt; text-align: center; line-height: 1.25; margin: 0 0 8pt; }
-h1 + p { text-align: center; margin: 0 0 4pt; }
-h1 + p + p { text-align: center; font-size: 9.5pt; margin: 0 0 16pt; }
-h2 { font-size: 12.5pt; margin: 18pt 0 6pt; page-break-after: avoid; }
-h3 { font-size: 11pt; font-style: italic; margin: 12pt 0 4pt; page-break-after: avoid; }
-p { margin: 0 0 7pt; text-align: justify; hyphens: auto; }
-h2#abstract + p { font-size: 10pt; margin: 0 14mm 6pt; }
-ol, ul { margin: 0 0 7pt 18pt; padding: 0; } li { margin-bottom: 3pt; text-align: justify; }
-table { border-collapse: collapse; font-size: 9pt; margin: 4pt auto 12pt; page-break-inside: avoid; }
-th, td { padding: 2pt 6pt; text-align: left; vertical-align: top; }
-thead tr { border-top: 1pt solid #000; border-bottom: 0.6pt solid #000; } tbody tr:last-child { border-bottom: 1pt solid #000; }
-p.caption { font-size: 9.5pt; text-align: left; margin: 10pt 0 2pt; page-break-after: avoid; }
-figure { margin: 10pt auto 12pt; text-align: center; page-break-inside: avoid; }
-figure img { max-width: 72%; max-height: 82mm; } figure img[src*="figures/"] { max-width: 100%; max-height: 120mm; }
-figcaption { font-size: 9.5pt; text-align: justify; margin-top: 4pt; }
-h2#references + p, h2#references ~ p { font-size: 9.5pt; text-align: left; padding-left: 18pt; text-indent: -18pt; margin-bottom: 5pt; }
+@page { size: A4; margin: 20mm 17mm 20mm 17mm; @bottom-center { content: counter(page); font: 8.5pt "STIXGeneral", "Times New Roman", serif; } }
+html { -webkit-hyphens: auto; hyphens: auto; }
+body { font-family: "STIXGeneral", "Times New Roman", Times, serif; font-size: 10pt; line-height: 1.22; color: #000; max-width: 100%; margin: 0; }
+.front { column-span: all; margin: 0 0 10pt; }
+h1 { font-size: 17pt; font-weight: bold; text-align: center; line-height: 1.2; margin: 0 8mm 8pt; }
+h1 + p { text-align: center; font-size: 11pt; margin: 0 0 3pt; }
+h1 + p + p { text-align: center; font-size: 8.5pt; margin: 0 12mm 12pt; }
+.front h2 { font-size: 10pt; text-align: center; margin: 0 0 3pt; }
+.front h2 + p { font-size: 9pt; line-height: 1.25; margin: 0 10mm 5pt; text-align: justify; }
+.front p.keywords { font-size: 9pt; margin: 0 10mm 0; text-align: left; }
+.cols { columns: 2; column-gap: 6mm; }
+h2 { font-size: 11pt; margin: 12pt 0 4pt; break-after: avoid; }
+h3 { font-size: 10pt; font-style: italic; font-weight: bold; margin: 9pt 0 3pt; break-after: avoid; }
+p { margin: 0 0 5pt; text-align: justify; }
+ol, ul { margin: 0 0 5pt 14pt; padding: 0; } li { margin-bottom: 2pt; text-align: justify; }
+.tbl { column-span: all; margin: 6pt 0 8pt; }  /* break-inside on a spanner pushes the whole body to page 2 in Chrome */
+p.caption { font-size: 9pt; text-align: left; margin: 0 0 2pt; break-after: avoid; }
+table { border-collapse: collapse; font-size: 8.5pt; line-height: 1.2; margin: 0 auto; }
+th, td { padding: 1.5pt 5pt; text-align: left; vertical-align: top; }
+thead tr { border-top: 1pt solid #000; border-bottom: 0.5pt solid #000; } tbody tr:last-child { border-bottom: 1pt solid #000; }
+figure { margin: 6pt 0 8pt; text-align: center; break-inside: avoid; }
+figure img { max-width: 100%; max-height: 70mm; }
+figure.wide { column-span: all; } figure.wide img { max-width: 92%; max-height: 105mm; }
+figcaption { font-size: 9pt; text-align: justify; margin-top: 3pt; }
+h2#references ~ p { font-size: 8.5pt; line-height: 1.2; text-align: left; padding-left: 12pt; text-indent: -12pt; margin-bottom: 3pt; }
+h2#declarations ~ p { font-size: 9pt; }
 a { color: #000; text-decoration: none; word-break: break-all; }
 """
 
@@ -64,13 +72,18 @@ def main():
     html = re.sub(r'<p><img alt="([^"]*)" src="([^"]*)" /></p>',
                   lambda m: f'<figure><img src="{m.group(2)}"><figcaption>{m.group(1)}</figcaption></figure>', html)
     html = re.sub(r"<p>(Table \d+\. )", r'<p class="caption">\1', html)
-    page = f'<!doctype html><html><head><meta charset="utf-8"><title>paper</title><style>{CSS}</style></head><body>{html}</body></html>'
+    html = re.sub(r'(<p class="caption">.*?</p>\s*<table>.*?</table>)', r'<div class="tbl">\1</div>', html, flags=re.S)
+    html = html.replace('<figure><img src="figures/', '<figure class="wide"><img src="figures/')
+    html = re.sub(r"<p>(Keywords:)", r'<p class="keywords">\1', html)
+    cut = html.index("</p>", html.index('<p class="keywords">')) + 4  # title, authors, abstract and keywords span the page
+    html = f'<div class="cols"><div class="front">{html[:cut]}</div>{html[cut:]}</div>'  # front matter is a spanner so columns start on page 1
+    page = f'<!doctype html><html lang="en"><head><meta charset="utf-8"><title>paper</title><style>{CSS}</style></head><body>{html}</body></html>'
     (HERE / "paper.html").write_text(page)
     subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
                     f"--user-data-dir=/tmp/claude-chrome-pdf", f"--print-to-pdf={HERE / 'paper.pdf'}",
                     "--virtual-time-budget=10000", (HERE / "paper.html").as_uri()], check=True, capture_output=True)
     pdf = (HERE / "paper.pdf").read_bytes()
-    assert b"TimesNewRoman" in pdf or b"Times New Roman" in pdf, "Times New Roman not embedded"
+    assert b"STIXGeneral" in pdf, "STIXGeneral not embedded"
     print(HERE / "paper.pdf", len(pdf) // 1024, "KB, pages:", pdf.count(b"/Type /Page\n") + pdf.count(b"/Type /Page/") + pdf.count(b"/Type /Page>"))
 
 
