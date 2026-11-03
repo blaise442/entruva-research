@@ -1,0 +1,14 @@
+{
+  "id": "session-1792791742075",
+  "startedAt": "2026-10-23T21:42:22.075Z",
+  "cwd": "/Users/blaisew/src/aios-mvp/research",
+  "context": {},
+  "metrics": {
+    "edits": 0,
+    "commands": 0,
+    "tasks": 0,
+    "errors": 0
+  },
+  "endedAt": "2026-10-24T04:55:53.224Z",
+  "duration": 26011153
+}

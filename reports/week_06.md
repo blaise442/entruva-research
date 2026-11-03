@@ -35,8 +35,9 @@ before 2026-11-09.
 - The research page links the PDF from its how-to-verify list. One new page
   test; the research page tests are at 11.
 - The founder decided on 2026-11-02 to publish now rather than on day 90:
-  the write-up and paper are version 1 of 2026-11-02, the repository opens
-  with its full history, and the research page links the preregistration,
+  the write-up and paper are version 1 of 2026-11-02, the research directory
+  opens as its own public repository with its full history, and the research
+  page links the preregistration,
   manifest, splits and deviations register directly. The timing change is
   the thirteenth deviations entry; it touches no threshold.
 

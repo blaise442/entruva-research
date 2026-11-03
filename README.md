@@ -1,5 +1,7 @@
 # Entruva 90 day study
 
+Public copy. This repository is the research directory of a private monorepo, split out with its full history on 2026-11-02 (docs/DEVIATIONS.md, 2026-11-02). Commit hashes inside result files and in the preregistration refer to the monorepo; the tag prereg-v1 here marks the same tree as monorepo commit 8f74d7e0e7aa0e5d9e06b93dcbfc0c7e0e0d2c65. Paths in this README are relative to this directory. The public criteria the preregistration cites are on the live research page, https://app.entruva.ai/research. Licence: LICENSE (MIT for code, CC BY 4.0 for the reports and paper; datasets keep their own).
+
 A preregistered empirical study: can runtime behavioral telemetry from AI agents predict task failure out of sample better than a naive baseline, well enough to serve as a rating factor for agent liability insurance? Hypotheses, thresholds, and the analysis plan are frozen in docs/PREREGISTRATION.md (tag prereg-v1). Design decisions and repo adaptations: ../docs/superpowers/specs/2026-10-19-research-study-design.md. Deviations are logged in docs/DEVIATIONS.md.
 
 Day convention: day 0 is 2026-10-17, day 90 is 2027-01-15. All reports use this convention.

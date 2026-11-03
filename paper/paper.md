@@ -212,7 +212,7 @@ Table 7. Deviations from the preregistration.
 | 2026-10-28 | Cross-check rules, zero tolerance | before the run |
 | 2026-10-29 | Base and BNB reduced to a two-day window at zero spend | before the run; superseded |
 | 2026-11-02 | Base and BNB full history through a paid endpoint; chunk cap after a silent truncation was found | after the windowed run; statistics unchanged |
-| 2026-11-02 | Write-up and paper published at day 16 rather than day 90; repository opened | after all results were known; timing only |
+| 2026-11-02 | Write-up and paper published at day 16 rather than day 90; research repository opened | after all results were known; timing only |
 
 ## 5. Discussion
 
@@ -252,7 +252,7 @@ Runtime telemetry predicts AI agent task failure out of sample within a task dom
 
 ## Declarations
 
-Data and code availability. The study repository contains the preregistration, the deviations register, the data manifest with checksums, the frozen split, every result file with its commit hash and seeds, the collection and analysis code, and the gate reports; it is public with its full history at https://github.com/blaise442/entruva from 2026-11-02. Benchmark traces were fetched from the public releases listed in Section 2.2 under their stated licences. ERC-8004 events were read from public chains. The Ethereum cross-check dataset is Liu (2026), CC0 1.0. Synthetic simulation outputs carry "synthetic" in the filename and feed no headline result.
+Data and code availability. The study repository contains the preregistration, the deviations register, the data manifest with checksums, the frozen split, every result file with its commit hash and seeds, the collection and analysis code, and the gate reports; it is public with its full history at https://github.com/blaise442/entruva-research from 2026-11-02. Benchmark traces were fetched from the public releases listed in Section 2.2 under their stated licences. ERC-8004 events were read from public chains. The Ethereum cross-check dataset is Liu (2026), CC0 1.0. Synthetic simulation outputs carry "synthetic" in the filename and feed no headline result.
 
 Ethics. The study uses no human-subject data. Benchmark traces are machine-generated and public. On-chain data is public by design; wallet addresses are not reported.
 

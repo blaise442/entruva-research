@@ -293,7 +293,7 @@ it was made before or after the result it affects was known.
 | 2026-10-28 | Cross-check rules, zero tolerance | before the run |
 | 2026-10-29 | Base and BNB reduced to a two-day window at zero spend | before the run; superseded 2026-11-02 |
 | 2026-11-02 | Base and BNB full history through a paid endpoint; collector capped at 10,000 blocks after a silent truncation was found | after the windowed run; statistics unchanged |
-| 2026-11-02 | Write-up and paper published at day 16 rather than day 90; repository opened with full history | after all results were known; timing only |
+| 2026-11-02 | Write-up and paper published at day 16 rather than day 90; research repository opened with full history | after all results were known; timing only |
 
 ## Limitations
 
