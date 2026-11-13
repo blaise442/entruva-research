@@ -1,6 +1,6 @@
 """ERC-8004 registry event collector.
 
-Reads RPC_URL from research/.env or the environment, or PUBLIC_RPC_URL for a
+Reads RPC_URL from .env at the repository root or the environment, or PUBLIC_RPC_URL for a
 keyless public endpoint. Raw logs go to data/raw/erc8004/<chain>_<registry>.jsonl;
 a private endpoint value is never written anywhere (the MANIFEST url field is the
 public source of the addresses); a public one is recorded in the MANIFEST limitations.

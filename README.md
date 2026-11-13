@@ -7,8 +7,8 @@ works, the way motor insurers price from driving data?
 ## What we tested, in plain language
 
 An AI agent that does a task leaves a trail: how many tools it called, how often
-it repeated itself, how many errors it hit, how long its messages were, how long
-the task ran. We call that trail telemetry. We asked three things.
+it repeated itself, how many errors it hit, how long the text passing through
+its tool calls was, how long the task ran. We call that trail telemetry. We asked three things.
 
 1. Does telemetry predict whether an agent fails a task, on agents the model has
    never seen, better than simply knowing which model it is, what kind of task
@@ -26,27 +26,35 @@ complete event history of the three on-chain registries. A failure here means
 the agent did not complete the benchmark task; it is not an insured loss, and
 the paper is explicit about that gap.
 
-The hypotheses, the pass thresholds and the baseline were frozen before any
-data was loaded (docs/PREREGISTRATION.md, git tag prereg-v1). Every choice made
-after that is dated in docs/DEVIATIONS.md with its reason and who decided it.
+The hypotheses, the three prediction thresholds and the baseline were frozen
+before any data was loaded (docs/PREREGISTRATION.md, git tag prereg-v1). The
+fourth threshold, the manipulation-cost floor, was left open at the freeze and
+set after the prediction results. Every choice made after the freeze is dated in
+docs/DEVIATIONS.md with its reason and who decided it.
 
 ## What we found
 
-Telemetry predicts failure within a task domain and not across domains. On
-held-out agents a gradient boosting model on telemetry reached an AUC of 0.843
-against 0.654 for the baseline, and agents in the top predicted-risk quartile
-failed four times as often as those in the bottom. Inside one benchmark
+Telemetry predicts failure within one benchmark and does not transfer across
+benchmarks. On held-out agents a gradient boosting model on telemetry reached
+an AUC of 0.843 against 0.654 for the baseline, and runs in the top
+predicted-risk quartile failed four times as often as runs in the bottom. Inside one benchmark
 (AgentDojo) the gain is large; inside another (SWE-bench) telemetry is worse
 than the baseline; a score trained on other domains beat the in-domain baseline
-nowhere. The cheapest edits to the trail do not move a typical agent's risk
-decile and do not help the worst-scoring agents at all, though one held-out
-agent in ten could be nudged across a decile boundary for free. On-chain
+nowhere. None of the four edits to the trail that we tested moves a typical
+agent's risk decile or helps the worst-scoring agents, though one held-out
+agent in ten could be nudged across a decile boundary for free. Whether the
+fourth preregistered clause passes depends on how it is read; the paper
+reports both readings. On-chain
 reputation is not a substitute: nine in ten rated agents have a single feedback
 giver and a median reputation costs about 0.27 USD in gas to fabricate.
 
 Read the paper for the full result, the intervals and the limitations:
 
-- paper/paper.pdf, version 1 of 2026-11-02 (source: paper/paper.md)
+- paper/manuscript.pdf, the journal-format copy of version 1.1 of 2026-11-13
+  (single column, LaTeX source in paper/manuscript.tex), and paper/paper.pdf,
+  the same text in a two-column layout. Both are built from paper/paper.md.
+  Version 1 of 2026-11-02 is at tag v1.0; paper/CHANGELOG.md lists every
+  correction since.
 - reports/final_writeup.md, the longer internal write-up with every table
 - reports/gate2_data_report.md to gate5_results.md, the per-gate packages
 - docs/PREREGISTRATION.md and docs/DEVIATIONS.md
@@ -123,7 +131,7 @@ the held-out agent set differs from the frozen split in splits/.
 
 ## Layout
 
-- docs/: PREREGISTRATION.md (frozen), DEVIATIONS.md (dated log), COVERAGE_LANDSCAPE.md (insurer AI exclusions and products, context only)
+- docs/: PREREGISTRATION.md (frozen, identical to tag prereg-v1), DEVIATIONS.md (dated log), COVERAGE_LANDSCAPE.md (insurer AI exclusions and products, context only)
 - data/: MANIFEST.md (every source with checksum and licence), abi/ (pinned ERC-8004 ABI), prices/, raw/ (gitignored), processed/ (trace_index.csv, features.csv)
 - src/collect/: fetchers and parsers per source, the unified trace index, the ERC-8004 collector and decoder, the Dataverse and 8004scan cross-checks
 - src/features/: telemetry extractors reading raw traces, features table build with a leakage check
@@ -133,30 +141,59 @@ the held-out agent set differs from the frozen split in splits/.
 - splits/primary_split.json: held-out agents per source, frozen before any model fit, with the index hash
 - results/: dated JSON and figures with provenance
 - reports/: gate packages, weekly reports, the final write-up, the data request draft
-- paper/: paper.md, paper.pdf, figures/, build_pdf.py (Chrome headless, no LaTeX needed)
+- paper/: paper.md (the single source), CHANGELOG.md, figures/, build_tex.py (pandoc and pdflatex; writes manuscript.tex and manuscript.pdf, `--review` for double spacing and line numbers), build_pdf.py (Chrome headless; writes the two-column paper.pdf; set CHROME to your browser binary)
 - tests/: the suite behind make test
 
 ## Provenance
 
 This repository is the research directory of a private monorepo, split out
-with its full history. Commit hashes embedded in result files and in the
-preregistration refer to the monorepo; the tag prereg-v1 here marks the same
-tree as monorepo commit 8f74d7e0e7aa0e5d9e06b93dcbfc0c7e0e0d2c65 and nothing in
-it has changed since. The feature build refuses any feature that is a function
-of the outcome, and the models never see agent identity or the label.
+with its full history. The tag prereg-v1 here marks the same tree as monorepo
+commit 8f74d7e0e7aa0e5d9e06b93dcbfc0c7e0e0d2c65.
+
+What an outside reader can and cannot verify:
+
+- docs/PREREGISTRATION.md is byte-identical to the file at tag prereg-v1
+  (`git diff prereg-v1 -- docs/PREREGISTRATION.md` prints nothing). It leaves
+  two items as TODO. Both were filled after the freeze and are recorded outside
+  the frozen file: the tag's commit hash, given above, and the clause 4 floor,
+  set on 2026-10-25 (docs/DEVIATIONS.md).
+- The frozen file links to design documents in the private monorepo. Those
+  links do not resolve here.
+- The preregistration was not deposited with a third-party registry, and this
+  repository was private until 2026-11-02. The tag and the commit dates are the
+  only timestamps.
+- Commit hashes embedded in the version 1 result files (dated 2026-10-22 to
+  2026-11-02) refer to the monorepo and do not resolve here.
+- Each version 1 result file records git_dirty as true. The flag was set
+  whenever any file in the study tree was uncommitted or untracked at the moment
+  the result was written, and which files those were was not recorded. Result
+  files written from now on list them under git_dirty_files.
+- On 2026-11-13 the prediction, robustness and manipulation drivers were rerun
+  unchanged from this repository, each on a clean committed tree. The rerun
+  files are dated 2026-11-13 and record commits you can check out here.
+  results/2026-11-13_rerun_comparison.json compares them value by value with
+  the version 1 files: 2,954 of 2,983 numbers agree to six decimal places, the
+  rest differ by at most 0.000075, and no verdict differs. The differences sit
+  in the logistic regression sensitivity model and in ten per-agent
+  probabilities; docs/DEVIATIONS.md, 2026-11-13, has the detail. The simulation
+  (S4) was not rerun.
+
+The feature build refuses any feature that is a function of the outcome, and
+the models never see agent identity or the label.
 
 ## Contributing
 
 Contributions are welcome as pull requests and every one of them is reviewed
-and approved by the maintainer (Blaise W, @blaise442) before it merges. The main
+and approved by the maintainer (Blaise Wangmeni, @blaise442) before it merges. The main
 branch is protected: no direct pushes, a code owner review is required, force
 pushes and deletion are blocked. Preregistered material and result files do not
 change; see CONTRIBUTING.md.
 
 ## Citation
 
-See CITATION.cff. Cite the paper (version 1, 2026-11-02) and the repository
-release v1.0.
+See CITATION.cff. Cite the paper by version and date. The current text is
+version 1.1 of 2026-11-13; version 1 of 2026-11-02 is the repository release
+v1.0.
 
 ## Licence
 

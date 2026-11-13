@@ -1,0 +1,182 @@
+{
+  "hypothesis": "rerun comparison (DEVIATIONS 2026-11-13)",
+  "metrics": {
+    "2026-11-13_H1_primary.json": {
+      "reproduces": "2026-10-25_H1_primary.json",
+      "rerun_git_commit": "64b1dfad14a309c6a4e9f6d41301ed65003c69e7",
+      "rerun_git_dirty": false,
+      "numbers_compared": 257,
+      "max_abs_difference": 7.4908611494839406e-06,
+      "numbers_beyond_six_decimals": 7,
+      "largest_differences": [
+        {
+          "path": "/per_source_auc_descriptive/webarena/logit",
+          "abs_difference": 7.4908611494839406e-06
+        },
+        {
+          "path": "/per_source_auc_descriptive/tau-bench/logit",
+          "abs_difference": 4.634951240367613e-06
+        },
+        {
+          "path": "/reliability_logit[5]/p_mean",
+          "abs_difference": 1.2719818638373681e-06
+        },
+        {
+          "path": "/brier_skill_logit/ci_low",
+          "abs_difference": 9.356983241282091e-07
+        },
+        {
+          "path": "/auc_delta_logit/ci_low",
+          "abs_difference": 7.564368390226145e-07
+        },
+        {
+          "path": "/reliability_logit[2]/p_mean",
+          "abs_difference": 5.360530961895371e-07
+        },
+        {
+          "path": "/auc_delta_logit/ci_high",
+          "abs_difference": 5.198818144869222e-07
+        }
+      ],
+      "paths_beyond_six_decimals": [
+        "/auc_delta_logit/ci_high",
+        "/auc_delta_logit/ci_low",
+        "/brier_skill_logit/ci_low",
+        "/per_source_auc_descriptive/tau-bench/logit",
+        "/per_source_auc_descriptive/webarena/logit",
+        "/reliability_logit/p_mean"
+      ],
+      "non_numeric_mismatches": [],
+      "reproduces_by_rule": false
+    },
+    "2026-11-13_H1_robustness_cv.json": {
+      "reproduces": "2026-10-25_H1_robustness_cv.json",
+      "rerun_git_commit": "635ee96b9f728229803bbcd0bc768a915066c0ac",
+      "rerun_git_dirty": false,
+      "numbers_compared": 308,
+      "max_abs_difference": 2.8436789080266145e-05,
+      "numbers_beyond_six_decimals": 12,
+      "largest_differences": [
+        {
+          "path": "/by_source/webarena/logit/auc_delta/ci_high",
+          "abs_difference": 2.8436789080266145e-05
+        },
+        {
+          "path": "/by_source/webarena/logit/auc/ci_high",
+          "abs_difference": 2.0429009192968195e-05
+        },
+        {
+          "path": "/by_source/tau-bench/logit/auc/ci_high",
+          "abs_difference": 9.269902480624204e-06
+        },
+        {
+          "path": "/by_source/tau-bench/logit/auc_delta/ci_high",
+          "abs_difference": 9.269902480624204e-06
+        },
+        {
+          "path": "/by_source/webarena/logit/auc/ci_low",
+          "abs_difference": 4.72881346069709e-06
+        },
+        {
+          "path": "/by_source/webarena/logit/auc/auc",
+          "abs_difference": 4.200833445433538e-06
+        },
+        {
+          "path": "/by_source/webarena/logit/auc_delta/delta",
+          "abs_difference": 4.200833445433538e-06
+        },
+        {
+          "path": "/by_source/tau-bench/logit/auc/auc",
+          "abs_difference": 1.5909194560626005e-06
+        },
+        {
+          "path": "/by_source/tau-bench/logit/auc/ci_low",
+          "abs_difference": 1.5909194560626005e-06
+        },
+        {
+          "path": "/by_source/tau-bench/logit/auc_delta/delta",
+          "abs_difference": 1.5909194560626005e-06
+        }
+      ],
+      "paths_beyond_six_decimals": [
+        "/by_source/tau-bench/logit/auc/auc",
+        "/by_source/tau-bench/logit/auc/ci_high",
+        "/by_source/tau-bench/logit/auc/ci_low",
+        "/by_source/tau-bench/logit/auc_delta/ci_high",
+        "/by_source/tau-bench/logit/auc_delta/ci_low",
+        "/by_source/tau-bench/logit/auc_delta/delta",
+        "/by_source/webarena/logit/auc/auc",
+        "/by_source/webarena/logit/auc/ci_high",
+        "/by_source/webarena/logit/auc/ci_low",
+        "/by_source/webarena/logit/auc_delta/ci_high",
+        "/by_source/webarena/logit/auc_delta/ci_low",
+        "/by_source/webarena/logit/auc_delta/delta"
+      ],
+      "non_numeric_mismatches": [],
+      "reproduces_by_rule": false
+    },
+    "2026-11-13_S3_attacks.json": {
+      "reproduces": "2026-10-28_S3_attacks.json",
+      "rerun_git_commit": "4feca2d7f9d16ffd9d7a754969f18edd58faaf11",
+      "rerun_git_dirty": false,
+      "numbers_compared": 2418,
+      "max_abs_difference": 7.519932914090699e-05,
+      "numbers_beyond_six_decimals": 10,
+      "largest_differences": [
+        {
+          "path": "/curves[9]/per_agent[6]/p_after",
+          "abs_difference": 7.519932914090699e-05
+        },
+        {
+          "path": "/curves[14]/per_agent[6]/p_after",
+          "abs_difference": 6.164000750547016e-05
+        },
+        {
+          "path": "/curves[8]/per_agent[7]/p_after",
+          "abs_difference": 5.0650627574588825e-05
+        },
+        {
+          "path": "/curves[8]/per_agent[8]/p_after",
+          "abs_difference": 3.820183843195046e-05
+        },
+        {
+          "path": "/curves[16]/per_agent[7]/p_after",
+          "abs_difference": 1.1097970457840667e-05
+        },
+        {
+          "path": "/curves[9]/per_agent[8]/p_after",
+          "abs_difference": 1.056001919363947e-05
+        },
+        {
+          "path": "/curves[19]/per_agent[8]/p_after",
+          "abs_difference": 8.630553699151555e-06
+        },
+        {
+          "path": "/curves[10]/per_agent[7]/p_after",
+          "abs_difference": 7.5041331915048914e-06
+        },
+        {
+          "path": "/curves[19]/per_agent[7]/p_after",
+          "abs_difference": 6.367526502959464e-06
+        },
+        {
+          "path": "/curves[15]/per_agent[8]/p_after",
+          "abs_difference": 4.682077200501844e-06
+        }
+      ],
+      "paths_beyond_six_decimals": [
+        "/curves/per_agent/p_after"
+      ],
+      "non_numeric_mismatches": [],
+      "reproduces_by_rule": false
+    }
+  },
+  "provenance": {
+    "git_commit": "2cc02963ec3a3938dc6cf4fdbc058ada7d18c5d2",
+    "git_dirty": false,
+    "git_dirty_files": [],
+    "manifest_sha256": "0227cdef777980ce6ebe7c9534ccef0e44ed500b0165a41aa30ccf7113c3976e",
+    "seeds": {},
+    "timestamp_utc": "2026-11-13T03:54:05.797138+00:00"
+  }
+}

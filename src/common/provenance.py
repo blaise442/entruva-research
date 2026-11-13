@@ -6,19 +6,22 @@ from pathlib import Path
 
 from src.common.manifest import sha256_file
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
-MANIFEST = Path(__file__).resolve().parents[2] / "data" / "MANIFEST.md"
+# The study tree: the repository root here, a subdirectory in the monorepo this was split from.
+STUDY_ROOT = Path(__file__).resolve().parents[2]
+MANIFEST = STUDY_ROOT / "data" / "MANIFEST.md"
 
 def _git(*args: str) -> str:
     return subprocess.run(
-        ["git", *args], cwd=REPO_ROOT, capture_output=True, text=True, check=True
+        ["git", *args], cwd=STUDY_ROOT, capture_output=True, text=True, check=True
     ).stdout.strip()
 
 def provenance(seeds: dict) -> dict:
+    # scoped to the study tree: every uncommitted or untracked path in it at write time
+    dirty = [line.split(maxsplit=1)[1] for line in _git("status", "--porcelain", "--", ".").splitlines()]
     return {
         "git_commit": _git("rev-parse", "HEAD"),
-        # scoped to research/ so unrelated web work does not mark every result dirty
-        "git_dirty": bool(_git("status", "--porcelain", "--", "research")),
+        "git_dirty": bool(dirty),
+        "git_dirty_files": dirty,  # names what differed from git_commit, so a true flag can be weighed
         "manifest_sha256": sha256_file(MANIFEST),
         "seeds": seeds,
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),

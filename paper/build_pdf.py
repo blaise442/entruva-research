@@ -1,5 +1,9 @@
 """Build paper.pdf from paper.md with Chrome headless (no LaTeX on this machine).
-Composite figures are assembled from the result PNGs into paper/figures/."""
+Composite figures are assembled from the result PNGs into paper/figures/.
+Set CHROME to the browser binary when it is not at the macOS default path; the
+STIXGeneral font must be installed (matplotlib ships a copy under mpl-data/fonts/ttf)."""
+import html as html_lib
+import os
 import re
 import subprocess
 import sys
@@ -11,7 +15,7 @@ from PIL import Image
 HERE = Path(__file__).resolve().parent
 RESULTS = HERE.parent / "results"
 FIGS = HERE / "figures"
-CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+CHROME = os.environ.get("CHROME", "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
 COMPOSITES = {
     "fig3_attacks.png": [[f"2026-10-28_S3_{a}.png" for a in ("error_suppression", "retry_diversification")],
                          [f"2026-10-28_S3_{a}.png" for a in ("call_shaping", "message_shaping")]],
@@ -68,6 +72,7 @@ def main():
     for name, grid in COMPOSITES.items():
         composite(name, grid)
     md = (HERE / "paper.md").read_text()
+    title = html_lib.escape(md.splitlines()[0].lstrip("# ").strip())  # PDF metadata title
     html = markdown.markdown(md, extensions=["tables", "toc"])
     html = re.sub(r'<p><img alt="([^"]*)" src="([^"]*)" /></p>',
                   lambda m: f'<figure><img src="{m.group(2)}"><figcaption>{m.group(1)}</figcaption></figure>', html)
@@ -77,7 +82,7 @@ def main():
     html = re.sub(r"<p>(Keywords:)", r'<p class="keywords">\1', html)
     cut = html.index("</p>", html.index('<p class="keywords">')) + 4  # title, authors, abstract and keywords span the page
     html = f'<div class="cols"><div class="front">{html[:cut]}</div>{html[cut:]}</div>'  # front matter is a spanner so columns start on page 1
-    page = f'<!doctype html><html lang="en"><head><meta charset="utf-8"><title>paper</title><style>{CSS}</style></head><body>{html}</body></html>'
+    page = f'<!doctype html><html lang="en"><head><meta charset="utf-8"><title>{title}</title><style>{CSS}</style></head><body>{html}</body></html>'
     (HERE / "paper.html").write_text(page)
     subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
                     f"--user-data-dir=/tmp/claude-chrome-pdf", f"--print-to-pdf={HERE / 'paper.pdf'}",

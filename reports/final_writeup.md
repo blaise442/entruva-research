@@ -7,6 +7,25 @@ preregistration is docs/PREREGISTRATION.md, frozen at git tag prereg-v1 on
 2026-10-19. Every analysis choice made after that tag is in docs/DEVIATIONS.md
 with its date and decider; none changed a threshold.
 
+Correction notice, 2026-11-13. The text below is version 1 and is kept as
+published. Version 1.1 of the paper (paper/paper.md, change log in
+paper/CHANGELOG.md, register entry of 2026-11-13) corrects the following
+statements, which also appear here. No result changed.
+
+- "Supported under the preregistered rule" and "the preregistered reading" of
+  clause 4: the median-agent reading was fixed on 2026-10-27, after the
+  held-out scores existed. On the any-agent reading, which is closer to the
+  preregistered wording, the preregistered verdict is "predictive but
+  gameable". Only the thresholds of clauses 1 to 3 were frozen before data.
+- The reliability curve under-predicts in each of the eight bins below 0.8, not
+  only between 0.3 and 0.5.
+- "Most of its signal comes from model identity and task type" is not supported
+  by any analysis in the study and is contradicted by the telemetry-only
+  sensitivity row; it is withdrawn.
+- Six, not five, of the ten held-out agents run on unpriced models.
+- The within-source table is the grouped cross-validation over all agents; the
+  held-out point AUCs per source are in results/2026-10-25_H1_primary.json.
+
 ## Verdict
 
 H1 is supported under the preregistered rule, and gameable at the margin for

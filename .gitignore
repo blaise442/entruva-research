@@ -1,0 +1,15 @@
+# local environment and caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# secrets: the RPC URL lives in .env and is never committed
+.env
+
+# raw data is fetched, checksummed against data/MANIFEST.md and never committed
+data/raw/
+
+# local tooling state, never part of the study record
+.claude-flow/
