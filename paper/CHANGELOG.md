@@ -91,6 +91,21 @@ Corrections to descriptions:
 19. Wording. "The authors' proposals" becomes "the author's proposals"; the
     abstract's quartile sentence has runs, not the model, as its subject.
 
+Editorial changes and the journal-format copy:
+
+20. Author. The byline is the author's full name, Blaise Wangmeni, with
+    correspondence addresses. Version 1 gave "Blaise W".
+21. Abstract. Rewritten to 250 words. The claims are those of the corrected
+    text above; no number is new.
+22. Voice and vocabulary. The first person plural is removed, because the paper
+    has one author. Internal process terms (gate, phase) are replaced by plain
+    descriptions; the stage reports keep their file names.
+23. Section 3.1. The pointer for the reduced external validation now reads
+    Section 3.9, where it is described; version 1 pointed to Section 3.8.
+24. paper/manuscript.tex and paper/manuscript.pdf are a single-column
+    journal-format copy of the same text, generated from paper.md by
+    paper/build_tex.py. paper/paper.pdf remains the two-column layout.
+
 ## Version 1, 2026-11-02
 
 First public version. Tag v1.0.

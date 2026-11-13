@@ -5,7 +5,7 @@ the record is stable, so contributions are welcome but gated.
 
 - Every change lands by pull request. Nobody pushes to main, including the
   maintainer. The main branch is protected: a pull request needs an approving
-  review from the code owner (Blaise W, @blaise442) before it can merge, and
+  review from the code owner (Blaise Wangmeni, @blaise442) before it can merge, and
   force pushes and branch deletion are blocked.
 - Preregistered material does not change. docs/PREREGISTRATION.md is frozen at
   tag prereg-v1. Any analysis choice goes in docs/DEVIATIONS.md with its date,

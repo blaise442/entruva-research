@@ -3,9 +3,10 @@ message: If you use this repository, cite the paper below and the repository rel
 title: Telemetry predicts agent task failure within one benchmark and does not transfer across benchmarks, evidence and requirements for agent liability rating
 type: software
 authors:
-  - family-names: W
+  - family-names: Wangmeni
     given-names: Blaise
     affiliation: Entruva
+    email: contact@entruva.ai
 repository-code: https://github.com/blaise442/entruva-research
 url: https://app.entruva.ai/research
 license: MIT
@@ -15,9 +16,10 @@ preferred-citation:
   type: report
   title: "Telemetry predicts agent task failure within one benchmark and does not transfer across benchmarks: evidence and requirements for agent liability rating"
   authors:
-    - family-names: W
+    - family-names: Wangmeni
       given-names: Blaise
       affiliation: Entruva
+      email: contact@entruva.ai
   year: 2026
   month: 11
   institution:

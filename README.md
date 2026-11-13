@@ -50,8 +50,11 @@ giver and a median reputation costs about 0.27 USD in gas to fabricate.
 
 Read the paper for the full result, the intervals and the limitations:
 
-- paper/paper.pdf, version 1.1 of 2026-11-13 (source: paper/paper.md). Version 1
-  of 2026-11-02 is at tag v1.0; paper/CHANGELOG.md lists every correction since.
+- paper/manuscript.pdf, the journal-format copy of version 1.1 of 2026-11-13
+  (single column, LaTeX source in paper/manuscript.tex), and paper/paper.pdf,
+  the same text in a two-column layout. Both are built from paper/paper.md.
+  Version 1 of 2026-11-02 is at tag v1.0; paper/CHANGELOG.md lists every
+  correction since.
 - reports/final_writeup.md, the longer internal write-up with every table
 - reports/gate2_data_report.md to gate5_results.md, the per-gate packages
 - docs/PREREGISTRATION.md and docs/DEVIATIONS.md
@@ -138,7 +141,7 @@ the held-out agent set differs from the frozen split in splits/.
 - splits/primary_split.json: held-out agents per source, frozen before any model fit, with the index hash
 - results/: dated JSON and figures with provenance
 - reports/: gate packages, weekly reports, the final write-up, the data request draft
-- paper/: paper.md, paper.pdf, CHANGELOG.md, figures/, build_pdf.py (Chrome headless, no LaTeX needed; set CHROME to your browser binary)
+- paper/: paper.md (the single source), CHANGELOG.md, figures/, build_tex.py (pandoc and pdflatex; writes manuscript.tex and manuscript.pdf, `--review` for double spacing and line numbers), build_pdf.py (Chrome headless; writes the two-column paper.pdf; set CHROME to your browser binary)
 - tests/: the suite behind make test
 
 ## Provenance
@@ -171,7 +174,7 @@ the models never see agent identity or the label.
 ## Contributing
 
 Contributions are welcome as pull requests and every one of them is reviewed
-and approved by the maintainer (Blaise W, @blaise442) before it merges. The main
+and approved by the maintainer (Blaise Wangmeni, @blaise442) before it merges. The main
 branch is protected: no direct pushes, a code owner review is required, force
 pushes and deletion are blocked. Preregistered material and result files do not
 change; see CONTRIBUTING.md.
