@@ -16,10 +16,12 @@ def _git(*args: str) -> str:
     ).stdout.strip()
 
 def provenance(seeds: dict) -> dict:
+    # scoped to the study tree: every uncommitted or untracked path in it at write time
+    dirty = [line.split(maxsplit=1)[1] for line in _git("status", "--porcelain", "--", ".").splitlines()]
     return {
         "git_commit": _git("rev-parse", "HEAD"),
-        # scoped to the study tree; true for any uncommitted or untracked file in it at write time
-        "git_dirty": bool(_git("status", "--porcelain", "--", ".")),
+        "git_dirty": bool(dirty),
+        "git_dirty_files": dirty,  # names what differed from git_commit, so a true flag can be weighed
         "manifest_sha256": sha256_file(MANIFEST),
         "seeds": seeds,
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),

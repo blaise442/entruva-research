@@ -10,3 +10,6 @@ __pycache__/
 
 # raw data is fetched, checksummed against data/MANIFEST.md and never committed
 data/raw/
+
+# local tooling state, never part of the study record
+.claude-flow/

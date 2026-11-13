@@ -10,6 +10,8 @@ def test_provenance_fields():
         ["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True
     ).stdout.strip()
     assert isinstance(p["git_dirty"], bool)
+    assert p["git_dirty"] == bool(p["git_dirty_files"])
+    assert all(isinstance(f, str) for f in p["git_dirty_files"])
     assert len(p["manifest_sha256"]) == 64
     assert p["seeds"] == {"bootstrap": 7}
     assert p["timestamp_utc"].endswith("+00:00")
