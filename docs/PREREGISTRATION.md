@@ -1,6 +1,6 @@
 # Preregistration: telemetry as a rating factor for agent liability insurance
 
-Study start: 2026-10-17 (day 0). Day 90: 2027-01-15. Frozen at tag prereg-v1, commit 8f74d7e0e7aa0e5d9e06b93dcbfc0c7e0e0d2c65 (Gate 1 approved 2026-10-19). Design decisions: ../../docs/superpowers/specs/2026-10-19-research-study-design.md. Public criteria: ../../docs/EXPERIMENT_SCOPE.md and the live /research page; this document matches them in substance and pins every analysis choice they leave open. Deviations after the tag go to DEVIATIONS.md with date, reason, and decider; the hypotheses and thresholds below do not change.
+Study start: 2026-10-17 (day 0). Day 90: 2027-01-15. Frozen at tag prereg-v1; commit hash recorded here after tagging: TODO(tag). Design decisions: ../../docs/superpowers/specs/2026-10-19-research-study-design.md. Public criteria: ../../docs/EXPERIMENT_SCOPE.md and the live /research page; this document matches them in substance and pins every analysis choice they leave open. Deviations after the tag go to DEVIATIONS.md with date, reason, and decider; the hypotheses and thresholds below do not change.
 
 ## Hypotheses
 
@@ -27,7 +27,7 @@ H1 is supported only if all of the following hold on the primary held-out evalua
 1. The lower bound of the 95% bootstrap confidence interval of the telemetry model's AUC exceeds the baseline's point-estimate AUC by at least 0.05.
 2. The Brier skill score against the baseline is above 0 with its 95% bootstrap interval excluding 0.
 3. The failure rate in the top predicted-risk quartile divided by the bottom quartile is at least 2.0, and ranking by the score would move a hypothetical premium schedule in the correct direction (the decile lift table is monotone enough that higher predicted risk receives a higher premium).
-4. The cost of the cheapest S3 intervention that lowers an agent's predicted risk by one decile while its true failure rate is unchanged is at least the founder's dollar floor. Floor: 3 times the annual premium saving from a one-decile drop, one-time attack cost against one year of saving (set 2026-10-25 before any adversarial run; see DEVIATIONS.md). The text frozen at prereg-v1 read "TODO(founder); if unset at Gate 1, it must be fixed before Phase 3 begins and the delay is logged in DEVIATIONS.md".
+4. The cost of the cheapest S3 intervention that lowers an agent's predicted risk by one decile while its true failure rate is unchanged is at least the founder's dollar floor. Floor: TODO(founder). If unset at Gate 1, it must be fixed before Phase 3 begins and the delay is logged in DEVIATIONS.md.
 
 A calibration (reliability) curve is reported in every case. If 1 to 3 hold and 4 fails, the published verdict is "predictive but gameable", not supported. H1 is refuted if the telemetry model's AUC interval contains or lies below the baseline AUC point estimate, or the Brier skill score is 0 or below. Anything else is inconclusive; we say so and state what data would resolve it. A refutation is a valid, publishable result.
 
