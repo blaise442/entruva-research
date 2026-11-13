@@ -92,12 +92,12 @@
 does not transfer across benchmarks: evidence and requirements for agent
 liability rating\thanks{Version 1.1, 2026-11-13 (version 1: 2026-11-02).
 Version 1.1 corrects the text of version 1 after a pre-submission
-review; no analysis was rerun and no result file changed, and every
-correction is listed in paper/CHANGELOG.md. Results are frozen at the
-close of a preregistered study; every analysis choice made after the
-preregistration is dated in its deviations register. Every number below
-traces to a result file in the study repository (see Data and code
-availability).}}
+review; no analysis choice changed and no version 1 result file was
+edited, and every correction is listed in paper/CHANGELOG.md. Results
+are frozen at the close of a preregistered study; every analysis choice
+made after the preregistration is dated in its deviations register.
+Every number below traces to a result file in the study repository (see
+Data and code availability).}}
 \author{Blaise Wangmeni\\
 Entruva\\
 Correspondence: \texttt{blaise.wangmeni@gmail.com},
@@ -287,11 +287,11 @@ secondary hypotheses, external validation (reduced to collection
 cross-checks, Section 3.9), and the reputation registry audit. Every
 analysis choice the preregistration left open was recorded in a
 deviations register with its date, its reason and whether it was made
-before or after the result it affects was known. Fourteen entries exist.
+before or after the result it affects was known. Fifteen entries exist.
 None changes a threshold of clauses 1 to 3; the entry of 2026-10-25 sets
-the clause 4 floor after the prediction results were known, and the
-entry of 2026-11-13 records the text corrections of this version. The
-register is reproduced in Section 4.7.
+the clause 4 floor after the prediction results were known, and the two
+entries of 2026-11-13 record the text corrections of this version and a
+reproduction rerun. The register is reproduced in Section 4.7.
 
 \hypertarget{hypotheses-and-thresholds}{%
 \subsection{Hypotheses and thresholds}\label{hypotheses-and-thresholds}}
@@ -975,7 +975,8 @@ were fixed on 2026-10-27, after the held-out scores they are computed
 from existed and before any attack ran. Seven corrections to the attack
 code were made after a first adversarial run and before the rerun, and
 changed no verdict. The entries of 2026-11-02 and 2026-11-13 follow
-every result and concern collection, publication timing and the text.
+every result and concern collection, publication timing, the text and a
+reproduction check.
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1111}}
@@ -1036,6 +1037,9 @@ all results were known; timing only \\
 2026-11-13 & Version 1.1 text corrections; frozen preregistration text
 restored; provenance path fixed & after all results were known; no
 result changed \\
+2026-11-13 & Reproduction rerun of three drivers from the public
+repository; equality rule fixed first & before the rerun; no result
+changed \\
 \end{longtable}
 
 \hypertarget{discussion}{%
@@ -1205,17 +1209,31 @@ the seven requirements in Section 5.3 are the test it has to pass.
 preregistration, the deviations register, the data manifest with
 checksums, the frozen split, every result file with its commit hash and
 seeds, the collection and analysis code, and the stage reports. The
-commit hashes recorded in result files refer to the private monorepo the
-study was split from and do not resolve in the public repository, and
-every result file records git\_dirty as true, a flag that was set
-whenever any file in the study tree was uncommitted or untracked when
-the result was written. The repository is public with its full history
-at https://github.com/blaise442/entruva-research from 2026-11-02.
-Benchmark traces were fetched from the public releases listed in Section
-2.2 under their stated licences. ERC-8004 events were read from public
-chains. The Ethereum cross-check dataset is Liu (2026), CC0 1.0.
-Synthetic simulation outputs carry ``synthetic'' in the filename and
-feed no headline result.
+commit hashes recorded in the version 1 result files refer to the
+private monorepo the study was split from and do not resolve in the
+public repository, and each of those files records git\_dirty as true, a
+flag that was set whenever any file in the study tree was uncommitted or
+untracked when the result was written; which files were uncommitted was
+not recorded. As a check, the prediction, robustness and manipulation
+drivers were rerun unchanged on 2026-11-13 from the public repository,
+each on a clean committed tree, and compared value by value with the
+version 1 files (results/2026-11-13\_rerun\_comparison.json). Of 2,983
+numbers, 2,954 agree to six decimal places and no verdict, count or
+label differs. The other 29 differ by at most 0.000075, below the three
+decimals reported here: 19 belong to the logistic regression sensitivity
+model and 10 are per-agent mean probabilities after an attack. Every
+baseline and gradient boosting value in the prediction and robustness
+files agrees to six decimal places, and so does every input to the
+clause 4 verdict. By the six-decimal rule fixed before the rerun, the
+three files are therefore close reproductions and not exact ones. The
+simulation was not rerun, because one of its 336 calls did not finish in
+five minutes on the machine used. The repository is public with its full
+history at https://github.com/blaise442/entruva-research from
+2026-11-02. Benchmark traces were fetched from the public releases
+listed in Section 2.2 under their stated licences. ERC-8004 events were
+read from public chains. The Ethereum cross-check dataset is Liu (2026),
+CC0 1.0. Synthetic simulation outputs carry ``synthetic'' in the
+filename and feed no headline result.
 
 \textbf{Ethics.} The study uses no human-subject data. Benchmark traces
 are machine-generated and public. On-chain data is public by design;

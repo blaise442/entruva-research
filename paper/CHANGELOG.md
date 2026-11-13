@@ -2,9 +2,10 @@
 
 ## Version 1.1, 2026-11-13
 
-Text corrections after a pre-submission review of version 1. No analysis was
-rerun and no result file changed. Every number added below is read from a
-result file that existed at version 1. The register entry is
+Text corrections after a pre-submission review of version 1. No analysis
+choice changed and no version 1 result file was edited. Every number added
+below is read from a result file that existed at version 1, except item 25,
+which reports a reproduction rerun. The register entries are
 docs/DEVIATIONS.md, 2026-11-13. Version 1 is at tag v1.0.
 
 Corrections to claims about the preregistration:
@@ -105,6 +106,16 @@ Editorial changes and the journal-format copy:
 24. paper/manuscript.tex and paper/manuscript.pdf are a single-column
     journal-format copy of the same text, generated from paper.md by
     paper/build_tex.py. paper/paper.pdf remains the two-column layout.
+
+Reproduction check:
+
+25. Declarations, Sections 3.1 and 4.7. The prediction, robustness and
+    manipulation drivers were rerun unchanged from the public repository on
+    clean committed trees and compared with the version 1 files
+    (results/2026-11-13_rerun_comparison.json). 2,954 of 2,983 numbers agree to
+    six decimal places; the rest differ by at most 0.000075 and no verdict
+    differs. The paper states this and keeps citing the version 1 files. The
+    register now has fifteen entries.
 
 ## Version 1, 2026-11-02
 

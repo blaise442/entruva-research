@@ -162,11 +162,21 @@ What an outside reader can and cannot verify:
 - The preregistration was not deposited with a third-party registry, and this
   repository was private until 2026-11-02. The tag and the commit dates are the
   only timestamps.
-- Commit hashes embedded in result files refer to the monorepo and do not
-  resolve here.
-- Every result file records git_dirty as true. The flag was set whenever any
-  file in the study tree was uncommitted or untracked at the moment the result
-  was written, so it does not say which files differed from the recorded commit.
+- Commit hashes embedded in the version 1 result files (dated 2026-10-22 to
+  2026-11-02) refer to the monorepo and do not resolve here.
+- Each version 1 result file records git_dirty as true. The flag was set
+  whenever any file in the study tree was uncommitted or untracked at the moment
+  the result was written, and which files those were was not recorded. Result
+  files written from now on list them under git_dirty_files.
+- On 2026-11-13 the prediction, robustness and manipulation drivers were rerun
+  unchanged from this repository, each on a clean committed tree. The rerun
+  files are dated 2026-11-13 and record commits you can check out here.
+  results/2026-11-13_rerun_comparison.json compares them value by value with
+  the version 1 files: 2,954 of 2,983 numbers agree to six decimal places, the
+  rest differ by at most 0.000075, and no verdict differs. The differences sit
+  in the logistic regression sensitivity model and in ten per-agent
+  probabilities; docs/DEVIATIONS.md, 2026-11-13, has the detail. The simulation
+  (S4) was not rerun.
 
 The feature build refuses any feature that is a function of the outcome, and
 the models never see agent identity or the label.

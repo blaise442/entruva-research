@@ -4,7 +4,7 @@ Blaise Wangmeni
 Entruva  
 Correspondence: blaise.wangmeni@gmail.com, contact@entruva.ai
 
-Version 1.1, 2026-11-13 (version 1: 2026-11-02). Version 1.1 corrects the text of version 1 after a pre-submission review; no analysis was rerun and no result file changed, and every correction is listed in paper/CHANGELOG.md. Results are frozen at the close of a preregistered study; every analysis choice made after the preregistration is dated in its deviations register. Every number below traces to a result file in the study repository (see Data and code availability).
+Version 1.1, 2026-11-13 (version 1: 2026-11-02). Version 1.1 corrects the text of version 1 after a pre-submission review; no analysis choice changed and no version 1 result file was edited, and every correction is listed in paper/CHANGELOG.md. Results are frozen at the close of a preregistered study; every analysis choice made after the preregistration is dated in its deviations register. Every number below traces to a result file in the study repository (see Data and code availability).
 
 ## Abstract
 
@@ -42,7 +42,7 @@ ERC-8004 proposes three registries on Ethereum-compatible chains, for identity, 
 
 ### 3.1 Preregistration and governance
 
-Hypotheses, the thresholds of clauses 1 to 3, the baseline definition and the data sources were frozen at a tagged commit before any data was fetched; the clause 4 floor was left open at the freeze. The preregistration was held in the study's own git repository, which was private until 2026-11-02, and was not deposited with a third-party registry. The study then ran in five stages, each closed and reviewed before the next began: data readiness, prediction, manipulation cost and secondary hypotheses, external validation (reduced to collection cross-checks, Section 3.9), and the reputation registry audit. Every analysis choice the preregistration left open was recorded in a deviations register with its date, its reason and whether it was made before or after the result it affects was known. Fourteen entries exist. None changes a threshold of clauses 1 to 3; the entry of 2026-10-25 sets the clause 4 floor after the prediction results were known, and the entry of 2026-11-13 records the text corrections of this version. The register is reproduced in Section 4.7.
+Hypotheses, the thresholds of clauses 1 to 3, the baseline definition and the data sources were frozen at a tagged commit before any data was fetched; the clause 4 floor was left open at the freeze. The preregistration was held in the study's own git repository, which was private until 2026-11-02, and was not deposited with a third-party registry. The study then ran in five stages, each closed and reviewed before the next began: data readiness, prediction, manipulation cost and secondary hypotheses, external validation (reduced to collection cross-checks, Section 3.9), and the reputation registry audit. Every analysis choice the preregistration left open was recorded in a deviations register with its date, its reason and whether it was made before or after the result it affects was known. Fifteen entries exist. None changes a threshold of clauses 1 to 3; the entry of 2026-10-25 sets the clause 4 floor after the prediction results were known, and the two entries of 2026-11-13 record the text corrections of this version and a reproduction rerun. The register is reproduced in Section 4.7.
 
 ### 3.2 Hypotheses and thresholds
 
@@ -194,7 +194,7 @@ The synthetic flywheel is reported because S4 was preregistered; it is not infor
 
 ### 4.7 Deviations register
 
-Table 7 reproduces the register. Four kinds of entry follow a result. The dollar floor was set after the prediction result and before any attack ran. The attack set, the decile unit and the median-agent reading were fixed on 2026-10-27, after the held-out scores they are computed from existed and before any attack ran. Seven corrections to the attack code were made after a first adversarial run and before the rerun, and changed no verdict. The entries of 2026-11-02 and 2026-11-13 follow every result and concern collection, publication timing and the text.
+Table 7 reproduces the register. Four kinds of entry follow a result. The dollar floor was set after the prediction result and before any attack ran. The attack set, the decile unit and the median-agent reading were fixed on 2026-10-27, after the held-out scores they are computed from existed and before any attack ran. Seven corrections to the attack code were made after a first adversarial run and before the rerun, and changed no verdict. The entries of 2026-11-02 and 2026-11-13 follow every result and concern collection, publication timing, the text and a reproduction check.
 
 Table 7. Deviations from the preregistration.
 
@@ -214,6 +214,7 @@ Table 7. Deviations from the preregistration.
 | 2026-11-02 | Base and BNB full history through a paid endpoint; chunk cap after a silent truncation was found | after the windowed run; statistics unchanged |
 | 2026-11-02 | Publication date set; research repository opened | after all results were known; timing only |
 | 2026-11-13 | Version 1.1 text corrections; frozen preregistration text restored; provenance path fixed | after all results were known; no result changed |
+| 2026-11-13 | Reproduction rerun of three drivers from the public repository; equality rule fixed first | before the rerun; no result changed |
 
 ## 5. Discussion
 
@@ -253,7 +254,7 @@ Runtime telemetry predicts AI agent task failure out of sample on the pooled ben
 
 ## Declarations
 
-Data and code availability. The study repository contains the preregistration, the deviations register, the data manifest with checksums, the frozen split, every result file with its commit hash and seeds, the collection and analysis code, and the stage reports. The commit hashes recorded in result files refer to the private monorepo the study was split from and do not resolve in the public repository, and every result file records git_dirty as true, a flag that was set whenever any file in the study tree was uncommitted or untracked when the result was written. The repository is public with its full history at https://github.com/blaise442/entruva-research from 2026-11-02. Benchmark traces were fetched from the public releases listed in Section 2.2 under their stated licences. ERC-8004 events were read from public chains. The Ethereum cross-check dataset is Liu (2026), CC0 1.0. Synthetic simulation outputs carry "synthetic" in the filename and feed no headline result.
+Data and code availability. The study repository contains the preregistration, the deviations register, the data manifest with checksums, the frozen split, every result file with its commit hash and seeds, the collection and analysis code, and the stage reports. The commit hashes recorded in the version 1 result files refer to the private monorepo the study was split from and do not resolve in the public repository, and each of those files records git_dirty as true, a flag that was set whenever any file in the study tree was uncommitted or untracked when the result was written; which files were uncommitted was not recorded. As a check, the prediction, robustness and manipulation drivers were rerun unchanged on 2026-11-13 from the public repository, each on a clean committed tree, and compared value by value with the version 1 files (results/2026-11-13_rerun_comparison.json). Of 2,983 numbers, 2,954 agree to six decimal places and no verdict, count or label differs. The other 29 differ by at most 0.000075, below the three decimals reported here: 19 belong to the logistic regression sensitivity model and 10 are per-agent mean probabilities after an attack. Every baseline and gradient boosting value in the prediction and robustness files agrees to six decimal places, and so does every input to the clause 4 verdict. By the six-decimal rule fixed before the rerun, the three files are therefore close reproductions and not exact ones. The simulation was not rerun, because one of its 336 calls did not finish in five minutes on the machine used. The repository is public with its full history at https://github.com/blaise442/entruva-research from 2026-11-02. Benchmark traces were fetched from the public releases listed in Section 2.2 under their stated licences. ERC-8004 events were read from public chains. The Ethereum cross-check dataset is Liu (2026), CC0 1.0. Synthetic simulation outputs carry "synthetic" in the filename and feed no headline result.
 
 Ethics. The study uses no human-subject data. Benchmark traces are machine-generated and public. On-chain data is public by design; wallet addresses are not reported.
 
